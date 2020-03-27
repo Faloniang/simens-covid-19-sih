@@ -28,6 +28,22 @@
 <head>
 </head>
 
+<style>
+
+.clocheAlert {
+ 	position: absolute; 
+ 	width: 20px; 
+ 	height: 20px; 
+ 	right: 300px; 
+ 	top: 10px;
+	color: red;
+	border: 3px solid red;
+	border-radius: 50%;
+	background: white;
+ }
+ 
+</style>
+
 <?php
 //RECUPERER LES INFOS SUR LE MEDECIN
 
@@ -79,6 +95,13 @@ if($sexe == 'Masculin'){$civilite = 'M';}
 
     <li style="width: 20%;">
    
+      <div class='clocheAlert'> 
+          <a href="<?php echo $this->url('consultation', array('action'=> 'auto-signalement'));?>">
+            &#128276; <span style="color: white;">2</span> 
+          </a>
+      </div>
+      
+      
       <div style='width: 30%; padding-top: 10px; float:left;'>
        <?php /*if($user['role'] == 'medecin') { ?>
          <a href="<?php echo $this->url('consultation', array('action'=> 'protocole-operatoire'));?>">

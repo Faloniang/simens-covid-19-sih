@@ -8,6 +8,8 @@ use Consultation\View\Helper\DateHelper;
 use Zend\Json\Json;
 use Consultation\Form\ConsultationForm;
 use Consultation\Form\PatientForm;
+use Zend\Http\Client;
+use Zend\Http\Request;
 
 class ConsultationController extends AbstractActionController {
 	
@@ -904,7 +906,77 @@ class ConsultationController extends AbstractActionController {
 	
 	
 	public function listeConsultationsAction() {
+	    //$output = $this->getConsultationTable ()->getListeConsultations();
 	    $this->layout ()->setTemplate ( 'layout/consultation' );
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    $request = new Request();
+	    $request->setUri($this->url.'getInfosPatientsAutoSignalement&idpatient=1');
+	    $request->setMethod('GET');
+	    
+	    $client = new Client();
+	    $response = $client->dispatch($request);
+	    
+	    if ($response->isSuccess()) {
+	    
+	        // the POST was successful
+	        $donnees = json_decode($response->getBody());
+	    
+	        // Données récupérées
+	        $data = $donnees->data;
+	         
+	        /*
+	         $tab = array();
+	    
+	         for ($i=0 ; $i<count($data) ; $i++){
+	         $tab =  explode('<@>',openssl_decrypt($data[$i]->infosEtatCivil, 'BF-ECB', 'passInfosCovid19*1234'));
+	    
+	         $date_naissance = ($tab[3] == -1) ? "": (new DateHelper())->convertDate($tab[3]);
+	         $sexe = ($tab[0] == 2) ? "F":"M";
+	         $visualiser = '<img onclick="voirPlusDetails('.$data[$i]->idpatient.');" style="cursor: pointer; margin-right: 17%;" src="../images_icons/voir2.png" title="Voir plus..">';
+	    
+	         $output["aaData"][] = array( $tab[1], $tab[2], $date_naissance, $tab[4], $sexe, "<div>".$tab[7]."</div>", $tab[8], $visualiser);
+	         }*/
+	         
+	         
+	        $tab =  explode('<@>',openssl_decrypt($data->infosEtatCivil, 'BF-ECB', 'passInfosCovid19*1234'));
+	        $date_naissance_n = ($tab[3] == -1) ? "": (new DateHelper())->convertDate($tab[3]);
+	         
+	        //var_dump($date_naissance_n); exit();
+	        
+	        $date_naissance_n = "12 26 177";
+	         
+	    
+	    }
 	}
 	
 	
@@ -971,6 +1043,306 @@ class ConsultationController extends AbstractActionController {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private $url = 'http://www.simens.sn/admin?action=';
+	
+	public function autoSignalementAction() {
+	    $this->layout ()->setTemplate ( 'layout/consultation' );
+	    
+	    $user = $this->layout()->user;
+	    $idmedecin = $user['id_personne'];
+	    
+	}
+	
+	
+	
+	public function listeAutoSignalementAjaxAction() {
+	    
+	    /*
+	     * RECUPERATION DE LA LISTE DE LA DB DISTANT
+	     */
+	    
+	    $output = array(
+	        "iTotalDisplayRecords" => 0,
+	        "aaData" => array()
+	    );
+	    
+	    $request = new Request();
+	    $request->setUri($this->url.'getInfosAutoSignalement');
+	    $request->setMethod('GET');
+	     
+	    $client = new Client();
+	    $response = $client->dispatch($request);
+	     
+	    if ($response->isSuccess()) {
+	        
+	        // the POST was successful
+	        $donnees = json_decode($response->getBody());
+	         
+	        // Données récupérées
+	        $data = $donnees->data;
+	        $output["iTotalDisplayRecords"] = count($data);
+	        $tabDonnneesParPatient = "";
+	         
+	        for ($i=0 ; $i<count($data) ; $i++){
+	            $tab =  explode('<@>',openssl_decrypt($data[$i]->infosEtatCivil, 'BF-ECB', 'passInfosCovid19*1234'));
+	            
+	            $date_naissance = ($tab[3] == -1) ? "": (new DateHelper())->convertDate($tab[3]);
+	            $sexe = ($tab[0] == 2) ? "F":"M";
+	            
+	            $visualiser = '<img onclick="voirPlusDetails('.$data[$i]->idpatient.');" style="cursor: pointer; margin-right: 17%;" src="../images_icons/voir2.png" title="Voir plus.."> <img id="iconeChargement_'.$data[$i]->idpatient.'" class="iconeChargement_1234" style="width:40px; height: 20px; display: none;" src="../images_icons/chargement-infos-covid19.gif">';
+	            
+	            /*Liste des patients*/
+	            $output["aaData"][] = array( $tab[1], $tab[2], $date_naissance, $tab[4], $sexe, "<div>".$tab[7]."</div>", $tab[8], $visualiser);
+	        
+	            
+	        }
+	         
+	    }
+	     
+	    
+	    $this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+	    return $this->getResponse ()->setContent ( Json::encode ( $output ) );
+	}
+	
+	
+	
+	
+	
+	public function listeVueDetailsInfosPatientAutoSignalementAction() {
+	    
+	    $idpatient = (int)$this->params ()->fromPost ( 'idpatient', 0 );
+	    $listeRegion = $this->getPersonneTable()->getListeRegion();
+	    
+	    /*
+	     * RECUPERATION DE LA LISTE DE LA DB DISTANT
+	     */
+	    $request = new Request();
+	    $request->setUri($this->url.'getInfosPatientsAutoSignalement&idpatient='.$idpatient);
+	    $request->setMethod('GET');
+	
+	    $client = new Client();
+	    $response = $client->dispatch($request);
+	
+	    if ($response->isSuccess()) {
+	         
+	        // the POST was successful
+	        $donnees = json_decode($response->getBody());
+	
+	        // Données récupérées
+	        $data = $donnees->data;
+	        
+	        $tab = array();
+	
+	        $tab =  explode('<@>',openssl_decrypt($data->infosEtatCivil, 'BF-ECB', 'passInfosCovid19*1234'));
+	        
+	        $sexe = ($tab[0] == 2) ? "F&eacute;minin":"Masculin";
+	        $date_naissance = ($tab[3] == -1) ? "": $tab[3];
+	        $telephone2 = ($tab[9] == -1) ? "": $tab[9];
+	        $email = ($tab[10] == -1) ? "": $tab[10];
+	        $date_enregistrement = $data->date_enregistrement;
+	
+	    }else {
+	        
+	    }
+
+	    
+	    
+	     
+	    $html ="
+	    
+	    <div style='width: 100%;'>
+	    
+        <img id='photo' src='../images/photos_patients/identite.jpg' style='float:left; margin-right:40px; width:105px; height:105px;'/>";
+	    
+	    $age = 10;
+	    //Gestion des AGES
+	    //Gestion des AGES
+	    if($age && !$date_naissance){
+	        $html .="<div style=' left: 70px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$tab[4]." ans </span></div>";
+	    }else{
+	    
+	        $aujourdhui = (new \DateTime() ) ->format('Y-m-d');
+	        $age_jours = $this->nbJours($date_naissance, $aujourdhui);
+	    
+	        $age_annees = (int)($age_jours/365);
+	    
+	        if($age_annees == 0){
+	    
+	            if($age_jours < 31){
+	                $html .="<div style=' left: 70px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$age_jours." jours </span></div>";
+	            }else if($age_jours >= 31) {
+	    
+	                $nb_mois = (int)($age_jours/31);
+	                $nb_jours = $age_jours - ($nb_mois*31);
+	                if($nb_jours == 0){
+	                    $html .="<div style=' left: 70px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$nb_mois."m </span></div>";
+	                }else{
+	                    $html .="<div style=' left: 70px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$nb_mois."m ".$nb_jours."j </span></div>";
+	                }
+	    
+	            }
+	    
+	        }else{
+	            $age_jours = $age_jours - ($age_annees*365);
+	    
+	            if($age_jours < 31){
+	    
+	                if($age_annees == 1){
+	                    if($age_jours == 0){
+	                        $html .="<div style=' left: 60px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$age_annees."an </span></div>";
+	                    }else{
+	                        $html .="<div style=' left: 60px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$age_annees."an ".$age_jours." j </span></div>";
+	                    }
+	                }else{
+	                    if($age_jours == 0){
+	                        $html .="<div style=' left: 60px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$age_annees."ans </span></div>";
+	                    }else{
+	                        $html .="<div style=' left: 60px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$age_annees."ans ".$age_jours."j </span></div>";
+	                    }
+	                }
+	    
+	            }else if($age_jours >= 31) {
+	    
+	                $nb_mois = (int)($age_jours/31);
+	                $nb_jours = $age_jours - ($nb_mois*31);
+	    
+	                if($age_annees == 1){
+	                    if($nb_jours == 0){
+	                        $html .="<div style=' left: 50px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$age_annees."an ".$nb_mois."m </span></div>";
+	                    }else{
+	                        $html .="<div style=' left: 50px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$age_annees."an ".$nb_mois."m ".$nb_jours."j </span></div>";
+	                    }
+	    
+	                }else{
+	                    if($nb_jours == 0){
+	                        $html .="<div style=' left: 50px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$age_annees."ans ".$nb_mois."m </span></div>";
+	                    }else{
+	                        $html .="<div style=' left: 50px; top: 235px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> ".$age_annees."ans ".$nb_mois."m ".$nb_jours."j </span></div>";
+	                    }
+	                }
+	    
+	            }
+	    
+	        }
+	    
+	    }
+	    
+	    $date_naissance = ($date_naissance) ? (new DateHelper())->convertDate($date_naissance) : '';
+	    
+	    //Fin gestion des ages
+	    //Fin gestion des ages
+	    
+	    $html .="<p>
+         <img id='photo' src='../images/photos_patients/identite.jpg' style='float:right; margin-right:15px; width:95px; height:95px; color: white; opacity: 0.09;'/>
+        </p>
+    
+        <table id='etat_civil'>
+             <tr>
+			   	<td style='width:27%; font-family: police1;font-size: 12px;'>
+			   		<div id='aa'><a style='text-decoration: underline; '>Sexe</a><br>
+			   		  <p style='font-weight: bold;font-size: 19px;'>
+			   		     ".$sexe."
+			 
+			   		  </p>
+			   		</div>
+	    
+			    </td>
+	    
+			   	<td style='width:35%; font-family: police1;font-size: 12px;'>
+			   		<div id='aa'><a style='text-decoration: underline;'>Adresse</a><br><p style='font-weight: bold;font-size: 19px;'> ".$tab[7]." </p></div>
+			   	</td>
+	    
+			    <td style='width:38%; font-family: police1;font-size: 12px;'>
+			   	    <div id='aa'><a style='text-decoration: underline;'>R&eacute;gion</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listeRegion[$tab[5]]." </p></div>
+	    	    </td>
+	    
+			 </tr>
+	    
+	    
+			 <tr>
+			    <td style=' font-family: police1;font-size: 12px;'>
+			   		<div id='aa'><a style='text-decoration: underline;'>Pr&eacute;nom</a><br><p style='font-weight: bold;font-size: 19px;'> ".$tab[1]." </p></div>
+			 
+			    </td>";
+	    
+	     
+	    $html .="<td style=' font-family: police1;font-size: 12px;'>
+                    <div id='aa'><a style='text-decoration: underline;'>T&eacute;l&eacute;phone</a><br><p style='font-weight: bold;font-size: 19px;'> ".$tab[8]." </p></div>
+			   	</td>";
+	    
+	    $html .="<td style=' font-family: police1;font-size: 12px;'>
+                    <div id='aa'><a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'>  ".$this->listeDepartement($tab[5])[$tab[6]]." </p></div>
+	    	     </td>
+	    
+			 </tr>
+	    
+			 <tr>
+			    <td style=' font-family: police1;font-size: 12px;'>
+			   	    <div id='aa'><a style='text-decoration: underline;'>Nom</a><br><p style='font-weight: bold;font-size: 19px;'> ".$tab[2]." </p></div>
+			    </td>
+	    
+			    <td style=' font-family: police1;font-size: 12px;'>
+			   		<div id='aa'><a style='text-decoration: underline;'>T&eacute;lephone 2</a><br><p style='font-weight: bold;font-size: 19px;'> ".$telephone2." </p></div>
+			   	</td>
+	    
+			   	<td style=' font-family: police1;font-size: 12px;'>
+                    <div id='aa'><a style='text-decoration: underline;'></a><br><p style='font-weight: bold;font-size: 19px;'>  </p></div>
+			   	</td>
+	    
+			 </tr>
+	    
+			 <tr>
+			   	<td style='width: 27%; font-family: police1;font-size: 12px; vertical-align: top;'>
+			   		<div id='aa'><a style='text-decoration: underline;'>Date de naissance</a><br><p style='font-weight: bold;font-size: 19px;'> ".$date_naissance." </p></div>
+	    			   		</td>
+	    
+	    			   		<td style='width: 195px; font-family: police1;font-size: 12px;'>
+	    			   		<div id='aa'><a style='text-decoration: underline;'>Email</a><br><p style='font-weight: bold;font-size: 19px;'> ".$email." </p></div>
+	    			   		</td>
+	    
+	    			   		<td  style='width: 195px; font-family: police1;font-size: 12px;'>
+	    			   		<div id='aa'><a style='text-decoration: underline;'>Date de signalement:</a><br><p style='font-weight: bold;font-size: 19px;'> ".(new DateHelper())->convertDateTime($date_enregistrement)."</p></div>
+			   	</td>
+			 </tr>
+	         </table>
+			 ";
+	    
+	    //$html .=" <div style='margin-left: width:27%; margin-top: 15px; color: green;' ><i> Les sympt&ocirc;mes </i></div> ";
+	    
+	    $html .=" <div id='barre' ></div> ";
+	    
+	    
+	    //$html .=" <div id='barre'></div> ";
+	    
+	    $html .="<div class='block' id='thoughtbot' style=' vertical-align: bottom; padding-left:60%; padding-top: 35px; font-size: 18px; font-weight: bold;'><button id='terminer'>Terminer</button></div>
+	    
+        <div style=' height: 80px; width: 100px; '> </div>
+  
+        </div> ";
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    $this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+	    return $this->getResponse ()->setContent ( Json::encode ( $html ) );
+	}
 	
 	
 	
