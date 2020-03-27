@@ -908,75 +908,6 @@ class ConsultationController extends AbstractActionController {
 	public function listeConsultationsAction() {
 	    //$output = $this->getConsultationTable ()->getListeConsultations();
 	    $this->layout ()->setTemplate ( 'layout/consultation' );
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    $request = new Request();
-	    $request->setUri($this->url.'getInfosPatientsAutoSignalement&idpatient=1');
-	    $request->setMethod('GET');
-	    
-	    $client = new Client();
-	    $response = $client->dispatch($request);
-	    
-	    if ($response->isSuccess()) {
-	    
-	        // the POST was successful
-	        $donnees = json_decode($response->getBody());
-	    
-	        // Données récupérées
-	        $data = $donnees->data;
-	         
-	        /*
-	         $tab = array();
-	    
-	         for ($i=0 ; $i<count($data) ; $i++){
-	         $tab =  explode('<@>',openssl_decrypt($data[$i]->infosEtatCivil, 'BF-ECB', 'passInfosCovid19*1234'));
-	    
-	         $date_naissance = ($tab[3] == -1) ? "": (new DateHelper())->convertDate($tab[3]);
-	         $sexe = ($tab[0] == 2) ? "F":"M";
-	         $visualiser = '<img onclick="voirPlusDetails('.$data[$i]->idpatient.');" style="cursor: pointer; margin-right: 17%;" src="../images_icons/voir2.png" title="Voir plus..">';
-	    
-	         $output["aaData"][] = array( $tab[1], $tab[2], $date_naissance, $tab[4], $sexe, "<div>".$tab[7]."</div>", $tab[8], $visualiser);
-	         }*/
-	         
-	         
-	        $tab =  explode('<@>',openssl_decrypt($data->infosEtatCivil, 'BF-ECB', 'passInfosCovid19*1234'));
-	        $date_naissance_n = ($tab[3] == -1) ? "": (new DateHelper())->convertDate($tab[3]);
-	         
-	        //var_dump($date_naissance_n); exit();
-	        
-	        $date_naissance_n = "12 26 177";
-	         
-	    
-	    }
 	}
 	
 	
@@ -1154,8 +1085,6 @@ class ConsultationController extends AbstractActionController {
 	        $email = ($tab[10] == -1) ? "": $tab[10];
 	        $date_enregistrement = $data->date_enregistrement;
 	
-	    }else {
-	        
 	    }
 
 	    
@@ -1320,7 +1249,7 @@ class ConsultationController extends AbstractActionController {
 	         </table>
 			 ";
 	    
-	    //$html .=" <div style='margin-left: width:27%; margin-top: 15px; color: green;' ><i> Les sympt&ocirc;mes </i></div> ";
+	    $html .=" <div style='margin-left: 165px; margin-top: 15px; margin-bottom: -15px; color: green; font-size: 21px; font-family: time new roman;' ><i> Les sympt&ocirc;mes </i></div> ";
 	    
 	    $html .=" <div id='barre' ></div> ";
 	    
