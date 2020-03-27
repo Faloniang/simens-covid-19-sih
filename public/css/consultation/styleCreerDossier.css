@@ -1,0 +1,1019 @@
+#titre{
+	height: 30px;
+    border: 3px solid #ccc;
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 2px solid #cccccc;
+    background : #fff;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top : 13px;
+    box-shadow: 0pt 0pt 12px rgba(0, 0, 0, 0.5);
+}
+
+#contenu {
+    background: #fff; height: 420px;
+    border: 3px solid #ccc ;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top: 2px solid #cccccc;
+	border-bottom: 3px solid #cccccc;
+    padding-left: 25px;
+	padding-top: 10px;
+    box-shadow: 0pt 5pt 12px rgba(0, 0, 0, 0.5);
+	min-height: 475px;
+}
+
+#photo, #modifier_photo  /*photo*/
+{
+
+width: 105px;
+
+float: left;
+
+border-top-width: 10px;
+
+border-right-width: 10px;
+
+border-right-width-ltr-source: physical;
+
+border-right-width-rtl-source: physical;
+
+border-bottom-width: 10px;
+
+border-left-width: 10px;
+
+border-left-width-ltr-source: physical;
+
+border-left-width-rtl-source: physical;
+
+border-top-style: solid;
+
+border-right-style: solid;
+
+border-right-style-ltr-source: physical;
+
+border-right-style-rtl-source: physical;
+
+border-bottom-style: solid;
+
+border-left-style: solid;
+
+border-left-style-ltr-source: physical;
+
+border-left-style-rtl-source: physical;
+
+border-top-color: white;
+
+border-right-color: white;
+
+border-right-color-ltr-source: physical;
+
+border-right-color-rtl-source: physical;
+
+border-bottom-color: white;
+
+border-left-color: white;
+
+border-left-color-ltr-source: physical;
+
+border-left-color-rtl-source: physical;
+
+box-shadow: 0pt 0pt 12px rgba(0, 0, 0, 0.2);
+
+}
+
+canvas {
+   position: relative;
+   background-color: #ffffff;
+   background-image: none;
+   background-repeat: repeat;
+   background-attachment: scroll;
+   background-position: 0% 0%;
+   background-clip: border-box;
+   background-origin: padding-box;
+   background-size: auto auto;             
+   box-shadow: #dddddd;
+   padding-top: 0px;
+   padding-right: 0px;
+   padding-bottom: 0px;
+   padding-left: 0px;
+                      
+   height: auto;
+   width: auto;
+             
+}
+
+#suppr{
+   alt: photo;
+  /* width: 10px;
+   height: 10px;*/
+}
+
+/*****LA PHOTO*******/
+        .photo_patient {
+              position:relative;
+              width:105px;
+              height:105px;
+              float: left;
+              margin-right:40px;
+              overflow:hidden;
+              background:#dddddd url("../../images_icons/identite.png") no-repeat left top;
+        }
+  
+        .photo_patient input {
+              position:absolute;
+              right:0;
+              top:0;
+              font-size:0px;
+              opacity:0;
+              -moz-opacity:0;
+              filter:alpha(opacity=0);
+              cursor:pointer;
+              text-align:right; 
+              width:105px;
+              height:105px;
+         }
+         
+/*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+/*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+/*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+#form_patient .comment-form-patient label, #form_patient .comment-form-email label, #form_patient .comment-form-url label, #form_patient .comment-form-comment label 
+
+{/* le label*/
+line-height: 1.5em;
+
+background-color: #eeeeee;
+
+background-image: none;
+
+background-repeat: repeat;
+
+background-attachment: scroll;
+
+background-position: 0% 0%;
+
+background-clip: border-box;
+
+background-origin: padding-box;
+
+/*border-top-left-radius: 15px; */
+
+border-top-right-radius: 15px;
+
+background-size: auto auto;
+
+box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.8);
+
+color: black;
+
+display: inline-block;
+
+font-size: 13px;
+
+left: 0px; /*d�placer le label*/
+
+min-width: 60px;
+
+padding-top: 4px;
+
+padding-right: 10px;
+
+padding-bottom: 4px;
+
+padding-left: 10px;
+
+position: relative;
+
+top: 5px;
+
+z-index: 1;
+         
+font-size: 14px;
+
+}
+
+#form_patient select
+{
+	background-image: none;
+
+    background-repeat: repeat;
+
+    background-attachment: scroll;
+
+    background-position: 0% 0%;
+
+    background-clip: border-box;
+
+    background-origin: padding-box;
+
+    background-size: auto auto;
+
+    border-top-width: 4px;
+
+    border-right-width-value: 4px;
+
+	border-top-right-radius: 10px;
+	
+    border-right-width-ltr-source: physical;
+
+    border-right-width-rtl-source: physical;
+
+    border-bottom-width: 4px;
+
+    border-left-width-value: 4px;
+
+    border-left-width-ltr-source: physical;
+
+    border-left-width-rtl-source: physical;
+
+    border-top-style: solid;
+
+    border-right-style-value: solid;
+
+    border-right-style-ltr-source: physical;
+
+    border-right-style-rtl-source: physical;
+
+    border-bottom-style: solid;
+
+    border-left-style-value: solid;
+
+    border-left-style-ltr-source: physical;
+
+    border-left-style-rtl-source: physical;
+
+    border-top-color: #cccccc;
+
+/*     border-right-color-value: #eeeeee; */
+
+    border-right-color-ltr-source: physical;
+
+    border-right-color-rtl-source: physical;
+
+    border-bottom-color: #cccccc;
+
+/*     border-left-color-value: #eeeeee; */
+
+    border-left-color-ltr-source: physical;
+
+    border-left-color-rtl-source: physical;
+	
+	border-top-left-radius: 5px; 
+
+    border-top-right-radius: 10px;
+
+    border-bottom-right-radius: 5px;
+
+    border-bottom-left-radius: 5px;
+
+    box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
+
+    position: relative;
+	
+	/* les cot�s des champs */
+
+    border-right-width: 2px;
+
+    border-left-width: 1px;
+
+    border-top-width: 1px;
+
+    border-bottom-width: 2px;
+	
+	border-left-color: #cccccc;
+	
+	border-right-color: #cccccc;
+	
+	float: left;
+
+	margin-right: 25px;
+	
+	padding-left: 10px;
+	
+	/*enlever l'icone select*/
+    -webkit-appearance: none;
+	
+}
+
+/* #form_patient option{ 
+   color: green;
+   background-color: #eee;
+   font-size: 13pt;
+   min-width: 200px;
+   width: 200px;
+   overflow: auto;
+} */ 
+
+#form_patient input[type="text"], #form_patient input[type="number"], #form_patient textarea, #form_patient input[type="email"]
+
+{ /*le input ou le textarea*/
+
+background-image: none;
+
+background-repeat: repeat;
+
+background-attachment: scroll;
+
+background-position: 0% 0%;
+
+background-clip: border-box;
+
+background-origin: padding-box;
+
+background-size: auto auto;
+
+border-top-width: 2px;
+
+border-right-width-value: 2px;
+
+border-right-width-ltr-source: physical;
+
+border-right-width-rtl-source: physical;
+
+border-bottom-width: 2px;
+
+border-left-width-value: 2px;
+
+border-left-width-ltr-source: physical;
+
+border-left-width-rtl-source: physical;
+
+border-top-style: solid;
+
+border-right-style-value: solid;
+
+border-right-style-ltr-source: physical;
+
+border-right-style-rtl-source: physical;
+
+border-bottom-style: solid;
+
+border-left-style-value: solid;
+
+border-left-style-ltr-source: physical;
+
+border-left-style-rtl-source: physical;
+
+border-right-color-value: #eeeeee;
+
+border-right-color-ltr-source: physical;
+
+border-right-color-rtl-source: physical;
+
+border-left-color-value: #eeeeee;
+
+border-left-color-ltr-source: physical;
+
+border-left-color-rtl-source: physical;
+
+border-top-left-radius: 5px;
+
+border-top-right-radius: 10px;
+
+border-bottom-right-radius: 5px;
+
+border-bottom-left-radius: 5px;
+
+box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
+
+position: relative;
+
+/* le texte des champs*/
+padding-top: 2px;
+
+padding-right: 10px;
+
+padding-bottom: 0px;
+
+margin-bottom : 15px;
+
+padding-left: 10px; /* padding du text dans le champ*/
+
+text-indent: 0px; /* alignement du text dans le champ input*/
+
+/* balise input text*/
+display: block;
+
+height: 30px; /*la hauteur du champ input*/
+
+width: 87%;/*225px; /* la largeur du champ input*/
+
+font-size: 16px;
+
+}
+
+
+#form_patient .date_naiss input[type="text"] {
+	width: 90%;
+}
+
+#form_patient .age input[type="text"] {
+	width: 90%;
+}
+
+#form_patient .age input[type="number"] {
+	width: 90%;
+	padding: 0px;
+	font-size: 20px; 
+	padding-left: 10px;
+	font-weight: bold;
+}
+
+#form_patient select
+{
+
+display: block;
+
+height: 30px;  /*la hauteur du champ input*/
+
+width: 87%;/*225px;   /*la largeur du champ input*/
+
+}
+
+#form_patient textarea
+{
+	height: 30px;
+}
+
+#form_patient input[type='email']
+{
+	width: 88%;
+	height: 30px;
+}
+
+#form_patient input#submit
+{
+
+color: #444444;
+
+text-shadow: none;
+
+background-color: #eeeeee;
+
+background-image: none;
+
+background-repeat: repeat;
+
+background-attachment: scroll;
+
+background-position: 0% 0%;
+
+background-clip: border-box;
+
+background-origin: padding-box;
+
+background-size: auto auto;
+
+position: static;
+
+padding-top: 5px;
+
+padding-right: 22px;
+
+padding-bottom: 5px;
+
+padding-left: 22px;
+	
+float: right; 	
+}
+
+tr:hover /* Apparence au survol des lignes */
+{
+   /*text-decoration: underline;*/
+   background-color: white;
+   
+}
+
+/*MENU DROITE DU FORMULAIRE*/
+.barre_vertical{
+	width:2px;
+    height: 300px;
+    float: left;
+    margin-right: 2px;
+    background-color: #cccccc;
+    margin-top: 5px;
+}
+
+
+.vider_formulaire, .supprimer_photo, .ajouter_photo, .modifer_donnees{
+              position:relative;
+              width:20px;
+              height:20px;
+              display: inline;float:left;border:transparent; margin-bottom: 5px; margin-top:5px;
+         } 
+.vider_formulaire {
+	          background: url("../../images_icons/annuler1.PNG") no-repeat right top;
+               
+         }
+.supprimer_photo {
+	          background: url("../../images_icons/mod.png") no-repeat right top;
+               
+         }
+.ajouter_photo {
+	          background: url("../../images_icons/ajouterphoto.png") no-repeat right top;
+               
+         }
+.modifer_donnees {
+	          background: url("../../images_icons/modifier.png") no-repeat right top;
+               
+         }
+         
+.vider_formulaire input, .supprimer_photo input, .ajouter_photo input, .modifer_donnees input{
+              position:absolute;
+              right:0;
+              top:0;
+              font-size:100px;
+              opacity:0;
+              -moz-opacity:0;
+              filter:alpha(opacity=0);
+              cursor:pointer;
+              text-align:right; 
+              width:20px;
+              height:20px;
+         }
+         
+         
+/*-----FIN STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+/*-----FIN STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+/*-----FIN STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+
+         
+#thoughtbot button
+{
+    width:auto;
+    padding:2px 0;
+    text-align: center;
+    display: inline-block;
+    float:center;
+    margin:0 5px 0 0;
+    border-radius:7px;
+    font-size: 0.85em;
+	font-weight: bold;
+    width:100px;
+	height: 40px;
+    color:#000;
+    font-family: Arial,sans-serif;
+	box-shadow: 0 0 1px rgba( 0, 0, 0, 0.8), 0 -1px 0 rgba( 255, 255, 255, 0.1);
+    text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.3);
+}
+
+#thoughtbot button:hover
+{
+    background: #ccc;
+    background: -webkit-linear-gradient( #eee, #aaa);
+    background: -moz-linear-gradient( #eee, #aaa);
+    background: -ms-linear-gradient( #eee, #aaa);
+    background: -o-linear-gradient( #eee, #aaa);
+    background: linear-gradient( #eee, #aaa);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ajouterElements table, #ajouterElements table tr, #ajouterElementsUV table, #ajouterElementsUV table tr{
+	width: 100%;
+	vertical-align: top;
+}
+
+#ajouterElements .ligneElementsExistantes td, #ajouterElementsUV .ligneElementsExistantesUV td{
+	width: 50%; 
+	margin-left: 5px;
+}
+
+#ajouterElements .ligneElementsExistantes td label, #ajouterElementsUV .ligneElementsExistantesUV td label{
+	width: 100%;
+	height: 25px;
+	font-size: 20px;
+	font-family: times new roman;
+	text-align: left;
+}
+
+#ajouterElements .ligneElementsExistantes td div, #ajouterElementsUV .ligneElementsExistantesUV td div{
+	width: 96%;
+	height: 200px;
+	font-size: 17px;
+	font-family: times new roman;
+	border: 1px solid #cccccc;
+    background : #fdfdfd;
+    box-shadow: 0pt 0pt 5px rgba(0, 0, 0, 0.3);
+	margin-bottom: 5px;
+	overflow-y: auto;
+}
+
+#ajouterElements .listeTypeElementsExistantes table tr{
+	width: 100%;
+	font-size: 17px;
+}
+
+#ajouterElements .listeTypeElementsExistantes table td{
+	padding-left: 6px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 1px solid #cccccc;
+}
+
+#ajouterElements .listeTypeElementsExistantes table .LTPE1{
+	width: 8%;
+}
+
+#ajouterElements .listeTypeElementsExistantes table .LTPE2{
+	width: 92%;
+}
+
+#ajouterElements .listeTypeElementsExistantes table tr:hover{
+	background: #e1e1e1; 
+}
+
+.listeTypeElementsExistantes table img{
+	margin-left: -3px;
+	cursor: pointer;
+}
+
+
+#ajouterElements .listeElementsExistantes table tr, #ajouterElementsUV .listeElementsExistantesUV table tr{
+	width: 100%;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+#ajouterElements .listeElementsExistantes table td, #ajouterElementsUV .listeElementsExistantesUV table td{
+	padding-left: 6px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 1px solid #cccccc;
+}
+
+#ajouterElements .listeElementsExistantes table .LPE1{
+	width: 0%;
+}
+
+#ajouterElements .listeElementsExistantes table .LPE2{
+	width: 100%;
+}
+
+#ajouterElements .listeElementsExistantes table tr:hover, #ajouterElementsUV .listeElementsExistantesUV table tr:hover{
+	background: #e1e1e1; 
+}
+
+
+
+
+
+
+
+
+
+
+
+#ajouterElements .ligneBoutonsAjout td{
+	width: 50%; 
+	height: 50px;
+	margin-left: 5px;
+}
+
+#ajouterElements .ligneBoutonsAjout button, #ajouterElementsUV .ligneBoutonsAjoutUV button{
+	border: 1px;
+	border-radius: 15px;
+	border: 1px solid #bdb9b9;
+	height: 32px;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+.ligneBoutonsAjout .boutonATP button{
+	width: 70%;
+}
+
+.ligneBoutonsAjout .boutonAP button, .ligneBoutonsAjoutUV .boutonAPUV button{
+	width: 55%;
+}
+
+#ajouterElements .ligneBoutonsAnnulerValiderAjout, #ajouterElements .ligneBoutonsAnnulerValiderAjout tr{
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+#ajouterElements .ligneInfosAjoutElements, #ajouterElements .ligneInfosAjoutElements tr{
+	width: 100%;
+}
+
+#ajouterElements .ligneInfosAjoutElements td{
+	height: 35px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: left;
+	margin-left: 15px;
+}
+
+#ajouterElements .ligneInfosAjoutElements .LIATP, #ajouterElements .ligneInfosAjoutElements .LIAP,
+#ajouterElementsUV .ligneInfosAjoutElementsUV .LIAPUV{
+	width: 50%;
+}
+
+#ajouterElements .LIATP img, #ajouterElements .LIAP img{
+	margin-top: -15px;
+}
+
+#ajouterElementsUV .LIAPUV img{
+	margin-top: -5px;
+}
+
+
+
+
+
+.interfaceAjoutElements .contenuIAPath table, .interfaceAjoutElements .contenuIAPath table tr,
+.interfaceAjoutElementsUV .contenuIAPath table, .interfaceAjoutElementsUV .contenuIAPath table tr{
+	width: 100%;
+}
+
+.interfaceAjoutElements .contenuIAPath td,
+.interfaceAjoutElementsUV .contenuIAPath td{
+	width: 100%; 
+	margin-left: 5px;
+}
+
+.interfaceAjoutElements .contenuIAPath, .interfaceAjoutElementsUV .contenuIAPath{
+	height: 220px;
+	overflow-y: auto;
+}
+
+.interfaceAjoutElements .contenuIAPath td input[type='text'], .interfaceAjoutElementsUV .contenuIAPath td input[type='text']{
+	width: 50%; 
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+}
+
+.contenuIAPath img{
+	cursor: pointer;
+}
+
+.contenuIAPath .champsAjoutP select{
+	width: 50%;
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+	float: left;
+}
+
+.contenuIAPath .champsAjoutP input[type='text']{
+	max-width: 48%;
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+	float: left;
+	margin-left: 4px;
+}
+
+
+
+#ajouterElements .ligneBoutonsAnnulerValiderAjout td, .ligneBoutonsAnnulerValiderAjout td{
+	width: 50%;
+	height: 50px;
+}
+
+#ajouterElements .ligneBoutonsAnnulerValiderAjout button, #ajouterElementsUV .ligneBoutonsAnnulerValiderAjout button{
+	border: 1px;
+	border-radius: 15px;
+	border: 1px solid #bdb9b9;
+	height: 32px;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+#ajouterElements .ligneBoutonsAnnulerValiderAjout .boutonAVAA, .ligneBoutonsAnnulerValiderAjout .boutonAVAA{
+	float: right; 
+}
+
+
+
+.LTPE2 .imgLTPE2{
+	height: 16px; 
+	width: 16px;
+	float: right;
+	visibility: hidden;
+}
+
+.LPE2 .imgLPE2{
+	height: 16px; 
+	width: 16px;
+	float: right;
+	visibility: hidden;
+}
+
+#ajouterElements .listeTypeElementsExistantes table tr:hover .imgLTPE2{
+	float: right; 
+	height: 18px; 
+	width: 18px;
+	visibility: visible;
+}
+
+#ajouterElements .listeElementsExistantes table tr:hover .imgLPE2,
+#ajouterElementsUV .listeElementsExistantesUV table tr:hover .imgLPE2{
+	float: right; 
+	height: 18px; 
+	width: 18px;
+	visibility: visible;
+}
+
+
+
+.affichageMessageInfos div, .affichageMessageInfosUV div{
+	color: gray;
+	margin-top: 13px;
+	margin-bottom: 13px;
+	font-size: 13px;
+}
+
+.affichageMessageInfosRemplace div{
+	color: green;
+	font-weight: bold;
+	margin-top: 2px;
+	margin-bottom: 10px;
+	font-size: 15px;
+}
+
+
+#infosConfirmationModification, #infosConfirmationModificationUV{
+	width: 100%; 
+	height: 10px; 
+}
+
+#infosConfirmationModification tr, #infosConfirmationModificationUV tr{
+	width: 100%; 
+	height: 10px;
+	font-size: 15px;
+	background: #f1f1f1;
+}
+
+#infosConfirmationModification td, #infosConfirmationModificationUV td{
+	width: 95%; 
+	height: 25px; 
+	padding-left: 6px;
+}
+
+#affichageMessageInfosRemplaceModification input[type='text'], #affichageMessageInfosRemplaceModificationUV input[type='text']{
+	margin-top: 2px;
+	margin-bottom: 10px;
+	width: 90%;
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 75%;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
