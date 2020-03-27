@@ -65,12 +65,53 @@ $(function(){
     		$("#HabitudesDeVie").fadeIn();
     	});
     });
+    
+    $('.image2_TP').click(function(){
+    	$("#MenuTerrainParticulier").fadeOut(function(){
+    		$("#AntecedentMedicaux").fadeIn();
+    	});
+    });
+    
+    $('.image3_TP').click(function(){
+    	$("#MenuTerrainParticulier").fadeOut(function(){
+    		$("#AntecedentChirurgicaux").fadeIn();
+    	});
+    });
 	
-	setTimeout(function(){ 
+	setTimeout(function(){
+		
+		//HABITUDES DE VIE ---- HABITUDES DE VIE
+		//HABITUDES DE VIE ---- HABITUDES DE VIE
 		$(".TerminerContenuDiabetiqueConnu" ).html("<button id='TerminerContenuDiabetiqueConnu' style='height:35px;'>Terminer</button>"); 
 	
 		$("#TerminerContenuDiabetiqueConnu").click(function(){
 			$("#HabitudesDeVie").fadeOut(function(){ 
+				$("#MenuTerrainParticulier").fadeIn("fast");
+			});
+
+			return false;
+		}); 
+		
+		
+		//ANTECEDENTS MEDICAUX --- ANTECEDENTS MEDICAUX
+		//ANTECEDENTS MEDICAUX --- ANTECEDENTS MEDICAUX
+		$(".TerminerAntecedentsMedicaux" ).html("<button id='TerminerAntecedentsMedicaux' style='height:35px;'>Terminer</button>"); 
+		
+		$("#TerminerAntecedentsMedicaux").click(function(){
+			$("#AntecedentMedicaux").fadeOut(function(){ 
+				$("#MenuTerrainParticulier").fadeIn("fast");
+			});
+
+			return false;
+		}); 
+		
+		
+		//ANTECEDENTS CHIRURGICAUX --- ANTECEDENTS CHIRURGICAUX
+		//ANTECEDENTS CHIRURGICAUX --- ANTECEDENTS CHIRURGICAUX
+		$(".TerminerAntecedentsChirurgicaux" ).html("<button id='TerminerAntecedentsChirurgicaux' style='height:35px;'>Terminer</button>"); 
+		
+		$("#TerminerAntecedentsChirurgicaux").click(function(){
+			$("#AntecedentChirurgicaux").fadeOut(function(){ 
 				$("#MenuTerrainParticulier").fadeIn("fast");
 			});
 
@@ -81,7 +122,13 @@ $(function(){
 });
   
 
-
+function libelleAntChirurgicaux(id){
+	if(id==1){
+		$('#libelleAntecedentsChirurgicaux').toggle(true);
+	}else{
+		$('#libelleAntecedentsChirurgicaux').toggle(false);
+	}
+}
 
 /**
  * -------------------------------------------------------------------------
