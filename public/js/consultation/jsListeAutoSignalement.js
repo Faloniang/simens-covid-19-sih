@@ -169,8 +169,6 @@
             	
             	var result = jQuery.parseJSON(data);  
        	     
-            	//alert(result);
- 
             	$('#iconeChargement_'+id).toggle(false);
             	
 	       	    $('#vue_patient').html(result);
