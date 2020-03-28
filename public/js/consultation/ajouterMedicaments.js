@@ -46,7 +46,7 @@ function creerLalisteMedicament ($listeDesElements, $ListeForme, $ListeQuantite)
                              
                              "<th id='iconeMedicament_supp_vider' style='width: 9%;'  >"+
                              "<a id='supprimer_medicament_selectionne_"+ (index+1) +"'  style='width:50%;' >"+
-                             "<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px; cursor: pointer;' src='../images/images/sup.png' title='supprimer' />"+
+                             "<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px; cursor: pointer;' src='../images_icons/sup2.png' title='supprimer' />"+
                              "</a>"+
                              
                              "<a id='vider_medicament_selectionne_"+ (index+1) +"'  style='width:50%;' >"+
@@ -114,7 +114,7 @@ $(function () {
 		if(nbListeMedicaments () == 1) {
 			$("#supprimer_medicament").toggle(false);
 			$(".supprimerMedicament" ).replaceWith(
-			  "<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px;' src='../images/images/sup2.png' />"
+			  "<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px;' src='../images_icons/sup2.png' />"
 			);
 		}
 		//Afficher L'ICONE AJOUT QUAND ON A CINQ LIGNES
@@ -134,14 +134,14 @@ function partDefautMedicament (Liste, ListeForme, ListeQuantite, n) {
 	}
 	if(n == 1){
 		$(".supprimerMedicament" ).replaceWith(
-				"<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px;' src='../images/images/sup2.png' />"
+				"<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px;' src='../images_icons/sup2.png' />"
 			);
 	}
 	$('#ajouter_medicament').click(function(){ 
 		creerLalisteMedicament(Liste, ListeForme, ListeQuantite);
 		if(nbListeMedicaments() == 2){
 		$(".supprimerMedicament" ).replaceWith(
-				"<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px; cursor: pointer;' src='../images/images/sup.png' title='Supprimer' />"
+				"<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px; cursor: pointer;' src='../images_icons/sup.png' title='Supprimer' />"
 		);
 		}
 	});
@@ -173,7 +173,7 @@ function supprimer_medicament_selectionne(id) {
 
 	if(nbListeMedicaments() <= 2 && id <= 2){
 		$(".supprimerMedicament" ).replaceWith(
-			"<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px;' src='../images/images/sup2.png' />"
+			"<img class='supprimerMedicament' style='margin-left: 5px; margin-top: 10px;' src='../images_icons/sup2.png' />"
 		);
 	}
 	if(nbListeMedicaments() != 1) {

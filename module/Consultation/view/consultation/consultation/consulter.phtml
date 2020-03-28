@@ -677,7 +677,7 @@ $(window).load(function () {
     
      <!--*4*-->
      <div style='font-family: police2; font-size: 17px; font-weight: bold;' >Traitement</div>
-     <div style='max-height: 200px;'>
+     <div style='max-height: 400px;'>
             
             
       <!--******* ======= MENU MENU MENU =======  ******-->
@@ -743,9 +743,38 @@ $(window).load(function () {
      </div>
             
             
-            
-            
-            
+     <script> 
+ 	     ValiderOrdonnance();
+
+         var myArrayMedicament = [''];
+         var myArrayForme = [''];
+         var myArrayTypeQuantiteMedicament = [''];
+
+         partDefautMedicament(myArrayMedicament, myArrayForme, myArrayTypeQuantiteMedicament, 1);
+         
+         /*Nouveau Code Ajouter*/
+         /*Nouveau Code Ajouter*/
+         /*Nouveau Code Ajouter*/ 
+
+          <?php /*?>
+          var j = 0;
+          <?php foreach($this->liste_med as $Liste) {?>
+                 myArrayMedicament[j++] = "<?php echo $Liste['INTITULE']; ?>"; 
+          <?php } ?>
+          
+          var j = 0;
+          <?php foreach($this->listeForme as $ListeForme) {?>
+                 myArrayForme[j++] = "<?php echo $ListeForme['libelleForme']; ?>"; 
+          <?php } ?>
+    
+          var j = 0;
+          <?php foreach($this->listetypeQuantiteMedicament as $listetypeQuantiteMedicament) {?>
+                 myArrayTypeQuantiteMedicament[j++] = "<?php echo $listetypeQuantiteMedicament['libelleQuantite']; ?>"; 
+          <?php } ?>
+          <?php */ ?>
+    
+      /* =================== */
+     </script>
             
             
             
