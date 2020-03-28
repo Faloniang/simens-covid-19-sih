@@ -37,9 +37,8 @@
  	right: 300px; 
  	top: 10px;
 	color: red;
-	border: 3px solid red;
 	border-radius: 50%;
-	background: white;
+ 	background: gray; 
  }
  
 </style>
@@ -95,9 +94,9 @@ if($sexe == 'Masculin'){$civilite = 'M';}
 
     <li style="width: 20%;">
    
-      <div class='clocheAlert'> 
+      <div class='clocheAlert' title='liste des auto-signalements'> 
           <a href="<?php echo $this->url('consultation', array('action'=> 'auto-signalement'));?>">
-            &#128276; <span style="color: white;">2</span> 
+            &#128276; <span style="color: white;" id="nbreInfosPatientVue"></span> 
           </a>
       </div>
       
@@ -197,6 +196,74 @@ $(document).ready(function() {
     });
 
 });
+
+var temoinNbVue = 0;
+premierAppelnbreInfosPatientNonVue();
+
+function premierAppelnbreInfosPatientNonVue() {
+	
+	$("#nbreInfosPatientVue").html('');
+	$(".clocheAlert").css({'border': '0px solid black', 'background':'gray'});
+	
+	$.ajax({
+        type: 'POST',
+        url: tabUrl[0]+'public/consultation/nbre-infos-patient-non-vue',
+        data: {},
+        success: function(data) {
+        	
+        	var result = jQuery.parseJSON(data); 
+        	temoinNbVue = result;
+        	
+        	if(result != 0){
+            	$("#nbreInfosPatientVue").html(result);
+            	$(".clocheAlert").css({'border': '3px solid red', 'background':'white'});
+        	}
+
+        	verifAutomatique();
+        }
+	});
+	
+}
+
+
+function verifAutomatique() {
+
+	setTimeout(function(){ 
+
+    	$.ajax({
+            type: 'POST',
+            url: tabUrl[0]+'public/consultation/nbre-infos-patient-non-vue',
+            data: {},
+            success: function(data) {
+            	
+            	var result = jQuery.parseJSON(data); 
+
+            	//alert(result);
+            	//alert(temoinNbVue);
+            	if(temoinNbVue != result){
+            		temoinNbVue = result;
+                	
+                	if(result != 0){
+                    	$("#nbreInfosPatientVue").html(result);
+                    	$(".clocheAlert").css({'border': '3px solid red', 'background':'white'});
+                	}else{
+                    	$("#nbreInfosPatientVue").html('');
+                    	$(".clocheAlert").css({'border': '0px solid black', 'background':'gray'});
+                	}
+
+                	//$(location).attr("href",tabUrl[0]+"public/consultation/auto-signalement");
+            	}
+            }
+    	});
+	
+		verifAutomatique();
+
+	}, 3000);
+
+}
+	
+
+
 
 //$("#definitionSimens").liScroll();
 </script>

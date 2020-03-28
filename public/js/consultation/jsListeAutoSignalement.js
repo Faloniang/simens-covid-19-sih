@@ -79,6 +79,8 @@
     $(".boutonAnnuler").html('<button type="submit" id="terminer" style=" font-family: police2; font-size: 17px; font-weight: bold;"> Annuler </button>');
     $(".boutonTerminer").html('<button type="submit" id="terminer" style=" font-family: police2; font-size: 17px; font-weight: bold;"> Valider </button>');
 
+    //premierAppelnbreInfosPatientNonVue();
+    
     }
     
     
@@ -161,6 +163,8 @@
     	$('.iconeChargement_1234').toggle(false);
     	$('#iconeChargement_'+id).toggle(true);
     	
+    	$('#nonEncoreVueInfosPatient_'+id).toggle(false);
+    	
     	$.ajax({
             type: 'POST',
             url: tabUrl[0]+'public/consultation/liste-vue-details-infos-patient-auto-signalement',
@@ -185,10 +189,36 @@
 	       	    	});
 	       	    });
             	
+	       	 signifierInfosPatientVue(id);
             }
         });
     	
     }
     
     
-	
+    function signifierInfosPatientVue(id) {
+    	
+    	$.ajax({
+            type: 'POST',
+            url: tabUrl[0]+'public/consultation/signifier-infos-patient-vue',
+            data: {'idpatient':id },
+            success: function(data) {
+            	
+            	var result = jQuery.parseJSON(data); 
+            	
+            	if(result != 0){
+                	$("#nbreInfosPatientVue").html(result);
+                	$(".clocheAlert").css({'border': '3px solid red', 'background':'white'});
+            	}else{
+                	$("#nbreInfosPatientVue").html('');
+                	$(".clocheAlert").css({'border': '0px solid black', 'background':'gray'});
+            	}
+            }
+    	});
+    	
+    }
+    
+    
+    
+    
+    

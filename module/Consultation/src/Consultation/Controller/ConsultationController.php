@@ -121,29 +121,9 @@ class ConsultationController extends AbstractActionController {
 	     
 	    $patient = $this->getPatientTable()->getPatient($idpatient);
 	    $personne = $this->getPersonneTable()->getPersonne($idpatient);
-	    
-	    
-	    
-	    /*
-		$listeProfessions = $this->getPersonneTable()->getListeProfessions();
-		$listeEthnies = $this->getPersonneTable()->getListeEthnies();
-		$listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
-		$listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
-		$listeRace = $this->getPersonneTable()->getListeRace();
-		*/
-		
 		
 	    $date_naissance = null;
 	    if($personne->date_naissance){ $date_naissance = (new DateHelper())->convertDate( $personne->date_naissance ); }
-	    
-	    /*
-	    $personne->photo = $personne->photo ? $personne->photo : 'identite.jpg';
-	    $personne->profession = ($personne->profession) ? $listeProfessions[$personne->profession] : '';
-	    $patient->ethnie      = ($patient->ethnie)      ? $listeEthnies[$patient->ethnie] : '';
-	    $personne->regime_matrimonial = ($personne->regime_matrimonial) ? $listeRegimeMatrimonial[$personne->regime_matrimonial] : '';
-	    $personne->statut_matrimonial = ($personne->statut_matrimonial) ? $listeStatutMatrimonial[$personne->statut_matrimonial] : '';
-	    */
-	    
 	    
 	    $listeProfessions = $this->getPersonneTable()->getListeProfessions();
 	    $listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
@@ -160,8 +140,12 @@ class ConsultationController extends AbstractActionController {
 	    $patient->nationalite = ($patient->nationalite) ? $listeNationalite[$patient->nationalite] : '';
 	    
 	    
-	    
-	    
+	    $typepatient = '';
+	    if($patient->type_patient == 1){ $typepatient = '<span style="color: orange;">Cas suspect</span>'; }else
+	    if($patient->type_patient == 2){ $typepatient = '<span style="color: orange;">Cas contact</span>'; }else
+	    if($patient->type_patient == 3){ $typepatient = '<span style="color: red;">D&eacute;psit&eacute; positif</span>'; }else
+	    if($patient->type_patient == 4){ $typepatient = '<span style="color: green;">D&eacute;pist&eacute; n&eacute;gatif</span>'; }
+
 	    
 	    $html ="
 	  
@@ -347,7 +331,7 @@ class ConsultationController extends AbstractActionController {
             			   	</td>
             	
             			    <td  style='width: 195px; font-family: police1;font-size: 12px;'>
-            			       <div id='aa'><a style='text-decoration: underline;'></a><br><p style='font-weight: bold;font-size: 19px;'>  </p></div>
+            			       <div id='aa'><a style='text-decoration: underline;'>Type de patient</a><br><p style='font-weight: bold;font-size: 19px;'> ".$typepatient." </p></div>
             			   	</td>
 			             </tr> ";
 						   
@@ -426,11 +410,11 @@ class ConsultationController extends AbstractActionController {
 		
 		    $donnees = $this->getRequest()->getPost()->toArray();
 		    
-		    /*
-		    echo "<pre>";
-		    var_dump($donnees); exit();
-		    echo "</pre>";
-		    */
+		    
+		    //echo "<pre>";
+		    //var_dump($donnees); exit();
+		    //echo "</pre>";
+		    
 		    
 		    $personne = array();
 		    
@@ -597,7 +581,13 @@ class ConsultationController extends AbstractActionController {
 	
 	    //Fin gestion des ages
 	    //Fin gestion des ages
-
+	    $typepatient = '';
+	    if($patient->type_patient == 1){ $typepatient = '<span style="color: orange;">Cas suspect</span>'; }else
+	    if($patient->type_patient == 2){ $typepatient = '<span style="color: orange;">Cas contact</span>'; }else
+	    if($patient->type_patient == 3){ $typepatient = '<span style="color: red;">D&eacute;psit&eacute; positif</span>'; }else
+	    if($patient->type_patient == 4){ $typepatient = '<span style="color: green;">D&eacute;pist&eacute; n&eacute;gatif</span>'; }
+	    
+	    
 	    $html .="<p>
          <img id='photo' src='../images/photos_patients/".$personne->photo."' style='float:right; margin-right:15px; width:95px; height:95px; color: white; opacity: 0.09;'/>
         </p>
@@ -677,11 +667,11 @@ class ConsultationController extends AbstractActionController {
 			   	</td>
 	
 			    <td style='width: 195px; font-family: police1;font-size: 12px;'>
-			   		<div id='aa'><a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'>  $patient->departement </p></div>
+			   		<div id='aa'><a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'>".  $patient->departement." </p></div>
 			   	</td>
 	
 			    <td  style='width: 195px; font-family: police1;font-size: 12px;'>
-			       <div id='aa'><a style='text-decoration: underline;'></a><br><p style='font-weight: bold;font-size: 19px;'>  </p></div>
+			       <div id='aa'><a style='text-decoration: underline;'>Type de patient</a><br><p style='font-weight: bold;font-size: 19px;'>". $typepatient ."</p></div>
 			   	</td>
 			 </tr>";
 	     
@@ -797,6 +787,7 @@ class ConsultationController extends AbstractActionController {
 	    $data['REGION'] = $patient->region;
 	    $data['DEPARTEMENT_MEMO'] = $patient->departement;
 	    $data['NATIONALITE_ACTUELLE'] = $patient->nationalite;
+	    $data['TYPE_PATIENT'] = $patient->type_patient;
 	    
 	    
 	    $photo = $personne->photo ? $personne->photo : 'identite.jpg';
@@ -977,16 +968,6 @@ class ConsultationController extends AbstractActionController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	private $url = 'http://www.simens.sn/admin?action=';
 	
 	public function autoSignalementAction() {
@@ -1034,6 +1015,9 @@ class ConsultationController extends AbstractActionController {
 	            $sexe = ($tab[0] == 2) ? "F":"M";
 	            
 	            $visualiser = '<img onclick="voirPlusDetails('.$data[$i]->idpatient.');" style="cursor: pointer; margin-right: 17%;" src="../images_icons/voir2.png" title="Voir plus.."> <img id="iconeChargement_'.$data[$i]->idpatient.'" class="iconeChargement_1234" style="width:40px; height: 20px; display: none;" src="../images_icons/chargement-infos-covid19.gif">';
+	            if($data[$i]->vue == 0){
+	               $visualiser .= '<span id="nonEncoreVueInfosPatient_'.$data[$i]->idpatient.'" style="color: red; position: absolute; font-size: 14px;">&#9733;</span>';
+	            }
 	            
 	            /*Liste des patients*/
 	            $output["aaData"][] = array( $tab[1], $tab[2], $date_naissance, $tab[4], $sexe, "<div>".$tab[7]."</div>", $tab[8], $visualiser);
@@ -1076,7 +1060,6 @@ class ConsultationController extends AbstractActionController {
 	        $data = $donnees->data;
 	        
 	        $tab = array();
-	
 	        $tab =  explode('<@>',openssl_decrypt($data->infosEtatCivil, 'BF-ECB', 'passInfosCovid19*1234'));
 	        
 	        $sexe = ($tab[0] == 2) ? "F&eacute;minin":"Masculin";
@@ -1085,6 +1068,13 @@ class ConsultationController extends AbstractActionController {
 	        $email = ($tab[10] == -1) ? "": $tab[10];
 	        $date_enregistrement = $data->date_enregistrement;
 	
+	        
+	        $tab2 = array();
+	        $tab2 =  explode('<@>',openssl_decrypt($data->infosSymptomes, 'BF-ECB', 'passInfosCovid19*1234'));
+	    
+	        $tab3 = array();
+	        $tab3 =  explode('<@>',openssl_decrypt($data->infosAntecedents, 'BF-ECB', 'passInfosCovid19*1234'));
+	        
 	    }
 
 	    
@@ -1184,7 +1174,6 @@ class ConsultationController extends AbstractActionController {
 			   		<div id='aa'><a style='text-decoration: underline; '>Sexe</a><br>
 			   		  <p style='font-weight: bold;font-size: 19px;'>
 			   		     ".$sexe."
-			 
 			   		  </p>
 			   		</div>
 	    
@@ -1250,11 +1239,45 @@ class ConsultationController extends AbstractActionController {
 			 ";
 	    
 	    $html .=" <div style='margin-left: 165px; margin-top: 15px; margin-bottom: -15px; color: green; font-size: 21px; font-family: time new roman;' ><i> Les sympt&ocirc;mes </i></div> ";
-	    
 	    $html .=" <div id='barre' ></div> ";
 	    
+	    $nbLignes = (count($tab2))-1;
 	    
-	    //$html .=" <div id='barre'></div> ";
+	    $html .="
+	        <div style='margin-left: 165px; margin-top: 10px; width: 80%; font-family: police1; color: green;'>
+	          <p style='text-align: justify; line-height: 30px; font-weight: bold;font-size: 19px;'>&nbsp;";
+	    
+	    for ($i=0 ; $i<$nbLignes ; $i++){
+	         
+	            $html .="<span style='font-size: 14px;'>&#10148;</span>".
+	                     $this->getLibelleSymptome($tab2[$i])." &nbsp;&nbsp;&nbsp;";
+	    }
+	    
+	    $html .="
+	          </p>
+			</div>";
+	    
+
+	    $html .=" <div style='margin-left: 165px; margin-top: 15px; margin-bottom: -15px; color: green; font-size: 21px; font-family: time new roman;' ><i> Les habitudes de vie et ant&eacute;c&eacute;dents </i></div> ";
+	    $html .=" <div id='barre' ></div> ";
+	    
+	    $nbLignes = (count($tab3))-1;
+	     
+	    $html .="
+	        <div style='margin-left: 165px; margin-top: 10px; width: 80%; font-family: police1; color: green;'>
+	          <p style='text-align: justify; line-height: 30px; font-weight: bold; font-size: 19px;'>&nbsp;";
+	     
+	    for ($i=0 ; $i<$nbLignes ; $i++){
+	    
+	        $html .="<span style='font-size: 14px;'>&#10148;</span>".
+	            $this->getLibelleAntecedents($tab3[$i])." &nbsp;&nbsp;&nbsp;";
+	    }
+	     
+	    $html .="
+	          </p>
+			</div>";
+	    
+	    
 	    
 	    $html .="<div class='block' id='thoughtbot' style=' vertical-align: bottom; padding-left:60%; padding-top: 35px; font-size: 18px; font-weight: bold;'><button id='terminer'>Terminer</button></div>
 	    
@@ -1263,16 +1286,83 @@ class ConsultationController extends AbstractActionController {
         </div> ";
 	    
 	    
-	    
-	    
-	    
-	    
-	    
-	    
 	    $this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
 	    return $this->getResponse ()->setContent ( Json::encode ( $html ) );
 	}
 	
+	
+	public function getLibelleSymptome($idsymptome){
+	    $tab = array(1=>'Fi&egrave;vre', 2=>'Fatigue', 3=>'Tousser et/ou Toux seche', 4=>'Difficult&eacute;s &agrave; respirer',
+	                 5=>'Douleurs &agrave; la respiration', 6=>'Douleurs aux muscles', 7=>'Douleurs aux articulations',
+	                 8=>'Mal de gorge', 9=>'Nez bouch&eacute;', 10=>'Nez qui coule', 11=>'Vertige', 12=>'Perte d\'app&eacute;tit', 13=>'Diarrh&eacute;e'
+	    );
+	    
+	    return $tab[$idsymptome];
+	}
+	
+	
+	public function getLibelleAntecedents($idantecedent){
+	    $tab = array(1=>'Fumeur', 2=>'Consommation d\'alcool', 3=>'Diab&egrave;te', 4=>'Hypertension art&eacute;rielle',
+	                 5=>'Asthmatique', 6=>'Maladie cardiaque', 7=>'Ob&eacute;sit&eacute;',
+	                 8=>'Contact avec un malade', 9=>'Retour de voyage');
+	     
+	    return $tab[$idantecedent];
+	}
+	
+	
+	public function signifierInfosPatientVueAction() {
+	    
+	    $idpatient = (int)$this->params ()->fromPost ( 'idpatient', 0 );
+	    
+	    /*
+	     * RECUPERATION DE LA LISTE DE LA DB DISTANT
+	     */
+	    $request = new Request();
+	    $request->setUri($this->url.'getSignifierInfosPatientVue&idpatient='.$idpatient);
+	    $request->setMethod('GET');
+	    
+	    $client = new Client();
+	    $response = $client->dispatch($request);
+	    
+	    if ($response->isSuccess()) {
+	    
+	        // the POST was successful
+	        $donnees = json_decode($response->getBody());
+	    
+	        // Données récupérées
+	        $data = $donnees->data;
+	         
+	        $this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+	        return $this->getResponse ()->setContent ( Json::encode ( $data ) );
+	    }
+	    
+	}
+	
+	
+	
+	public function nbreInfosPatientNonVueAction() {
+	    /*
+	     * RECUPERATION DE LA LISTE DE LA DB DISTANT
+	     */
+	    $request = new Request();
+	    $request->setUri($this->url.'getNbreInfosPatientNonVue');
+	    $request->setMethod('GET');
+	     
+	    $client = new Client();
+	    $response = $client->dispatch($request);
+	     
+	    if ($response->isSuccess()) {
+	         
+	        // the POST was successful
+	        $donnees = json_decode($response->getBody());
+	         
+	        // Données récupérées
+	        $data = $donnees->data;
+	    
+	        $this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+	        return $this->getResponse ()->setContent ( Json::encode ( $data ) );
+	    }
+	}
 	
 	
 	

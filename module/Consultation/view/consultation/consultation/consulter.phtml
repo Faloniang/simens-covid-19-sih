@@ -33,21 +33,15 @@ $('#menu_consultations_style').css({'font-weight':'bold','color':'white','font-s
 ?>
       
 
+<?php 
 
+    $typepatient = '';
+    if($this->patient->type_patient == 1){ $typepatient = '<span style="color: orange;">Cas suspect</span>'; }else
+    if($this->patient->type_patient == 2){ $typepatient = '<span style="color: orange;">Cas contact</span>'; }else
+    if($this->patient->type_patient == 3){ $typepatient = '<span style="color: red;">D&eacute;psit&eacute; positif</span>'; }else
+    if($this->patient->type_patient == 4){ $typepatient = '<span style="color: green;">D&eacute;pist&eacute; n&eacute;gatif</span>'; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+?>
 
 
 <script>
@@ -187,7 +181,8 @@ $(window).load(function () {
     			   	</td>
     
     			   	<td style=' font-family: police1;font-size: 12px;'>
-    			   	
+    			   	    <div ><a style="text-decoration: underline;">Type de patient</a><br>
+    			   	    <p style='font-weight: bold;font-size: 19px;'><?php echo $typepatient; ?></p></div>
     			   	</td>
 
 			   </tr>
@@ -278,6 +273,90 @@ $(window).load(function () {
     	 <input type="hidden" id="nbPlaintesEntree" name="nbPlaintesEntree">
          <script type="text/javascript">ajouterUneNouvellePlainte();</script>
        
+     </div>
+     
+     
+     <!-- ************** Accordeon NOUVELLES CONSTANTES ******************-->
+     <!-- ************** Accordeon NOUVELLES CONSTANTES ******************-->
+     <!-- ************** Accordeon NOUVELLES CONSTANTES ******************-->
+     
+     <!--*2*-->
+     <!--*2*-->
+     <!--*2*-->
+     <!--*2*-->
+     <!--*2*-->
+  	 <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Constantes </div>
+     <div id="" class="" style="max-height: 150px;">
+     
+     	<table style="width: 100%;" >
+           <tr style="width: 100%" class="designStyleLabel">
+                     
+               <td style="padding-right: 25px; width: 24%">
+         	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
+         	       <span style='font-size: 11px;'>&#10148; </span>
+         	       <span>Temp&eacute;rature (C) : </span>
+         	       <input type="number" style="width: 30%; height: 30px; text-align: right; float: right" >
+         	     </label>
+         	   </td>
+         	   
+         	   <td style="padding-right: 25px; width: 35%">
+         	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
+         	       <span style='font-size: 11px;'>&#10148; </span>
+         	       <span title="Tension art&eacute;rielle">T.A  <i title='Tension maximale | Tension minimale'>(T.max|T.min)</i>: </span>
+         	       <input type="number" style="width: 25%; height: 30px; text-align: right; float: right;" maxlength=3; max=300 min=10 >
+         	       <input type="number" style="width: 25%; height: 30px; text-align: right; float: right;" maxlength=3; max=300 min=10 >
+         	     </label>
+         	   </td>
+         	   
+         	   <td style="padding-right: 25px; width: 18%">
+         	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px;">
+         	       <span style='font-size: 11px;'>&#10148; </span>
+         	       <span>Poids (kg): </span>
+         	       <input type="number" style="width: 40%; height: 30px; text-align: right; float: right">
+         	     </label>
+         	   </td>
+         	   
+         	   <td style="padding-right: 25px; width: 23%">
+         	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
+         	       <span style='font-size: 11px;'>&#10148; </span>
+         	       <span>Taille (cm): </span>
+         	       <input type="number" style="width: 40%; height: 30px; text-align: right; float: right">
+         	     </label>
+         	   </td>
+         	   
+           </tr>
+        </table>
+                                 	
+                   
+        <table style="width: 100%;" >
+           <tr style="width: 100%" class="designStyleLabel">
+                    
+                    
+               <td style="padding-right: 25px; width: 24%">
+         	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
+         	       <span style='font-size: 11px;'>&#10148; </span>
+         	       <span>Poule : </span>
+         	       <input type="number" style="width: 30%; height: 30px; text-align: right; float: right">
+         	     </label>
+         	   </td>
+         	   
+         	   <td style="padding-right: 25px; width: 35%">
+         	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
+         	       <span style='font-size: 11px;'>&#10148; </span>
+         	       <span >Fr&eacute;quence respiratoire : </span>
+         	       <input type="number" style="width: 25%; height: 30px; text-align: right; float: right">
+         	     </label>
+         	   </td>
+         	    
+               <td style="padding-right: 25px; width: 60%">
+         	   </td>
+         	   
+           </tr>
+        </table>              	
+                                 	
+                                 	
+                                 	
+     
      </div>
      
      
@@ -555,7 +634,7 @@ $(window).load(function () {
      <!-- ********************Examen complementaire (examen et analyse)******************-->
     
      <!--*4*-->
-     <div style='font-family: police2;font-size: 17px; font-weight: bold;' class='examenComplementaireDelpiantAlert' >Examens compl&eacute;mentaires</div>
+     <div style='font-family: police2;font-size: 17px; font-weight: bold; display: none;' class='examenComplementaireDelpiantAlert' >Examens compl&eacute;mentaires</div>
      <div style='max-height: 300px;'>
             
      </div>
@@ -564,10 +643,117 @@ $(window).load(function () {
      
      
      
+     <!-- ******************** Diagnostic ******************-->
+     <!-- ******************** Diagnostic ******************-->
+     <!-- ******************** Diagnostic ******************-->
+    
+     <!--*4*-->
+     <div style='font-family: police2; font-size: 17px; font-weight: bold;' >Diagnostic</div>
+     <div style='max-height: 200px;'>
+     <p style='color: white; opacity: 0.5;'>
+        <img id="" src='<?php echo $this->basePath().'/images_icons/diag.png'?>'  alt="consult-motif" style='float:right; margin-right:10px; width:25%; height:190px;'/>
+     </p>
+     
+     	<table style="width: 70%; float: left;" >
+     	  <tr style="width: 100%" class="designStyleLabel">
+     		        
+     	   <td style="padding-right: 18px; width: 23%">
+     	     <label style="width: 100%; height:150px; text-align:left;">
+               <span style='font-size: 11px;'>&#10148; </span>
+               <span>Diagnostic </span> 
+               <textarea style='width: 100%; max-height: 100px; min-height: 100px; max-width: 650px; min-width: 650px;'></textarea> 
+             </label>
+     	   </td>
+     	   
+     	  </tr>
+     	</table>
+     
+     </div>
      
      
-     
-     
+     <!-- ******************** Traitement ******************-->
+     <!-- ******************** Traitement ******************-->
+     <!-- ******************** Traitement ******************-->
+    
+     <!--*4*-->
+     <div style='font-family: police2; font-size: 17px; font-weight: bold;' >Traitement</div>
+     <div style='max-height: 200px;'>
+            
+            
+      <!--******* ======= MENU MENU MENU =======  ******-->
+      <!--******* ======= MENU MENU MENU =======  ******-->
+                  
+      <?php 
+          /**
+           *=============================================================================================
+           *=============================================================================================
+           *=============================================================================================
+           **/
+       echo  $this->headScript()->appendFile($this->basePath().'/js/consultation/ajouterMedicaments.js');
+      ?>    
+                       
+     <div id="listeMedicaments" style="float:left; width: 100%;">
+	                  
+	    <table class="table table-bordered" style="width: 100%; margin-bottom: 0px; margin-left: 0px;">
+          <thead style="width: 100%;">
+            <tr style="width: 100%; height: 40px; font-family: police2;">
+              <th style="width: 4%;  font-weight: bold; font-size: 15px; ">N&ordm;</th>
+              <th style="width: 29%; font-weight: bold; font-size: 15px; text-align: left;">M&eacute;dicaments</th>
+              <th style="width: 29%; font-weight: bold; font-size: 15px; text-align: left;">Forme</th>
+              <th style="width: 29%; font-weight: bold; font-size: 15px; text-align: left;">Quantit&eacute;</th>
+              <th style="width: 9%;  font-weight: bold; font-size: 15px; ">Options</th>
+            </tr>
+          </thead>
+        </table>
+                         
+		<div id="Medicament_0" style="width: 100%;">
+		    <!-- A ne pas enlever -->
+		</div>
+		
+		
+		<!--********************* BOUTON AJOUTER-SUPPRIMER ************************-->
+		<!--********************* BOUTON AJOUTER-SUPPRIMER ************************-->
+		<div id="controls_medicament" style="margin-top: 20px; width: 100%;">
+		  <div style="width: 100%;">
+		    <div style="width: 3%; float: left; cursor: pointer; " id="supprimer_medicament">
+			  <img style='margin-left: 5px;' src='../images_icons/moin-green.png' title='supprimer' />
+		    </div>
+		    <div style="width: 3%; float: left; cursor: pointer; " id="ajouter_medicament">
+		      <img style='margin-left: 5px;' src='../images_icons/plus-green.png' title='ajouter' />
+		    </div>
+	      </div>
+	    </div>
+	    
+        <!--********************* BOUTON VALIDER OU MODIFIER ************************-->
+        <!--********************* BOUTON VALIDER OU MODIFIER ************************-->
+        <table style="width: 90%; float:right; position: relative; right: 0;">
+            <tr style="width: 100%;">
+              <th style="height:15px;">
+                 <div id='bouton_Medicament_valider_demande' style="float:right;">
+                   <button >Valider</button>
+                 </div>
+                 <div id='bouton_Medicament_modifier_demande' style="float:right;">
+                   <button >Modifier</button>
+                 </div>
+              </th>
+            </tr>
+        </table>
+
+
+     </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+     </div>
      
      
      

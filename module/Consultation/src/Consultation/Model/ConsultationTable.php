@@ -143,7 +143,7 @@ class ConsultationTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat'   => 'patient'))->columns(array('*'))
-		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
+		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE', 'Age'=> 'AGE', 'Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->join(array('admis' => 'admission'), 'admis.idpatient = pers.ID_PERSONNE' , array('dateadmission','idadmission'))
 		->where(array('dateadmission' => $date, new NotIn ( 'pat.idpersonne', $subselect2 ),  new NotIn ( 'pat.idpersonne', $subselect3 )))
 		->order('admis.idadmission ASC');
@@ -192,9 +192,10 @@ class ConsultationTable {
 		
 					else if ($aColumns[$i] == 'Datenaissance') {
 							
-						$date_naissance = $aRow[ $aColumns[$i] ];
-						if($date_naissance){ $row[] = $Control->convertDate($aRow[ $aColumns[$i] ]); }else{ $row[] = null;}
-		
+						//$date_naissance = $aRow[ $aColumns[$i] ];
+						//if($date_naissance){ $row[] = $Control->convertDate($aRow[ $aColumns[$i] ]); }else{ $row[] = null;}
+
+					    $row[] = $aRow[ 'Age' ];
 					}
 		
 					else if ($aColumns[$i] == 'Adresse') {

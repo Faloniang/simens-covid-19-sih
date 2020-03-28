@@ -28,6 +28,7 @@ class PatientForm extends Form {
 				'attributes' => array (
 						'id' => 'CIVILITE',
 						'value' => 'M',
+				        'tabindex' => 1,
 				)
 		) );
 
@@ -45,9 +46,23 @@ class PatientForm extends Form {
 				'attributes' => array (
 						'id' => 'SEXE',
 						'required' => true,
-						'tabindex' => 1,
+						'tabindex' => 2,
 				)
 		) );
+		
+		$this->add ( array (
+		    'name' => 'PRENOM',
+		    'type' => 'Text',
+		    'options' => array (
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Prénom' )
+		    ),
+		    'attributes' => array (
+		        'id' => 'PRENOM',
+		        'required' => true,
+		        'tabindex' => 3,
+		    )
+		) );
+		
 		
 		$this->add ( array (
 				'name' => 'NOM',
@@ -58,23 +73,9 @@ class PatientForm extends Form {
 				'attributes' => array (
 						'id' => 'NOM',
 						'required' => true,
-						'tabindex' => 2,
+						'tabindex' => 4,
 				)
 		) );
-		
-		$this->add ( array (
-				'name' => 'PRENOM',
-				'type' => 'Text',
-				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Prénom' )
-				),
-				'attributes' => array (
-						'id' => 'PRENOM',
-						'required' => true,
-						'tabindex' => 3,
-				)
-		) );
-
 		
 		$this->add ( array (
 				'name' => 'AGE',
@@ -84,10 +85,11 @@ class PatientForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'AGE',
-						'tabindex' => 4,
+						'tabindex' => 5,
 						'required' => true,
 						'min' => 0,
 						'max' => 150,
+				    
 				)
 		) );
 		
@@ -100,7 +102,7 @@ class PatientForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'DATE_NAISSANCE',
-						'tabindex' => 5,
+						'tabindex' => 6,
 				)
 		) );
 
@@ -113,10 +115,21 @@ class PatientForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'LIEU_NAISSANCE',
-						'tabindex' => 6,
+						'tabindex' => 7,
 				)
 		) );
 		
+		$this->add ( array (
+		    'name' => 'ADRESSE',
+		    'type' => 'Text',
+		    'options' => array (
+		        'label' => 'Adresse'
+		    ),
+		    'attributes' => array (
+		        'id' => 'ADRESSE',
+		        'tabindex' => 8,
+		    )
+		) );
 		
 		$this->add ( array (
 				'name' => 'TELEPHONE',
@@ -127,7 +140,7 @@ class PatientForm extends Form {
 				'attributes' => array (
 						'id' => 'TELEPHONE',
 				        'required' => true,
-						'tabindex' => 7,
+						'tabindex' => 9,
 				)
 		) );
 		
@@ -140,10 +153,36 @@ class PatientForm extends Form {
 		    ),
 		    'attributes' => array (
 		        'id' => 'TELEPHONE_2',
-		        'tabindex' => 7,
+		        'tabindex' => 10,
 		    )
 		) );
 		
+		$this->add ( array (
+		    'name' => 'REGION',
+		    'type' => 'Select',
+		    'options' => array (
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Région' )
+		    ),
+		    'attributes' => array (
+		        'id' => 'REGION',
+		        'required' => true,
+		        'tabindex' => 11,
+		        'onchange' => "getListeDepartements(this.value);",
+		    )
+		) );
+		
+		$this->add ( array (
+		    'name' => 'DEPARTEMENT',
+		    'type' => 'Select',
+		    'options' => array (
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Département' )
+		    ),
+		    'attributes' => array (
+		        'id' => 'DEPARTEMENT',
+		        'required' => true,
+		        'tabindex' => 12,
+		    )
+		) );
 		
 		$this->add ( array (
 				'name' => 'PROFESSION',
@@ -156,107 +195,34 @@ class PatientForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'PROFESSION',
-						'tabindex' => 8,
-				)
-		) );
-		
-		
-		$this->add ( array (
-				'name' => 'ADRESSE',
-				'type' => 'Text',
-				'options' => array (
-						'label' => 'Adresse'
-				),
-				'attributes' => array (
-						'id' => 'ADRESSE',
-						'tabindex' => 9,
+						'tabindex' => 13,
 				)
 		) );
 		
 		$this->add ( array (
-				'type' => 'Email',
-				'name' => 'EMAIL',
-				'options' => array (
-						'label' => 'Email'
-				),
-				'attributes' => array (
-						'placeholder' => 'votre@domain.com',
-						'id' => 'EMAIL',
-						'tabindex' => 10,
-				)
-		) );
-		
-		$this->add ( array (
-				'name' => 'NATIONALITE_ORIGINE',
-				'type' => 'Select',
-				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8','Nationalité'),
-				),
-				'attributes' => array (
-						'id' => 'NATIONALITE_ORIGINE',
-						'tabindex' => 11,
-				)
-		) );
-		
-		$this->add ( array (
-				'name' => 'NATIONALITE_ACTUELLE',
-				'type' => 'Select',
-				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8','Nationalité actuelle'),
-						'value_options' => array (
-								'' => ''
-						)
-				),
-				'attributes' => array (
-						'id' => 'NATIONALITE_ACTUELLE',
-						'tabindex' => 12,
-				)
-		
-		) );
-		
-		
-		$this->add ( array (
-		    'name' => 'ORIGINE_GEOGRAPHIQUE',
-		    'type' => 'Text',
-		    'options' => array (
-		        'label' => iconv ( 'ISO-8859-1', 'UTF-8','Origine géographique'),
-		    ),
-		    'attributes' => array (
-		        'id' => 'ORIGINE_GEOGRAPHIQUE',
-		        'required' => true,
-		        'tabindex' => 13,
-		    )
-		
-		) );
-		
-		$this->add ( array (
-		    'name' => 'ETHNIE',
+		    'name' => 'NATIONALITE_ORIGINE',
 		    'type' => 'Select',
 		    'options' => array (
-		        'label' => iconv ( 'ISO-8859-1', 'UTF-8','Ethnie'),
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8','Nationalité'),
+		    ),
+		    'attributes' => array (
+		        'id' => 'NATIONALITE_ORIGINE',
+		        'tabindex' => 14,
+		    )
+		) );
+		
+		$this->add ( array (
+		    'name' => 'NATIONALITE_ACTUELLE',
+		    'type' => 'Select',
+		    'options' => array (
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8','Nationalité actuelle'),
 		        'value_options' => array (
 		            '' => ''
 		        )
 		    ),
 		    'attributes' => array (
-		        'id' => 'ETHNIE',
-		        'tabindex' => 13,
-		    )
-		
-		) );
-		
-		$this->add ( array (
-		    'name' => 'RACE',
-		    'type' => 'Select',
-		    'options' => array (
-		        'label' => iconv ( 'ISO-8859-1', 'UTF-8','Race'),
-		        'value_options' => array (
-		            '' => ''
-		        )
-		    ),
-		    'attributes' => array (
-		        'id' => 'RACE',
-		        'tabindex' => 13,
+		        'id' => 'NATIONALITE_ACTUELLE',
+		        'tabindex' => 15,
 		    )
 		
 		) );
@@ -272,7 +238,7 @@ class PatientForm extends Form {
 		    ),
 		    'attributes' => array (
 		        'id' => 'STATUT_MATRIMONIAL',
-		        'tabindex' => 13,
+		        'tabindex' => 16,
 		    )
 		
 		) );
@@ -288,37 +254,22 @@ class PatientForm extends Form {
 		    ),
 		    'attributes' => array (
 		        'id' => 'REGIME_MATRIMONIAL',
-		        'tabindex' => 13,
+		        'tabindex' => 17,
 		    )
 		
 		) );
 		
 		
 		$this->add ( array (
-		    'name' => 'REGION',
-		    'type' => 'Select',
-		    'options' => array (
-		        'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Région' )
-		    ),
-		    'attributes' => array (
-		        'id' => 'REGION',
-		        'required' => true,
-		        'tabindex' => 7,
-		        'onchange' => "getListeDepartements(this.value);",
-		    )
-		) );
-		
-		$this->add ( array (
-		    'name' => 'DEPARTEMENT',
-		    'type' => 'Select',
-		    'options' => array (
-		        'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Département' )
-		    ),
-		    'attributes' => array (
-		        'id' => 'DEPARTEMENT',
-		        'required' => true,
-		        'tabindex' => 7,
-		    )
+				'type' => 'Email',
+				'name' => 'EMAIL',
+				'options' => array (
+						'label' => 'Email'
+				),
+				'attributes' => array (
+						'placeholder' => 'votre@domain.com',
+						'id' => 'EMAIL',
+				)
 		) );
 		
 		$this->add ( array (
@@ -329,6 +280,13 @@ class PatientForm extends Form {
 		    )
 		) );
 		
+		$this->add ( array (
+		    'name' => 'TYPE_PATIENT',
+		    'type' => 'Hidden',
+		    'attributes' => array (
+		        'id' => 'TYPE_PATIENT',
+		    )
+		) );
 		
 	}
 }

@@ -52,26 +52,26 @@ echo $this->form ()->openTag ( $form );
 			<!-- FICHIER TAMPON POUR RECUPERER L'IMAGE DANS LE CONTROLLER -->
 		</div>
 		
-		<div style="width: 150px; margin-top: 120px;">
+		<div style="width: 150px; margin-top: 120px; font-family: times new romans;">
 		   
      		<h4 style="font-family: times new romans;">Type de patient</h4>
             <label class="container" style="">Cas suspect
-              <input type="radio" checked="checked" name="radio">
+              <input type="radio" checked="checked" name="radio" id="cas_covid1" onclick="casChoice(1)">
               <span class="checkmark"></span>
             </label>
             <label class="container">Cas contact
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" id="cas_covid2" onclick="casChoice(2)">
               <span class="checkmark"></span>
             </label>
             <label class="container">D&eacute;pist&eacute; positif
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" id="cas_covid3" onclick="casChoice(3)">
               <span class="checkmark"></span>
             </label>
             <label class="container">D&eacute;pist&eacute; n&eacute;gatif
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" id="cas_covid4" onclick="casChoice(4)">
               <span class="checkmark"></span>
             </label>
-			
+			<?php echo $this->formRow($this->form->get('TYPE_PATIENT'));?>
 		</div>
 		
 		

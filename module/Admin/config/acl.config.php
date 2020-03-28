@@ -124,6 +124,8 @@ return array(
 								        'auto-signalement' => 'medecin',
 								        'liste-auto-signalement-ajax' => 'medecin',
 								        'liste-vue-details-infos-patient-auto-signalement' => 'medecin',
+								        'signifier-infos-patient-vue' => 'medecin',
+								        'nbre-infos-patient-non-vue' => 'medecin',
 								),
 						),
 				),

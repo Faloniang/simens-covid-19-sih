@@ -441,3 +441,30 @@ div .dataTables_paginate
 {
 	min-width: 100%;
 }
+
+.designStyleLabel label
+{
+	line-height: 1.7em;
+
+	background-color: #f3f3f3;
+
+	background-size: auto auto;
+
+	box-shadow: 2px 2px 3px rgba(204, 204, 204, 0.9);
+
+	color: black;
+
+	font-size: 18px;
+
+	padding-top: 4px;
+
+	padding-right: 10px;
+
+	padding-bottom: 4px;
+
+	padding-left: 10px;
+	
+	margin-bottom: 0px;
+
+	font-family: time new romans;
+}
