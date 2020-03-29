@@ -1016,7 +1016,7 @@ class ConsultationController extends AbstractActionController {
 	            
 	            $visualiser = '<img onclick="voirPlusDetails('.$data[$i]->idpatient.');" style="cursor: pointer; margin-right: 17%;" src="../images_icons/voir2.png" title="Voir plus.."> <img id="iconeChargement_'.$data[$i]->idpatient.'" class="iconeChargement_1234" style="width:40px; height: 20px; display: none;" src="../images_icons/chargement-infos-covid19.gif">';
 	            if($data[$i]->vue == 0){
-	               $visualiser .= '<span id="nonEncoreVueInfosPatient_'.$data[$i]->idpatient.'" style="color: red; position: absolute; font-size: 14px;">&#9733;</span>';
+	               $visualiser .= '<span id="nonEncoreVueInfosPatient_'.$data[$i]->idpatient.'" style="color: red; position: absolute; font-size: 14px;" title="Non vue">&#9733;</span>';
 	            }
 	            
 	            /*Liste des patients*/

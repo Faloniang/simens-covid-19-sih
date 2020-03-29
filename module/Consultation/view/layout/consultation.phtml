@@ -99,6 +99,7 @@ if($sexe == 'Masculin'){$civilite = 'M';}
             &#128276; <span style="color: white;" id="nbreInfosPatientVue"></span> 
           </a>
       </div>
+      <audio id='audioAlerteAutoSignalement' src="<?php echo $this->basePath().'/images_icons/alerteAutoSignalement.mp3';?>" style='display: none;'></audio>
       
       
       <div style='width: 30%; padding-top: 10px; float:left;'>
@@ -241,29 +242,39 @@ function verifAutomatique() {
             	//alert(result);
             	//alert(temoinNbVue);
             	if(temoinNbVue != result){
-            		temoinNbVue = result;
+
+            		if(temoinNbVue < result){
+            			var player = document.querySelector('#audioAlerteAutoSignalement');
+                		setTimeout(function(){ player.play(); },500);
+            		}
                 	
                 	if(result != 0){
                     	$("#nbreInfosPatientVue").html(result);
                     	$(".clocheAlert").css({'border': '3px solid red', 'background':'white'});
+                    	                    	
                 	}else{
                     	$("#nbreInfosPatientVue").html('');
                     	$(".clocheAlert").css({'border': '0px solid black', 'background':'gray'});
                 	}
 
                 	//$(location).attr("href",tabUrl[0]+"public/consultation/auto-signalement");
+
+                	temoinNbVue = result;
             	}
             }
     	});
 	
 		verifAutomatique();
 
-	}, 3000);
+	}, 50000);
 
 }
-	
 
-
-
+/*
+setTimeout(function(){
+	var player = document.querySelector('#audioAlerteAutoSignalement');
+	setTimeout(function(){ player.play(); },500);
+},500);
+*/
 //$("#definitionSimens").liScroll();
 </script>
