@@ -1162,3 +1162,9 @@ function getListeDepartements(id){
 }
 
 
+
+function casChoice(id){
+	$('#TYPE_PATIENT').val(id);
+}
+
+

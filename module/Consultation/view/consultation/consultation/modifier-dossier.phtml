@@ -36,7 +36,7 @@ $(window).load(function () {
 <?php
 $form = $this->form;
 $form->setName('formModifierDonneesPatient');
-$form->setAttribute ( 'action', $this->url ( 'consultation', array ('action' => 'modifier-dossier') ) );
+//$form->setAttribute ( 'action', $this->url ( 'consultation', array ('action' => 'modifier-dossier') ) );
 $form->setAttribute ('enctype','multipart/form-data');
 $this->form->prepare ();
 echo $this->form ()->openTag ( $form );
@@ -60,25 +60,26 @@ echo $this->form ()->openTag ( $form );
 			<!-- FICHIER TAMPON POUR RECUPERER L'IMAGE DANS LE CONTROLLER -->
 		</div>
 		
-		<div style="width: 150px; margin-top: 120px;">
+		<div style="width: 150px; margin-top: 120px; font-family: times new romans;">
 		   
      		<h4 style="font-family: times new romans;">Type de patient</h4>
             <label class="container" style="">Cas suspect
-              <input type="radio" checked="checked" name="radio">
+              <input type="radio" checked="checked" name="radio" id="cas_covid1" onclick="casChoice(1)">
               <span class="checkmark"></span>
             </label>
             <label class="container">Cas contact
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" id="cas_covid2" onclick="casChoice(2)">
               <span class="checkmark"></span>
             </label>
             <label class="container">D&eacute;pist&eacute; positif
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" id="cas_covid3" onclick="casChoice(3)">
               <span class="checkmark"></span>
             </label>
             <label class="container">D&eacute;pist&eacute; n&eacute;gatif
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" id="cas_covid4" onclick="casChoice(4)">
               <span class="checkmark"></span>
             </label>
+			<?php echo $this->formRow($this->form->get('TYPE_PATIENT'));?>
 			
 		</div>
      </div>
@@ -136,8 +137,6 @@ echo $this->form ()->openTag ( $form );
     </div>
 		
       
-    </div>
-    
 	<button id="envoyerDonneesForm" style="display:none;"  name="terminer"></button>
 	<table style="margin-top: 420px; width: 100%;  height: 12px;">
 	  <tr style="">
@@ -151,7 +150,7 @@ echo $this->form ()->openTag ( $form );
 	  </td>
 	  
 	  <td style="width: 10%;" id="thoughtbot">
-		<button type="submit" id="terminer"
+		<button type="submit" id="terminer" disabled
 			style=" font-family: police2; font-size: 17px; font-weight: bold;">
 			Terminer
 		</button>
@@ -225,183 +224,6 @@ echo $this->form ()->openTag ( $form );
 
 
 
-<!-- GESTION DE L'INTERFACE D'AJOUT DES TYPES D'ELEMENTS ET ELEMENTS -->
-<!-- GESTION DE L'INTERFACE D'AJOUT DES TYPES D'ELEMENTS ET ELEMENTS -->
-<!-- GESTION DE L'INTERFACE D'AJOUT DES TYPES D'ELEMENTS ET ELEMENTS -->
-
-<div id="ajouterElements" style="display: none;" >
-
-    <table class="ligneElementsExistantes">
-        <tr>
-            <td>
-               <label id="labListeTypeElement"> Types de elements </label>
-               <div class="listeTypeElementsExistantes"> 
-                   <table> <!-- Contient la liste des types de elements --> </table>
-               </div>
-            </td>
-            <td>
-              <label id="labListeElement">  Elements </label>
-              <div class="listeElementsExistantes">
-                  <table> <!-- Contient la liste des elements --> </table>
-              </div>
-            </td>
-        </tr>
-    </table>
-    
-    <table class="ligneBoutonsAjout">
-        <tr>
-            <td>
-                <div class="boutonATP"> <button onclick="ajoutTypeElement();"> Ajouter un type de element </button> </div>
-            </td>
-            <td>
-                <div class="boutonAP"> <button onclick="ajoutElement();"> Ajouter un element </button> </div>
-            </td>
-        </tr>
-    </table>
-    
-    <div id="contenuInterfaceAjoutTypeElements">
-    
-    <table class="ligneInfosAjoutElements">
-        <tr> 
-           <td class="LIATP" align="left"><span> <img src='../../../images_icons/chevrons2.png'> Ajout de types d'&eacute;l&eacute;ments </span></td>
-           <td class="LIAP"  align="left"><span> <img src='../../../images_icons/chevrons2.png'> </span> <span> Ajout d'&eacute;l&eacute;ments </span></td>
-        </tr>
-    </table>
-    
-    <table class="interfaceAjoutElements">
-        <tr>
-            <td>
-               <div class="contenuIAPath">
-                  <table>
-                     <tr class="champsAjoutTP_0"> </tr>
-                     
-                     <tr>
-                        <td>
-                           <img class='iconeAnnulerAP' onclick='enleverUneLigneElement();' src='../../../images_icons/icone_minus.png' >
-                           <img class='iconeAjouterAP' onclick='ajouterUneNouvelleLigneElement();' src='../../../images_icons/icone_plus.png' >
-                        </td>
-                     </tr>
-                  </table>
-               </div>
-            </td>
-        </tr>
-    </table>
-    
-    <table class="ligneBoutonsAnnulerValiderAjout">
-        <tr>
-            <td>
-                <div class="boutonAVAA"> <button onclick="annulerAjoutElement();"> Annuler </button> </div>
-            </td>
-            <td>
-                <div class="boutonAVAV"> <button onclick="validerAjoutElement();"> Valider </button> </div>
-            </td>
-        </tr>
-    </table>
-    
-    </div>
-    
-</div>
-
-
-
-
-<div id="modifierTypeElement" style="display: none;" >
-   <div class="affichageMessageInfos" align="center"> <div> MODIFIER LE TERME SUIVANT </div>  </div>
-   <table id="infosConfirmationModification"> </table>
-   <div class="affichageMessageInfos" align="center"> <div> PAR </div>  </div>
-   <div id="affichageMessageInfosRemplaceModification" align="center"> <input type='text'>  </div>
-</div>
-
-
-
-
-
-<!-- GESTION DE L'INTERFACE D'AJOUT DES ELEMENTS UN VOLET -->
-<!-- GESTION DE L'INTERFACE D'AJOUT DES ELEMENTS UN VOLET -->
-<!-- GESTION DE L'INTERFACE D'AJOUT DES ELEMENTS UN VOLET -->
-
-<div id="ajouterElementsUV" title="Gestion des informations" style="display: none;" >
-
-    <table class="ligneElementsExistantesUV">
-        <tr>
-            <td>
-              <label id="labListeElementUV">  Elements </label>
-              <div class="listeElementsExistantesUV">
-                  <table> <!-- Contient la liste des elements --> </table>
-              </div>
-            </td>
-        </tr>
-    </table>
-    
-    <table class="ligneBoutonsAjoutUV">
-        <tr>
-            <td>
-                <div class="boutonAPUV"> <button onclick="ajoutElementUV();">   </button> </div>
-            </td>
-        </tr>
-    </table>
-    
-    <div id="contenuInterfaceAjoutTypeElementsUV">
-    
-        <table class="ligneInfosAjoutElementsUV">
-            <tr> 
-                <td class="LIAPUV"  align="left"> <img src='../../../images_icons/chevrons2.png'> <span> Ajout d'&eacute;l&eacute;ments </span></td>
-            </tr>
-        </table>
-    
-        <table class="interfaceAjoutElementsUV">
-            <tr>
-                <td>
-                   <div class="contenuIAPath">
-                      <table>
-                         <tr class="champsAjoutTPUV_0"> </tr>
-                         
-                         <tr>
-                            <td>
-                               <img class='iconeAnnulerAPUV' onclick='enleverUneLigneElementUV();' src='../../../images_icons/icone_minus.png' >
-                               <img class='iconeAjouterAPUV' onclick='ajouterUneNouvelleLigneElementUV();' src='../../../images_icons/icone_plus.png' >
-                            </td>
-                         </tr>
-                      </table>
-                   </div>
-                </td>
-            </tr>
-        </table>
-        
-        <table class="ligneBoutonsAnnulerValiderAjout">
-            <tr>
-                <td>
-                    <div class="boutonAVAA"> <button onclick="annulerAjoutElementUV();"> Annuler </button> </div>
-                </td>
-                <td>
-                    <div class="boutonAVAV"> <button onclick="validerAjoutElementUV();"> Valider </button> </div>
-                </td>
-            </tr>
-        </table>
-    
-    </div>
-    
-</div>
-
-
-<div id="modifierTypeElementUV" style="display: none;" >
-   <div class="affichageMessageInfosUV" align="center"> <div> MODIFIER LE TERME SUIVANT </div>  </div>
-   <table id="infosConfirmationModificationUV"> </table>
-   <div class="affichageMessageInfosUV" align="center"> <div> PAR </div>  </div>
-   <div id="affichageMessageInfosRemplaceModificationUV" align="center"> <input type='text'>  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script> 
 
@@ -418,27 +240,6 @@ echo $this->form ()->openTag ( $form );
 	     $(location).attr("href",vart);
 	     return false;
 	});
-    
-	//Envoyer le formulaire --- Envoyer le formulaire
-	//Envoyer le formulaire --- Envoyer le formulaire
-    /*
-    $('#terminer').click(function(){
-
-         if($('#SEXE').val() != "" && $('#NOM').val() != "" && $('#PRENOM').val() != "" && $('#AGE').val() != "" ){
-
-            if($('#AGE').val() <= 150 && $('#AGE').val() >= 0){
-            	$(this).attr('disabled', true); 
-                $('#envoyerDonneesForm').trigger('click');
-            }else {
-                return true;
-            }   
-             
-         }else{
-        	return true;
-         }
-         
-    });
-    */
 
 
     $('#terminer').click(function(){
@@ -458,12 +259,6 @@ echo $this->form ()->openTag ( $form );
     //===============================================
     //-----------------------------------------------
     //_______________________________________________
-
-
-
-
-
-
 
 
 
@@ -501,5 +296,11 @@ echo $this->form ()->openTag ( $form );
     $("#REGION").trigger('change');
     $("#DEPARTEMENT").val('');
     setTimeout(function(){ $("#DEPARTEMENT").val($("#DEPARTEMENT_MEMO").val()); },1000);
+
+
+    var id = $('#TYPE_PATIENT').val();
+    $('#cas_covid'+id).trigger('click');
+
 </script>
+
 
