@@ -678,17 +678,26 @@ $(window).load(function () {
      <div style='max-height: 150px;'>
      
      	<table style="width: 100%;" >
-           <tr style="width: 100%" class="designStyleLabel">
+           <tr style="width: 100%; vertical-align: top;" class="designStyleLabel">
                      
-               <td style="padding-right: 25px; width: 30%">
-         	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
+               <td style="padding-right: 25px; width: 49%">
+         	     <label style="width: 60%; height:30px; text-align:left; margin-bottom: 2px; ">
          	       <span style='font-size: 11px;'>&#10148; </span>
          	       <span>D&eacute;pistage du COVID-19 : </span>
-         	       <select style='float: right;'><option></option><option value=1>Oui</option><option value=2>Non</option></select>
+         	       <select style='float: right;' onchange="getResultatTestCovid19(this.value);"><option></option><option value=1>Oui</option><option value=2>Non</option></select>
          	     </label>
          	   </td>
-         	   
-         	   <td style="padding-right: 25px; width: 70%">
+			
+			   <td style="width: 2%;"><div style="border-left: 3px solid #c1c1c1; height: 100px;"> </div></td>
+				
+			   <td style="padding-right: 25px; width: 49%;">
+
+				 <label style="width: 60%; height:30px; text-align:left; margin-bottom: 2px; display:none;" id="selectResultatTestCovid19"> 
+         	       <span style='font-size: 11px;'>&#10148; </span>
+         	       <span>R&eacute;sultat du test : </span>
+         	       <select style='float: right;' onchange="getTraitementWithResultatTestNegatif(this.value);"><option></option><option value=1>Positif</option><option value=2>N&eacute;gatif</option></select>
+         	     </label>
+
          	   </td>
          	   
            </tr>
@@ -913,6 +922,10 @@ $(window).load(function () {
     $('#depliantSuiviPatient').toggle(true);
   </script>
 <?php } ?>
+
+
+<script> var idtypepatient = '<?php echo $idtypePatient; ?>';  </script>
+
 
 
 <?php if($idtypePatient == 1){ ?>

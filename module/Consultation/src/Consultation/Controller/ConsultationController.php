@@ -943,7 +943,7 @@ class ConsultationController extends AbstractActionController {
 	    
 	    
 	    $data = array (
-	        'idpatient' => $idpatient
+	        'idpatient' => $idpatient,
 	    );
 	
 	    //var_dump($personne); exit();
