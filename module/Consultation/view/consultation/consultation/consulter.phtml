@@ -37,10 +37,11 @@ $('#menu_consultations_style').css({'font-weight':'bold','color':'white','font-s
 
     $typepatient = '';
     if($this->patient->type_patient == 1){ $typepatient = '<span style="color: orange;">Cas suspect</span>'; }else
-    if($this->patient->type_patient == 2){ $typepatient = '<span style="color: orange;">Cas contact</span>'; }else
+    if($this->patient->type_patient == 2){ $typepatient = '<span style="color: #945b05;">Cas contact</span>'; }else
     if($this->patient->type_patient == 3){ $typepatient = '<span style="color: red;">D&eacute;psit&eacute; positif</span>'; }else
     if($this->patient->type_patient == 4){ $typepatient = '<span style="color: green;">D&eacute;pist&eacute; n&eacute;gatif</span>'; }
 
+    $idtypePatient = $this->patient->type_patient;
 ?>
 
 
@@ -87,14 +88,14 @@ $(window).load(function () {
          
          <tr style="width: 100%;">
          
-           <!-- Première colonne photo -->         
+           <!-- Premiï¿½re colonne photo -->         
            <td style="height: 100px; width: 16%; vertical-align: top;">
              <img id="faces" src='<?php echo $this->basePath().'/images/photos_patients/identite.jpg';?>'  style='float:left; margin-right:40px; width:105px; height:105px;'/>
              <div style=' left: 40px; top: 160px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> <?php echo $this->lesdetails['AGE'].' ans'; ?>  </span></div>
            </td> 
            
            
-           <!-- Deuxième colonne infos état-civil -->
+           <!-- Deuxiï¿½me colonne infos ï¿½tat-civil -->
            <td style="width: 72%;">
            
               <table id="etat_civil" style="width: 100%;">
@@ -195,7 +196,7 @@ $(window).load(function () {
            
            
            
-           <!-- Troisième colonne photo -->
+           <!-- Troisiï¿½me colonne photo -->
            <td style="width: 12%; vertical-align: top;">
            
              <p style='color: white; opacity: 0.09;'>
@@ -208,14 +209,14 @@ $(window).load(function () {
          </tr>
          
          
-         <!-- Deuxième ligne pour le bas de page -->
+         <!-- Deuxiï¿½me ligne pour le bas de page -->
          <tr style="width: 100%;">
            <td style="height: 10px; width: 16%;"></td> 
            <td colspan="2"> <div id="barre"></div> </td> 
            
          </tr>
          
-         <!-- Troisième ligne pour le bas de page -->
+         <!-- Troisiï¿½me ligne pour le bas de page -->
          <tr style="height: 100px; width: 100%;">
            <td style="height: 10px; width: 16%;"></td> 
            
@@ -254,8 +255,8 @@ $(window).load(function () {
      <!--*2*-->
      <!--*2*-->
      <!--*2*-->
-  	 <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Sympt&ocirc;mes </div>
-     <div id="plaintesConsSuivi" class="zoneContenuObmre">
+  	 <div style='font-family: police2;font-size: 17px; font-weight: bold;' id="interfaceDepSymptomes" > Sympt&ocirc;mes </div>
+     <div class="zoneContenuObmre">
        
          <div style="width: 100%; padding: 3px; margin-top: 6px; padding-bottom: 1px; ">
            <table class="plainteEntre plainteEntree_0"></table>
@@ -285,8 +286,8 @@ $(window).load(function () {
      <!--*2*-->
      <!--*2*-->
      <!--*2*-->
-  	 <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Constantes </div>
-     <div id="" class="" style="max-height: 150px;">
+  	 <div style='font-family: police2;font-size: 17px; font-weight: bold;' id="interfaceDepConstantes" > Constantes </div>
+     <div style="max-height: 150px;">
      
      	<table style="width: 100%;" >
            <tr style="width: 100%" class="designStyleLabel">
@@ -308,19 +309,19 @@ $(window).load(function () {
          	     </label>
          	   </td>
          	   
-         	   <td style="padding-right: 25px; width: 18%">
+         	   <td style="padding-right: 25px; width: 21%">
          	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px;">
          	       <span style='font-size: 11px;'>&#10148; </span>
          	       <span>Poids (kg): </span>
-         	       <input type="number" style="width: 40%; height: 30px; text-align: right; float: right">
+         	       <input type="number" style="width: 35%; height: 30px; text-align: right; float: right">
          	     </label>
          	   </td>
          	   
-         	   <td style="padding-right: 25px; width: 23%">
+         	   <td style="padding-right: 25px; width: 20%">
          	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
          	       <span style='font-size: 11px;'>&#10148; </span>
          	       <span>Taille (cm): </span>
-         	       <input type="number" style="width: 40%; height: 30px; text-align: right; float: right">
+         	       <input type="number" style="width: 35%; height: 30px; text-align: right; float: right">
          	     </label>
          	   </td>
          	   
@@ -335,7 +336,7 @@ $(window).load(function () {
                <td style="padding-right: 25px; width: 24%">
          	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
          	       <span style='font-size: 11px;'>&#10148; </span>
-         	       <span>Poule : </span>
+         	       <span>Pouls (bat/mn) : </span>
          	       <input type="number" style="width: 30%; height: 30px; text-align: right; float: right">
          	     </label>
          	   </td>
@@ -343,8 +344,8 @@ $(window).load(function () {
          	   <td style="padding-right: 25px; width: 35%">
          	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
          	       <span style='font-size: 11px;'>&#10148; </span>
-         	       <span >Fr&eacute;quence respiratoire : </span>
-         	       <input type="number" style="width: 25%; height: 30px; text-align: right; float: right">
+         	       <span >Fr&eacute;quence respiratoire (mv/mn) : </span>
+         	       <input type="number" style="width: 20%; height: 30px; text-align: right; float: right">
          	     </label>
          	   </td>
          	    
@@ -361,16 +362,16 @@ $(window).load(function () {
      
      
      
-     <!-- ********************Antécédents ou Terrain particulier ******************-->
-     <!-- ********************Antécédents ou Terrain particulier ******************-->
-     <!-- ********************Antécédents ou Terrain particulier ******************--> 
+     <!-- ********************Antï¿½cï¿½dents ou Terrain particulier ******************-->
+     <!-- ********************Antï¿½cï¿½dents ou Terrain particulier ******************-->
+     <!-- ********************Antï¿½cï¿½dents ou Terrain particulier ******************--> 
      
      <!--*3*-->
      <!--*3*-->
      <!--*3*-->
      <!--*3*-->
      
-     <div style='font-family: police2;font-size: 17px; font-weight: bold;'>Ant&eacute;c&eacute;dents et Historiques</div>  
+     <div style='font-family: police2;font-size: 17px; font-weight: bold;' id="interfaceDepAntecedentsHistoriques" >Ant&eacute;c&eacute;dents et Historiques</div>  
      <div style='max-height: 500px;'>
   
          <div id="tabsAntecedents">
@@ -619,36 +620,116 @@ $(window).load(function () {
      
      
      
-     
-     
-     
              </div>
             
          </div>
      
      </div>
      
-     
-     <!-- ********************Examen complementaire (examen et analyse)******************-->
-     <!-- ********************Examen complementaire (examen et analyse)******************-->
-     <!-- ********************Examen complementaire (examen et analyse)******************-->
+	 
+
+	 <!-- ******************** Etat de santÃ© du patient ******************-->
+     <!-- ******************** Etat de santÃ© du patient ******************-->
+     <!-- ******************** Etat de santÃ© du patient ******************-->
     
      <!--*4*-->
-     <div style='font-family: police2;font-size: 17px; font-weight: bold; display: none;' class='examenComplementaireDelpiantAlert' >Examens compl&eacute;mentaires</div>
-     <div style='max-height: 300px;'>
-            
+     <div style='font-family: police2; font-size: 17px; font-weight: bold;' id="interfaceEtatSante" >Etat de sant&eacute;</div>
+     <div style='max-height: 200px;'>
+     
+     	<table style="width: 100%; float: left;" >
+     	  <tr style="width: 100%; vertical-align: top;" class="designStyleLabel">
+					 
+		   
+			<td style="padding-right: 25px; width: 25%; background: gree;">
+				<label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
+					<span style='font-size: 11px;'>&#10148; </span>
+					<span>Etat actuel : </span>
+					<select style='float: right;' onchange='getNoteObservation(this.value)'>
+						<option></option>
+						<option value=1>RAS</option>
+						<option value=2>Suspect</option>
+					</select>
+				</label>
+			</td>
+
+     	    <td style="padding-right: 18px; width: 50%; background: re;">
+				<label style="width: 100%; height:150px; text-align:left; display: none;" id="labelNoteObservation">
+					<span style='font-size: 11px;'>&#10148; </span>
+					<span>Note d'observation</span> 
+					<textarea style='width: 100%; max-height: 100px; min-height: 100px; max-width: 500px; min-width: 500px; padding-left: 5px;'></textarea> 
+				</label>
+			</td>
+			 
+			<td style="padding-right: 18px; width: 25%"> </td>
+
+     	   
+     	  </tr>
+     	</table>
+     
+     </div>
+
+
+     <!-- ********************Demande de depistage du covid ******************-->
+     <!-- ********************Demande de depistage du covid ******************-->
+     <!-- ********************Demande de depistage du covid ******************-->
+    
+     <!--*4*-->
+     <div style='font-family: police2;font-size: 17px; font-weight: bold;' id="interfaceDemDepistageCovid">Demande de d&eacute;pistage du COVID-19 </div>
+     <div style='max-height: 150px;'>
+     
+     	<table style="width: 100%;" >
+           <tr style="width: 100%" class="designStyleLabel">
+                     
+               <td style="padding-right: 25px; width: 30%">
+         	     <label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
+         	       <span style='font-size: 11px;'>&#10148; </span>
+         	       <span>D&eacute;pistage du COVID-19 : </span>
+         	       <select style='float: right;'><option></option><option value=1>Oui</option><option value=2>Non</option></select>
+         	     </label>
+         	   </td>
+         	   
+         	   <td style="padding-right: 25px; width: 70%">
+         	   </td>
+         	   
+           </tr>
+        </table>
+         	   
      </div>
      
+	 
+	 <!-- ********************Examen complementaire ******************-->
+     <!-- ********************Examen complementaire ******************-->
+     <!-- ********************Examen complementaire ******************-->
+    
+     <!--*4*-->
+     <div style='font-family: police2;font-size: 17px; font-weight: bold;' id="interfaceDemExamenComplementaire">Examens compl&eacute;mentaires</div>
+     <div style='max-height: 150px;'>
      
-     
-     
+     	<table style="width: 100%;" >
+           <tr style="width: 100%" class="designStyleLabel">
+                     
+               	<td style="padding-right: 25px; width: 50%">
+					<label style="width: 100%; height:30px; text-align:left; margin-bottom: 2px; ">
+						<span style='font-size: 11px;'>&#10148; </span>
+						<span>Demande d'examen : </span>
+						<select style='float: right;'><option></option><option value=1>Radio de thorax</option><option value=2>Echographie</option></select>
+					</label>
+			   	</td>
+				
+				<td style="padding-right: 25px; width: 50%">
+					
+			   	</td>
+
+			</tr>
+		</table>
+	 </div>
      
      <!-- ******************** Diagnostic ******************-->
      <!-- ******************** Diagnostic ******************-->
      <!-- ******************** Diagnostic ******************-->
     
      <!--*4*-->
-     <div style='font-family: police2; font-size: 17px; font-weight: bold;' >Diagnostic</div>
+     <div style='font-family: police2; font-size: 17px; font-weight: bold;' id="interfaceDepDiagnostic" >Diagnostic</div>
      <div style='max-height: 200px;'>
      <p style='color: white; opacity: 0.5;'>
         <img id="" src='<?php echo $this->basePath().'/images_icons/diag.png'?>'  alt="consult-motif" style='float:right; margin-right:10px; width:25%; height:190px;'/>
@@ -660,8 +741,8 @@ $(window).load(function () {
      	   <td style="padding-right: 18px; width: 23%">
      	     <label style="width: 100%; height:150px; text-align:left;">
                <span style='font-size: 11px;'>&#10148; </span>
-               <span>Diagnostic </span> 
-               <textarea style='width: 100%; max-height: 100px; min-height: 100px; max-width: 650px; min-width: 650px;'></textarea> 
+               <span>Diagnostic pr&eacute;liminaire </span> 
+               <textarea style='width: 100%; max-height: 100px; min-height: 100px; max-width: 650px; min-width: 650px; padding-left: 5px;'></textarea> 
              </label>
      	   </td>
      	   
@@ -676,7 +757,7 @@ $(window).load(function () {
      <!-- ******************** Traitement ******************-->
     
      <!--*4*-->
-     <div style='font-family: police2; font-size: 17px; font-weight: bold;' >Traitement</div>
+     <div style='font-family: police2; font-size: 17px; font-weight: bold;' id="interfaceDepTraitement" >Traitement</div>
      <div style='max-height: 400px;'>
             
             
@@ -789,9 +870,7 @@ $(window).load(function () {
         
         
         
-     <!-- ******************** FIN SUIVI -- FIN SUIVI ******************-->
-     <!-- ******************** FIN SUIVI -- FIN SUIVI ******************-->
-     <!-- ******************** FIN SUIVI -- FIN SUIVI ******************-->
+    
      
      
      
@@ -834,3 +913,18 @@ $(window).load(function () {
     $('#depliantSuiviPatient').toggle(true);
   </script>
 <?php } ?>
+
+
+<?php if($idtypePatient == 1){ ?>
+  <script>
+    $('#interfaceEtatSante').toggle(false);
+  </script>
+<?php }elseif($idtypePatient == 2){ ?>
+  <script>
+    $('#interfaceDepSymptomes, #interfaceDepConstantes, #interfaceDemExamenComplementaire, #interfaceDemDepistageCovid, #interfaceDepDiagnostic, #interfaceDepTraitement').toggle(false);
+  </script>
+<?php }elseif($idtypePatient == 3){ ?>
+  <script>
+	$('#interfaceDemDepistageCovid, #interfaceEtatSante').toggle(false);
+  </script>
+<?php }?>

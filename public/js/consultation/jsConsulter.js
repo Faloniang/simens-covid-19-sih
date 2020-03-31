@@ -130,6 +130,16 @@ function libelleAntChirurgicaux(id){
 	}
 }
 
+
+function getNoteObservation(id){
+	if(id == 2){
+		$('#labelNoteObservation').toggle(true);
+	}else{
+		$('#labelNoteObservation').toggle(false);
+	}
+}
+
+
 /**
  * -------------------------------------------------------------------------
  * *************************************************************************
