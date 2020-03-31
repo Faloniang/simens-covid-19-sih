@@ -142,7 +142,7 @@ class ConsultationController extends AbstractActionController {
 	    
 	    $typepatient = '';
 	    if($patient->type_patient == 1){ $typepatient = '<span style="color: orange;">Cas suspect</span>'; }else
-	    if($patient->type_patient == 2){ $typepatient = '<span style="color: orange;">Cas contact</span>'; }else
+	    if($patient->type_patient == 2){ $typepatient = '<span style="color: #945b05;">Cas contact</span>'; }else
 	    if($patient->type_patient == 3){ $typepatient = '<span style="color: red;">D&eacute;psit&eacute; positif</span>'; }else
 	    if($patient->type_patient == 4){ $typepatient = '<span style="color: green;">D&eacute;pist&eacute; n&eacute;gatif</span>'; }
 
@@ -406,14 +406,14 @@ class ConsultationController extends AbstractActionController {
 		
 		$request = $this->getRequest();
 		
+		
 		if ($request->isPost()) {
 		
 		    $donnees = $this->getRequest()->getPost()->toArray();
 		    
-		    
-		    //echo "<pre>";
-		    //var_dump($donnees); exit();
-		    //echo "</pre>";
+// 		    echo "<pre>";
+// 		    var_dump($donnees); exit();
+// 		    echo "</pre>";
 		    
 		    
 		    $personne = array();
@@ -427,16 +427,21 @@ class ConsultationController extends AbstractActionController {
 		        $personne['PHOTO'] = $photo;
 		    }
 		    
-		    //Enregistrement données personne
+		    //Enregistrement donnï¿½es personne
 		    $idpersonne = $this->getPersonneTable() ->savePersonne($donnees, $personne);
 
-		    //Enregistrement données patient
+		    //Enregistrement donnï¿½es patient
 		    if($donnees['SEXE'] == 'Masculin'){ $sexe = 1; }else{ $sexe = 2; }
 		    $idemploye = $this->layout()->user['id_employe'];
 		    $this->getPatientTable()->savePatient($donnees, $idpersonne, $idemploye, $sexe);
 		    
 		    
-		    return $this->redirect()->toRoute('consultation' , array('action'=>'liste-dossiers-patients') );
+		    if(array_key_exists('creerDossier', $donnees)){
+		        return $this->redirect()->toRoute('consultation' , array('action'=>'liste-dossiers-patients') );
+		    }elseif (array_key_exists('creerDossierAdmettre', $donnees)){
+		        return $this->redirect()->toUrl( $this->baseUrl().'public/consultation/admettre-patient/idpatient/'.$idpersonne);
+		    }
+		    
 		}
 		
 		
@@ -583,7 +588,7 @@ class ConsultationController extends AbstractActionController {
 	    //Fin gestion des ages
 	    $typepatient = '';
 	    if($patient->type_patient == 1){ $typepatient = '<span style="color: orange;">Cas suspect</span>'; }else
-	    if($patient->type_patient == 2){ $typepatient = '<span style="color: orange;">Cas contact</span>'; }else
+	    if($patient->type_patient == 2){ $typepatient = '<span style="color: #945b05;">Cas contact</span>'; }else
 	    if($patient->type_patient == 3){ $typepatient = '<span style="color: red;">D&eacute;psit&eacute; positif</span>'; }else
 	    if($patient->type_patient == 4){ $typepatient = '<span style="color: green;">D&eacute;pist&eacute; n&eacute;gatif</span>'; }
 	    
@@ -750,11 +755,11 @@ class ConsultationController extends AbstractActionController {
 	            $personne['PHOTO'] = $photo;
 	        }
 	
-	        //Modifier données personne
+	        //Modifier donnï¿½es personne
 	        $this->getPersonneTable() ->updatePersonne($idpersonne, $donnees, $personne);
 	
 	
-	        //Modifier données patient
+	        //Modifier donnï¿½es patient
 	        $patient = $this->getPatientTable()->getPatient($idpersonne);
 	        
 
@@ -847,6 +852,7 @@ class ConsultationController extends AbstractActionController {
 		$idpatient = (int) $this->params()->fromRoute('val', 0);
 		$idemploye = $this->layout()->user['id_employe'];
 		
+		
 		$this->getPatientTable()->admettrePatient($idpatient, $idemploye);
 	
 		return $this->redirect()->toRoute('consultation' , array('action'=>'liste-consultations') );
@@ -937,7 +943,7 @@ class ConsultationController extends AbstractActionController {
 	    
 	    
 	    $data = array (
-	        'idpatient' => $idpatient
+	        'idpatient' => $idpatient,
 	    );
 	
 	    //var_dump($personne); exit();
@@ -1003,7 +1009,7 @@ class ConsultationController extends AbstractActionController {
 	        // the POST was successful
 	        $donnees = json_decode($response->getBody());
 	         
-	        // Données récupérées
+	        // Donnï¿½es rï¿½cupï¿½rï¿½es
 	        $data = $donnees->data;
 	        $output["iTotalDisplayRecords"] = count($data);
 	        $tabDonnneesParPatient = "";
@@ -1056,7 +1062,7 @@ class ConsultationController extends AbstractActionController {
 	        // the POST was successful
 	        $donnees = json_decode($response->getBody());
 	
-	        // Données récupérées
+	        // Donnï¿½es rï¿½cupï¿½rï¿½es
 	        $data = $donnees->data;
 	        
 	        $tab = array();
@@ -1329,7 +1335,7 @@ class ConsultationController extends AbstractActionController {
 	        // the POST was successful
 	        $donnees = json_decode($response->getBody());
 	    
-	        // Données récupérées
+	        // Donnï¿½es rï¿½cupï¿½rï¿½es
 	        $data = $donnees->data;
 	         
 	        $this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
@@ -1356,7 +1362,7 @@ class ConsultationController extends AbstractActionController {
 	        // the POST was successful
 	        $donnees = json_decode($response->getBody());
 	         
-	        // Données récupérées
+	        // Donnï¿½es rï¿½cupï¿½rï¿½es
 	        $data = $donnees->data;
 	    
 	        $this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );

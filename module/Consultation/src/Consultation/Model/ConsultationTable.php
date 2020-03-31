@@ -29,7 +29,7 @@ class ConsultationTable {
 	
 	
 	/**
-	 * Récupérer la premiere consultation générale du patient différente des consultations de suivi
+	 * Rï¿½cupï¿½rer la premiere consultation gï¿½nï¿½rale du patient diffï¿½rente des consultations de suivi
 	 */
 	public function getConsultationPatientDifferentDeSuivi($idpatient){
 	    $sql = new Sql ($this->tableGateway->getAdapter());
@@ -40,7 +40,7 @@ class ConsultationTable {
 	}
 	
 	/**
-	 * Vérifier si le patient a déjà une consultation de suivi
+	 * Vï¿½rifier si le patient a dï¿½jï¿½ une consultation de suivi
 	 */
 	public function getConsultationDeSuivi($idpatient){
 	    $sql = new Sql ($this->tableGateway->getAdapter());
@@ -131,21 +131,22 @@ class ConsultationTable {
 		
 		$aColumns = array('numero_dossier', 'Nom','Prenom','Datenaissance','Sexe', 'Adresse', 'id', 'id2');
 		
-		//Liste des pateints admis aujourdhui et déjà consultés 
+		//Liste des pateints admis aujourdhui et dï¿½jï¿½ consultï¿½s 
 		$sql2 = new Sql ($db );
 		$subselect2 = $sql2->select()->from(array('cons'=>'consultation'))->columns(array('idpatient'))->where(array('date' => $date));
 		
-		//Liste des pateints admis aujourdhui et déjà suivi
+		//Liste des pateints admis aujourdhui et dï¿½jï¿½ suivi
 		$sql3 = new Sql ($db );
 		$subselect3 = $sql3->select()->from(array('supa'=>'suivi_patient'))->columns(array('idpatient'))->where(array('date' => $date));
 		
-		//Liste des patients admis aujourdhui et non encore consultés 
+		//Liste des patients admis aujourdhui et non encore consultï¿½s 
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat'   => 'patient'))->columns(array('*'))
 		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE', 'Age'=> 'AGE', 'Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->join(array('admis' => 'admission'), 'admis.idpatient = pers.ID_PERSONNE' , array('dateadmission','idadmission'))
-		->where(array('dateadmission' => $date, new NotIn ( 'pat.idpersonne', $subselect2 ),  new NotIn ( 'pat.idpersonne', $subselect3 )))
+		//->where(array('dateadmission' => $date, new NotIn ( 'pat.idpersonne', $subselect2 ),  new NotIn ( 'pat.idpersonne', $subselect3 )))
+		->group('pat.idpersonne')
 		->order('admis.idadmission ASC');
 		
 		/* Data set length after filtering */
@@ -224,7 +225,7 @@ class ConsultationTable {
 		
 		/*
 		 * SQL queries
-		* Liste des patients admis déjà consultés aujourd'hui (POUR LA CONSULTATION GLOBALE)
+		* Liste des patients admis dï¿½jï¿½ consultï¿½s aujourd'hui (POUR LA CONSULTATION GLOBALE)
 		*/
 		$sql2 = new Sql($db);
 		$sQuery2 = $sql2->select()
@@ -303,7 +304,7 @@ class ConsultationTable {
 
 		/*
 		 * SQL queries
-		 * Liste des patients admis déjà consultés aujourd'hui (POUR LA CONSULTATION DE SUIVI)
+		 * Liste des patients admis dï¿½jï¿½ consultï¿½s aujourd'hui (POUR LA CONSULTATION DE SUIVI)
 		 */
 		$sql4 = new Sql($db);
 		$sQuery4 = $sql4->select()
@@ -406,15 +407,15 @@ class ConsultationTable {
 	
 	    $aColumns = array('numero_dossier', 'Nom','Prenom','Datenaissance','Sexe', 'Adresse', 'id', 'id2');
 	
-	    //Liste des pateints admis aujourdhui et déjà consultés
+	    //Liste des pateints admis aujourdhui et dï¿½jï¿½ consultï¿½s
 	    $sql2 = new Sql ($db );
 	    $subselect2 = $sql2->select()->from(array('cons'=>'consultation'))->columns(array('idpatient'))->where(array('date' => $date));
 	
-	    //Liste des pateints admis aujourdhui et déjà suivi
+	    //Liste des pateints admis aujourdhui et dï¿½jï¿½ suivi
 	    $sql3 = new Sql ($db );
 	    $subselect3 = $sql3->select()->from(array('supa'=>'suivi_patient'))->columns(array('idpatient'))->where(array('date' => $date));
 	
-	    //Liste des patients admis aujourdhui et non encore consultés
+	    //Liste des patients admis aujourdhui et non encore consultï¿½s
 	    $sql = new Sql($db);
 	    $sQuery = $sql->select()
 	    ->from(array('pat'   => 'patient'))->columns(array('*'))
@@ -509,7 +510,7 @@ class ConsultationTable {
 	
 	    /*
 	     * SQL queries
-	     * Liste des patients admis déjà consultés aujourd'hui (POUR LA CONSULTATION DE SUIVI)
+	     * Liste des patients admis dï¿½jï¿½ consultï¿½s aujourd'hui (POUR LA CONSULTATION DE SUIVI)
 	     */
 	    $sql = new Sql($db);
 	    $sQuery = $sql->select()
@@ -2082,15 +2083,15 @@ class ConsultationTable {
 		$donnees['temoin'] = 0;
 		foreach ($result as $resultat){
 			if($resultat['idtypebandelette'] == 1){
-				$donnees['albumine'] = 1; //C'est à coché
+				$donnees['albumine'] = 1; //C'est ï¿½ cochï¿½
 				$donnees['croixalbumine'] = $resultat['croix_bandelette'];
 			}
 			if($resultat['idtypebandelette'] == 2){
-				$donnees['sucre'] = 1; //C'est à coché
+				$donnees['sucre'] = 1; //C'est ï¿½ cochï¿½
 				$donnees['croixsucre'] = $resultat['croix_bandelette'];
 			}
 			if($resultat['idtypebandelette'] == 3){
-				$donnees['corpscetonique'] = 1; //C'est à coché
+				$donnees['corpscetonique'] = 1; //C'est ï¿½ cochï¿½
 				$donnees['croixcorpscetonique'] = $resultat['croix_bandelette'];
 			}
 			

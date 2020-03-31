@@ -633,7 +633,7 @@ width: 190px; /* la largeur du champ input*/
 	width: 280px;
 	padding: 6px;
 	background: #f1f1f1; 
-	color: #black;	
+	/*color: black;*/	
 	position: absolute;
 	right: 16%; top: 0px;
 	-webkit-transition: all .5s ease-in;
@@ -864,6 +864,7 @@ width: 190px; /* la largeur du champ input*/
   height: 25px;
   width: 25px;
   background-color: #eee;
+  border: solid 1px gray;
 }
 
 /* On mouse-over, add a grey background color */

@@ -137,22 +137,30 @@ echo $this->form ()->openTag ( $form );
 	<table style="margin-top: 420px; width: 100%;">
 	  
 	  <tr style="">
-	  <td style="width: 42%;"></td>
-	  <td style="width: 10%;" id="thoughtbot" >
+	  <td style="width: 26%;  background: re;"></td>
+	  
+	  <td style="width: 10%;" class="thoughtbot" >
 		<button id="annuler"
 			style="font-family: police2; font-size: 17px; font-weight: bold;">
 			Annuler
 		</button>
 	  </td>
 	  
-	  <td style="width: 10%;" id="thoughtbot">
-		<button type="submit" id="terminer"
+	  <td style="width: 13%;  background: yello;" class="thoughtbot">
+		<button type="submit" id="terminer" name="creerDossier"
 			style=" font-family: police2; font-size: 17px; font-weight: bold;">
-			Terminer
+			&nbsp;&nbsp;&nbsp;Cr&eacute;er dossier&nbsp;&nbsp;&nbsp;
 		</button>
 	  </td>
 	  
-	  <td style="width: 38%;"></td>
+	  <td style="width: 25%;  background: gree;" class="thoughtbot">
+		<button type="submit" id="terminer" name="creerDossierAdmettre"
+			style=" font-family: police2; font-size: 17px; font-weight: bold;">
+			&nbsp;&nbsp;&nbsp;Cr&eacute;er dossier & Admettre&nbsp;&nbsp;&nbsp;
+		</button>
+	  </td>
+	  
+	  <td style="width: 26%;"></td>
 	  
 	  </tr>
     </table>
@@ -484,6 +492,7 @@ echo $this->form ()->openTag ( $form );
  	   $("#PRENOM").val(chaine);
     });
 
+    $('#TYPE_PATIENT').val(1);
     
 </script>
 

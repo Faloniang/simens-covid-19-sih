@@ -130,6 +130,38 @@ function libelleAntChirurgicaux(id){
 	}
 }
 
+
+function getNoteObservation(id){
+	if(id == 2){
+		$('#labelNoteObservation, #interfaceDemDepistageCovid, #interfaceDepTraitement').toggle(true);
+
+	}else{
+		$('#labelNoteObservation, #interfaceDemDepistageCovid, #interfaceDepTraitement').toggle(false);
+	}
+}
+
+
+function getTraitementWithResultatTestNegatif(id){
+
+	/*
+	if(idtypepatient == 2 && id == 2) {
+		$('#interfaceDepTraitement').toggle(true);
+	}else{
+		$('#interfaceDepTraitement').toggle(false);
+	}
+	*/
+}
+
+function getResultatTestCovid19(id){
+
+	if(id == 1){
+		$('#selectResultatTestCovid19').toggle(true);
+	}else{
+		$('#selectResultatTestCovid19').toggle(false);
+	}
+
+}
+
 /**
  * -------------------------------------------------------------------------
  * *************************************************************************
