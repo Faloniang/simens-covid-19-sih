@@ -64,6 +64,22 @@ class ConsultationForm extends Form {
 						'id' => 'idmedecin'
 				)
 		) );
+
+		$this->add ( array (
+			'name' => 'nommedecin',
+			'type' => 'Hidden',
+			'attributes' => array (
+					'id' => 'nommedecin'
+			)
+		) );
+
+		$this->add ( array (
+			'name' => 'prenommedecin',
+			'type' => 'Hidden',
+			'attributes' => array (
+					'id' => 'prenommedecin'
+			)
+		) );
 		
 		$this->add ( array (
 				'name' => 'idinfirmier',
@@ -121,7 +137,7 @@ class ConsultationForm extends Form {
 				'name' => 'ORIGINE_GEOGRAPHIQUE',
 				'type' => 'Text',
 				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8','Origine géographique'),
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8','Origine gï¿½ographique'),
 				),
 				'attributes' => array (
 						'id' => 'ORIGINE_GEOGRAPHIQUE',
@@ -182,7 +198,7 @@ class ConsultationForm extends Form {
 				'name' => 'REGIME_MATRIMONIAL',
 				'type' => 'Select',
 				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8','régime matrimonial'),
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8','rï¿½gime matrimonial'),
 						'value_options' => array (
 								'' => ''
 						)
@@ -312,7 +328,7 @@ class ConsultationForm extends Form {
 				'name' => 'siege',
 				'type' => 'Select',
 				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Siège')
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Siï¿½ge')
 				),
 				'attributes' => array (
 						'id' => 'siege'
@@ -323,7 +339,7 @@ class ConsultationForm extends Form {
 				'name' => 'intensite',
 				'type' => 'number',
 				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Intensité échelle (EVA)'),
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Intensitï¿½ ï¿½chelle (EVA)'),
 				),
 				'attributes' => array (
 						'id' => 'intensite',
@@ -346,7 +362,7 @@ class ConsultationForm extends Form {
 				'name' => 'resume_histoire_maladie',
 				'type' => 'Textarea',
 				'options' => array (
-						'label' =>  iconv ( 'ISO-8859-1', 'UTF-8', "Résumé de l'histoire de la maladie"),
+						'label' =>  iconv ( 'ISO-8859-1', 'UTF-8', "Rï¿½sumï¿½ de l'histoire de la maladie"),
 				),
 				'attributes' => array (
 						'max' => 100,
@@ -416,9 +432,9 @@ class ConsultationForm extends Form {
 		
 		
 		
-		//********************Antécédents ou Terrain particulier ******************
-        //********************Antécédents ou Terrain particulier ******************
-        //********************Antécédents ou Terrain particulier ****************** 
+		//********************Antï¿½cï¿½dents ou Terrain particulier ******************
+        //********************Antï¿½cï¿½dents ou Terrain particulier ******************
+        //********************Antï¿½cï¿½dents ou Terrain particulier ****************** 
 
 		//****** ================== ANTECEDENTS PERSONNELS ================== 
 		//****** ================== ANTECEDENTS PERSONNELS ================== 
@@ -446,10 +462,10 @@ class ConsultationForm extends Form {
 				'options' => array (
 						'value_options' => array (
 								0 => '',
-								1 => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 1'),
-								2 => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 2'),
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Diabète gestationnel'),
-								4 => iconv('ISO-8859-1', 'UTF-8', 'Diabète secondaire'),
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Diabï¿½te de type 1'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Diabï¿½te de type 2'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Diabï¿½te gestationnel'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Diabï¿½te secondaire'),
 						)
 				),
 				'attributes' => array (
@@ -476,10 +492,10 @@ class ConsultationForm extends Form {
 				'options' => array (
 						'value_options' => array (
 								0 => '',
-								1 => iconv('ISO-8859-1', 'UTF-8', 'Métformine (Glucophage®)'),
-								2 => iconv('ISO-8859-1', 'UTF-8', 'Sulfamide  (Diamicron®, Amarel®, Daonil®)'),
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Glinide (Novonorm®)'),
-								4 => iconv('ISO-8859-1', 'UTF-8', 'IPPD-4 (Januvia®, Galvus®)'),
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Mï¿½tformine (Glucophageï¿½)'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Sulfamide  (Diamicronï¿½, Amarelï¿½, Daonilï¿½)'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Glinide (Novonormï¿½)'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'IPPD-4 (Januviaï¿½, Galvusï¿½)'),
 						)
 				),
 				'attributes' => array (
@@ -514,8 +530,8 @@ class ConsultationForm extends Form {
 				'options' => array (
 						'value_options' => array (
 								0 => '',
-								1 => iconv('ISO-8859-1', 'UTF-8', 'Diabétique'),
-								2 => iconv('ISO-8859-1', 'UTF-8', 'Hyposodé'),
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Diabï¿½tique'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Hyposodï¿½'),
 						)
 				),
 				'attributes' => array (
@@ -578,9 +594,9 @@ class ConsultationForm extends Form {
 								0 => '',
 								1 => iconv('ISO-8859-1', 'UTF-8', 'IEC/ARA2'),
 								2 => iconv('ISO-8859-1', 'UTF-8', 'Inhibiteur calcique'),
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Diurétique'),
-								4 => iconv('ISO-8859-1', 'UTF-8', 'Béta-bloquant'),
-								5 => iconv('ISO-8859-1', 'UTF-8', 'Non traitée'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Diurï¿½tique'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Bï¿½ta-bloquant'),
+								5 => iconv('ISO-8859-1', 'UTF-8', 'Non traitï¿½e'),
 						)
 				),
 				'attributes' => array (
@@ -616,7 +632,7 @@ class ConsultationForm extends Form {
 								0 => '',
 								1 => iconv('ISO-8859-1', 'UTF-8', 'Statine'),
 								2 => iconv('ISO-8859-1', 'UTF-8', 'Fibrate'),
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Non traitée'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Non traitï¿½e'),
 						)
 				),
 				'attributes' => array (
@@ -751,9 +767,9 @@ class ConsultationForm extends Form {
 				'options' => array (
 						'value_options' => array (
 								0 => '',
-								1 => iconv('ISO-8859-1', 'UTF-8', 'Amputation ou désarticulation'),
-								2 => iconv('ISO-8859-1', 'UTF-8', 'Mise à plat (Abcès et Phlegmons)'),
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Nécrosectomie et assimilés'),
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Amputation ou dï¿½sarticulation'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Mise ï¿½ plat (Abcï¿½s et Phlegmons)'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Nï¿½crosectomie et assimilï¿½s'),
 						)
 				),
 				'attributes' => array (
@@ -770,7 +786,7 @@ class ConsultationForm extends Form {
 						'value_options' => array (
 								0 => '',
 								1 => iconv('ISO-8859-1', 'UTF-8', 'Chirurgie abdominale'),
-								2 => iconv('ISO-8859-1', 'UTF-8', 'Chirurgie pariétale'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Chirurgie pariï¿½tale'),
 								3 => iconv('ISO-8859-1', 'UTF-8', 'Chirurgie thoracique'),
 						)
 				),
@@ -789,9 +805,9 @@ class ConsultationForm extends Form {
 						'value_options' => array (
 								0 => '',
 								1 => iconv('ISO-8859-1', 'UTF-8', 'Asymptomatique').' (Score = 0)',
-								2 => iconv('ISO-8859-1', 'UTF-8', 'Activité physique diminué mais autonome').' (Score = 1)',
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Incapacité de mener une activité normale ou travailler, mais alité moins de 50% du temps').' (Score = 2)',
-								4 => iconv('ISO-8859-1', 'UTF-8', 'Incapacité de mener une activité normale et alité plus de 50% du temps').' (Score = 3)',
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Activitï¿½ physique diminuï¿½ mais autonome').' (Score = 1)',
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Incapacitï¿½ de mener une activitï¿½ normale ou travailler, mais alitï¿½ moins de 50% du temps').' (Score = 2)',
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Incapacitï¿½ de mener une activitï¿½ normale et alitï¿½ plus de 50% du temps').' (Score = 3)',
 								5 => iconv('ISO-8859-1', 'UTF-8', 'Grabattaire (incapable de quitter le lit)').' (Score = 4)',
 						)
 				),
@@ -808,9 +824,9 @@ class ConsultationForm extends Form {
 		        'value_options' => array (
 		            0 => '',
 		            1 => iconv('ISO-8859-1', 'UTF-8', 'Asymptomatique').' (Score = 0)',
-		            2 => iconv('ISO-8859-1', 'UTF-8', 'Activité physique diminué mais autonome').' (Score = 1)',
-		            3 => iconv('ISO-8859-1', 'UTF-8', 'Incapacité de mener une activité normale ou travailler, mais alité moins de 50% du temps').' (Score = 2)',
-		            4 => iconv('ISO-8859-1', 'UTF-8', 'Incapacité de mener une activité normale et alité plus de 50% du temps').' (Score = 3)',
+		            2 => iconv('ISO-8859-1', 'UTF-8', 'Activitï¿½ physique diminuï¿½ mais autonome').' (Score = 1)',
+		            3 => iconv('ISO-8859-1', 'UTF-8', 'Incapacitï¿½ de mener une activitï¿½ normale ou travailler, mais alitï¿½ moins de 50% du temps').' (Score = 2)',
+		            4 => iconv('ISO-8859-1', 'UTF-8', 'Incapacitï¿½ de mener une activitï¿½ normale et alitï¿½ plus de 50% du temps').' (Score = 3)',
 		            5 => iconv('ISO-8859-1', 'UTF-8', 'Grabattaire (incapable de quitter le lit)').' (Score = 4)',
 		        )
 		    ),
@@ -827,9 +843,9 @@ class ConsultationForm extends Form {
 				'options' => array (
 						'value_options' => array (
 								0 => '',
-								1 => iconv('ISO-8859-1', 'UTF-8', 'Normocolorées'),
-								2 => iconv('ISO-8859-1', 'UTF-8', 'Pâles'),
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Ictériques'),
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Normocolorï¿½es'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Pï¿½les'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Ictï¿½riques'),
 						)
 				),
 				'attributes' => array (
@@ -844,9 +860,9 @@ class ConsultationForm extends Form {
 		    'options' => array (
 		        'value_options' => array (
 		            0 => '',
-		            1 => iconv('ISO-8859-1', 'UTF-8', 'Normocolorées'),
-		            2 => iconv('ISO-8859-1', 'UTF-8', 'Pâles'),
-		            3 => iconv('ISO-8859-1', 'UTF-8', 'Ictériques'),
+		            1 => iconv('ISO-8859-1', 'UTF-8', 'Normocolorï¿½es'),
+		            2 => iconv('ISO-8859-1', 'UTF-8', 'Pï¿½les'),
+		            3 => iconv('ISO-8859-1', 'UTF-8', 'Ictï¿½riques'),
 		        )
 		    ),
 		    'attributes' => array (
@@ -1483,8 +1499,8 @@ class ConsultationForm extends Form {
 		
 		
 		/***
-		 * LES Appareil d'appel ou système --- Les Appareil d'appel ou système
-		 * LES Appareil d'appel ou système --- Les Appareil d'appel ou système
+		 * LES Appareil d'appel ou systï¿½me --- Les Appareil d'appel ou systï¿½me
+		 * LES Appareil d'appel ou systï¿½me --- Les Appareil d'appel ou systï¿½me
 		 */
 		
 		
@@ -1497,11 +1513,11 @@ class ConsultationForm extends Form {
 								 1 => iconv('ISO-8859-1', 'UTF-8', 'Appareil cardio-circulatoire'),
 								 2 => iconv('ISO-8859-1', 'UTF-8', 'Appareil respiratoire'),
 								 3 => iconv('ISO-8859-1', 'UTF-8', 'Appareil digestif'),
-								 4 => iconv('ISO-8859-1', 'UTF-8', 'Appareil uro-génital'),
+								 4 => iconv('ISO-8859-1', 'UTF-8', 'Appareil uro-gï¿½nital'),
 								 5 => iconv('ISO-8859-1', 'UTF-8', 'Appareil musculo-squelettique'),
-								 6 => iconv('ISO-8859-1', 'UTF-8', 'Appareil cutanéo-tégumentaire'),
-								 7 => iconv('ISO-8859-1', 'UTF-8', 'Appareil hématopoïétique et glandulaire'),
-								 8 => iconv('ISO-8859-1', 'UTF-8', 'Système nerveux'),
+								 6 => iconv('ISO-8859-1', 'UTF-8', 'Appareil cutanï¿½o-tï¿½gumentaire'),
+								 7 => iconv('ISO-8859-1', 'UTF-8', 'Appareil hï¿½matopoï¿½ï¿½tique et glandulaire'),
+								 8 => iconv('ISO-8859-1', 'UTF-8', 'Systï¿½me nerveux'),
 						)
 				),
 				'attributes' => array (
@@ -2027,9 +2043,9 @@ class ConsultationForm extends Form {
 				'options' => array (
 						'value_options' => array (
 								0 => '',
-								1 => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 1'),
-								2 => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 2'),
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Diabète gestationnel'),
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Diabï¿½te de type 1'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Diabï¿½te de type 2'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Diabï¿½te gestationnel'),
 								4 => iconv('ISO-8859-1', 'UTF-8', 'MODY'),
 						)
 				),
@@ -2045,15 +2061,15 @@ class ConsultationForm extends Form {
 				'options' => array (
 						'value_options' => array (
 								0 => '',
-								1 => iconv('ISO-8859-1', 'UTF-8', 'Acido-cétose'),
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Acido-cï¿½tose'),
 								2 => iconv('ISO-8859-1', 'UTF-8', 'Coma hyperosmolaire'),
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Néphropathie diabétique'),
-								4 => iconv('ISO-8859-1', 'UTF-8', 'Rétinopathie diabétique'),
-								5 => iconv('ISO-8859-1', 'UTF-8', 'Neuropathie périphérique'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Nï¿½phropathie diabï¿½tique'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Rï¿½tinopathie diabï¿½tique'),
+								5 => iconv('ISO-8859-1', 'UTF-8', 'Neuropathie pï¿½riphï¿½rique'),
 								6 => iconv('ISO-8859-1', 'UTF-8', 'ACOMI'),
 								7 => iconv('ISO-8859-1', 'UTF-8', 'AVC'),
 								8 => iconv('ISO-8859-1', 'UTF-8', 'IDM'),
-								9 => iconv('ISO-8859-1', 'UTF-8', 'Pied diabétique'),
+								9 => iconv('ISO-8859-1', 'UTF-8', 'Pied diabï¿½tique'),
 						)
 				),
 				'attributes' => array (

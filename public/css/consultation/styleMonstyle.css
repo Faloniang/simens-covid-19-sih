@@ -182,7 +182,7 @@ box-shadow: 0pt 0pt 12px rgba(0, 0, 0, 0.2);
 }
 
 
-/*-----Début style-----*/
+/*-----Dï¿½but style-----*/
 
 #respond label 
 
@@ -222,7 +222,7 @@ display: inline-block;
 
 font-size: 13px;
 
-left: 0px; /*déplacer le label*/
+left: 0px; /*dï¿½placer le label*/
 
 min-width: 60px;
 
@@ -323,7 +323,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -428,8 +428,8 @@ tr:hover /* Apparence au survol des liens */
 #barre
 {
   /*background-color: #a8a8a8;*/
-  padding-bottom:20px; /*Pour séparer le contenu de la bordure du bas du bloc*/
-  magin-bottom:15px; /*Pour séparer la bordure du prochain élément*/
+  padding-bottom:20px; /*Pour sï¿½parer le contenu de la bordure du bas du bloc*/
+  magin-bottom:15px; /*Pour sï¿½parer la bordure du prochain ï¿½lï¿½ment*/
   border-bottom: 3px solid gray;/*Pour faire un trait rouge horizontal*/
 }
 
@@ -442,7 +442,7 @@ tr:hover /* Apparence au survol des liens */
 	color: green;
 }
 
-/************************************ style du tableau N°1 ****************************************/
+/************************************ style du tableau Nï¿½1 ****************************************/
 
 #responde input[type="text"], #respond textarea , #respondeMotif input[type="text"] , #respondeMotif select, #SiegeDouleur select
 
@@ -527,7 +527,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -547,7 +547,7 @@ padding-bottom: 10px;
 
 padding-left: 10px; /* padding du text dans le champ*/
 
-text-indent: 75px; /* alignement du text dans le champ input après saisie*/
+text-indent: 75px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 
@@ -639,7 +639,7 @@ box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.8);
 
 font-size: 13px;
 
-/*left: 150px; /*déplacer le label*/
+/*left: 150px; /*dï¿½placer le label*/
 
 /* min-width: 60px; */
 
@@ -691,7 +691,7 @@ box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.8);
 
 font-size: 13px;
 
-/*left: 150px; /*déplacer le label*/
+/*left: 150px; /*dï¿½placer le label*/
 
 /* min-width: 60px; */
 
@@ -839,7 +839,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -859,7 +859,7 @@ padding-bottom: 10px;
 
 padding-left: 10px; /* padding du text dans le champ*/
 
-text-indent: 0px; /* alignement du text dans le champ input après saisie*/
+text-indent: 0px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 
@@ -953,7 +953,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -973,7 +973,7 @@ padding-bottom: 10px;
 
 padding-left: 10px; /* padding du text dans le champ*/
 
-text-indent: 0px; /* alignement du text dans le champ input après saisie*/
+text-indent: 0px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 
@@ -1058,7 +1058,7 @@ float: left;
 
     position: relative;
 	
-	/* les cotés des champs */
+	/* les cotï¿½s des champs */
 
     border-right-width: 2px;
 
@@ -1104,7 +1104,7 @@ display: inline-block;
 
 font-size: 13px;
 
-/*left: -170px; /*déplacer le label*/
+/*left: -170px; /*dï¿½placer le label*/
 
 float: left;
 
@@ -1153,7 +1153,7 @@ display: inline-block;
 
 font-size: 13px;
 
-/*left: -170px; /*déplacer le label*/
+/*left: -170px; /*dï¿½placer le label*/
 
 float: left;
 
@@ -1225,7 +1225,7 @@ display: inline-block;
 
 font-size: 13px;
 
-/*left: -170px; /*déplacer le label*/
+/*left: -170px; /*dï¿½placer le label*/
 
 float: left;
 
@@ -1374,7 +1374,7 @@ padding-bottom: 5px;
 
 padding-left: 10px; /* padding du text dans le champ*/
 
-text-indent: 0px; /* alignement du text dans le champ input après saisie*/
+text-indent: 0px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 
@@ -1578,7 +1578,7 @@ padding-bottom: 5px;
 
 padding-left: 0px; /* padding du text dans le champ*/
 
-text-indent: 5px; /* alignement du text dans le champ input après saisie*/
+text-indent: 5px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 
@@ -1616,7 +1616,7 @@ display: inline-block;
 
 font-size: 13px;
 
-left: -12px; /*déplacer le label*/
+left: -12px; /*dï¿½placer le label*/
 
 min-width: 60px;
 
@@ -1744,7 +1744,7 @@ width: 50px; /* la largeur du champ input*/
 
     position: relative;
 	
-	/* les cotés des champs */
+	/* les cotï¿½s des champs */
 
     border-right-width: 2px;
 
@@ -1842,7 +1842,7 @@ width: 50px; /* la largeur du champ input*/
 
     position: relative;
 	
-	/* les cotés des champs */
+	/* les cotï¿½s des champs */
 
     border-right-width: 2px;
 
@@ -2084,7 +2084,7 @@ width: 97%;/*225px; /* la largeur du champ input*/
 
     position: relative;
 	
-	/* les cotés des champs */
+	/* les cotï¿½s des champs */
 
     border-right-width: 2px;
 
@@ -2181,7 +2181,7 @@ width: 97%;/*225px; /* la largeur du champ input*/
 
     position: relative;
 	
-	/* les cotés des champs */
+	/* les cotï¿½s des champs */
 
     border-right-width: 2px;
 
@@ -2374,7 +2374,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -2394,7 +2394,7 @@ padding-bottom: 10px;
 
 padding-left: 10px; /* padding du text dans le champ*/
 
-text-indent: 0px; /* alignement du text dans le champ input après saisie*/
+text-indent: 0px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 
@@ -2482,7 +2482,7 @@ margin-right: 15px;
 
     position: relative;
 	
-	/* les cotés des champs */
+	/* les cotï¿½s des champs */
 
     border-right-width: 2px;
 
@@ -2776,7 +2776,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -2892,7 +2892,7 @@ margin-right: 15px;
 
     position: relative;
 	
-	/* les cotés des champs */
+	/* les cotï¿½s des champs */
 
     border-right-width: 2px;
 
@@ -3049,9 +3049,9 @@ font-size: 18px;
 /*----fin style Rendez-vous--------*/
 
 
-/*------ Traitement médical (Ordonnance)-------*/
-/*------ Traitement médical (Ordonnance)-------*/
-/*------ Traitement médical (Ordonnance)-------*/
+/*------ Traitement mï¿½dical (Ordonnance)-------*/
+/*------ Traitement mï¿½dical (Ordonnance)-------*/
+/*------ Traitement mï¿½dical (Ordonnance)-------*/
 
 
 #medicament select
@@ -3130,7 +3130,7 @@ font-size: 18px;
 
     position: relative;
 	
-	/* les cotés des champs */
+	/* les cotï¿½s des champs */
 
     border-right-width: 1px;
 
@@ -3150,7 +3150,7 @@ font-size: 18px;
 	
 	height: 28px;
 	
-	font-size: 14px; /* La taille des écriture dans le select*/
+	font-size: 14px; /* La taille des ï¿½criture dans le select*/
 }
 
 #posologie input[type="text"], #quantite input[type="text"], #duree input[type="text"]
@@ -3229,7 +3229,7 @@ font-size: 18px;
 
     position: relative;
 	
-	/* les cotés des champs */
+	/* les cotï¿½s des champs */
 
     border-right-width: 1px;
 
@@ -3253,11 +3253,11 @@ font-size: 18px;
 	
 	height: 28px;
 	
-	font-size: 14px; /* La taille des écriture dans le select*/
+	font-size: 14px; /* La taille des ï¿½criture dans le select*/
 }
 
-/*------ FIN Traitement médical (Ordonnance)-------*/
-/*------ FIN Traitement médical (Ordonnance)-------*/
+/*------ FIN Traitement mï¿½dical (Ordonnance)-------*/
+/*------ FIN Traitement mï¿½dical (Ordonnance)-------*/
 
 
 
@@ -3347,7 +3347,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -3367,7 +3367,7 @@ padding-bottom: 5px;
 
 padding-left: 10px; /* padding du text dans le champ*/
 
-text-indent: 100px; /* alignement du text dans le champ input après saisie*/
+text-indent: 100px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 
@@ -3405,7 +3405,7 @@ display: inline-block;
 
 font-size: 13px;
 
-/*left: -270px; /*déplacer le label*/
+/*left: -270px; /*dï¿½placer le label*/
 
 min-width: 60px;
 
@@ -3453,7 +3453,7 @@ box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.8);
 
 font-size: 13px;
 
-/*left: 150px; /*déplacer le label*/
+/*left: 150px; /*dï¿½placer le label*/
 
 /* min-width: 60px; */
 
@@ -3592,7 +3592,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -3611,7 +3611,7 @@ padding-bottom: 5px;
 
 padding-left: 3px; /* padding du text dans le champ*/
 
-text-indent: 3px; /* alignement du text dans le champ input après saisie*/
+text-indent: 3px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 
@@ -3657,7 +3657,7 @@ display: inline-block;
 
 font-size: 10px;
 
-/*left: -270px; /*déplacer le label*/
+/*left: -270px; /*dï¿½placer le label*/
 
 padding-top: 5px;
 
@@ -3774,7 +3774,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -3794,7 +3794,7 @@ padding-bottom: 10px;
 
 padding-left: 10px; /* padding du text dans le champ*/
 
-text-indent: 100px; /* alignement du text dans le champ input après saisie*/
+text-indent: 100px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 
@@ -4136,7 +4136,7 @@ box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
 
 position: relative;
 
-/* les cotés des champs */
+/* les cotï¿½s des champs */
 
 border-right-width: 2px;
 
@@ -4156,7 +4156,7 @@ padding-bottom: 5px;
 
 padding-left: 10px; /* padding du text dans le champ*/
 
-text-indent: 220px; /* alignement du text dans le champ input après saisie*/
+text-indent: 220px; /* alignement du text dans le champ input aprï¿½s saisie*/
 
 margin-bottom: 1px;
 

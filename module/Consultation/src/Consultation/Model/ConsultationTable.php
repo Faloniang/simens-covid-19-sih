@@ -80,7 +80,6 @@ class ConsultationTable {
 	    $heure = (new \DateTime())->format('H:i:s');
 	
 	    $dataconsultationsuiv = array(
-	        'idsuiv'=> $values["idsuiv"],
 	        'idcons'=> $values["idcons"],
 	        'idpatient'=> $values["idpatient"],
 	        'idadmission'=> $values["idadmissionsuiv"],
@@ -89,9 +88,9 @@ class ConsultationTable {
 	        'idemploye' => $idemploye
 	    );
 	    
-// 	    echo "<pre>";
-// 	    var_dump($dataconsultationsuiv); exit();
-// 	    echo "</pre>";
+	    echo "<pre>";
+	    var_dump($dataconsultationsuiv); exit();
+	    echo "</pre>";
 	    
 	    $sql = new Sql($this->tableGateway->getAdapter());
 	    $sQuery = $sql->insert()->into('suivi_patient')->values($dataconsultationsuiv);
@@ -2505,5 +2504,122 @@ class ConsultationTable {
  	
  	
  	
- 	
+	 
+	 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public function supprimerSymptomes($idcons){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->delete()->from('symptome')->where(array('idcons' => $idcons));
+		$sql->prepareStatementForSqlObject($sQuery)->execute();
+	}
+
+
+	public function addSymptomes($idcons, $tableauPlaintesSelectionnees, $tableauNotePlaintesSelect, $idemploye){
+		
+		$sql = new Sql($this->tableGateway->getAdapter());
+
+		for($i=0 ; $i<count($tableauPlaintesSelectionnees) ; $i++){
+			if($tableauPlaintesSelectionnees[$i] && $tableauPlaintesSelectionnees[$i] != -1){
+				$donnees = array(
+					'idcons' => $idcons,
+					'idsymptome' => $tableauPlaintesSelectionnees[$i],
+					'note' => array_key_exists($i, $tableauNotePlaintesSelect) ? $tableauNotePlaintesSelect[$i]:'',
+					'idemploye' => $idemploye,
+				);
+				
+				$sQuery = $sql->insert()->into('symptome')->values($donnees);
+				$sql->prepareStatementForSqlObject($sQuery)->execute();
+			}
+		}
+	
+	}
+
+	 
+	public function getConsultationByIdcons($idcons){
+		$sql = new Sql ($this->tableGateway->getAdapter());
+	    $sQuery = $sql->select ()->from ( array ( 'c' => 'consultation' ))->where(array('idcons' => $idcons));
+	    return $sql->prepareStatementForSqlObject($sQuery)->execute()->current();
+	}
+
+	public function addInfosConsultation($tableauInfosConsultations, $tableauPlaintesSelectionnees, $tableauNotePlaintesSelect, $idemploye){
+
+		$date = (new \DateTime())->format('Y-m-d');
+		$heure = (new \DateTime())->format('H:i:s');
+
+		$donnees = array(
+			'idcons' => $tableauInfosConsultations[0],
+			'idpatient' => $tableauInfosConsultations[3],
+			'idemploye' => $idemploye,
+			'date_heure' => $tableauInfosConsultations[1],
+			'date' => $date,
+			'heure' => $heure
+		);
+
+		if(!$this->getConsultationByIdcons($donnees['idcons'])){
+			$sql = new Sql($this->tableGateway->getAdapter());
+			$sQuery = $sql->insert()->into('consultation')->values($donnees);
+			$sql->prepareStatementForSqlObject($sQuery)->execute();
+
+			/** Ajout des symptomes */
+			$this->addSymptomes($donnees['idcons'], $tableauPlaintesSelectionnees, $tableauNotePlaintesSelect, $donnees['idemploye']);
+		}else{
+			/** Modifer les symptomes */
+			$this->supprimerSymptomes($donnees['idcons']);
+			$this->addSymptomes($donnees['idcons'], $tableauPlaintesSelectionnees, $tableauNotePlaintesSelect, $donnees['idemploye']);
+		}
+
+ 	}
+
+
+	public function getListeDesConsultations($idpatient){
+
+		$sql = new Sql ($this->tableGateway->getAdapter());
+		$sQuery = $sql->select ()->from( array ( 'c' => 'consultation' ))->columns(array('*'))
+		->join(array('p'  => 'personne'), 'p.ID_PERSONNE = c.idemploye' , array('PRENOM','NOM'))
+		->where(array('c.idpatient' => $idpatient));
+
+		return $sql->prepareStatementForSqlObject($sQuery)->execute();
+	}
+
+	public function getListeDesSymptomes($idpatient){
+		
+		$sql = new Sql ($this->tableGateway->getAdapter());
+		$sQuery = $sql->select ()->from ( array ( 'c' => 'consultation' ))->columns(array('idcons'))
+		->join(array('s'  => 'symptome'), 's.idcons = c.idcons' , array('*'))
+		->where(array('c.idpatient' => $idpatient));
+		$result = $sql->prepareStatementForSqlObject($sQuery)->execute();
+
+		$data = array();
+		foreach($result as $res){
+			$data[$res['idcons']][] = array($res['idsymptome'], $res['note']);
+		}
+
+		return $data;
+	}
+
 }
