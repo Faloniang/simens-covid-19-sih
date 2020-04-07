@@ -3,7 +3,7 @@ var base_url = window.location.toString();
 var tabUrl = base_url.split("public");
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
 $('#plus_menu_consultations').toggle(true);
-$("#menu_consultations").replaceWith("<li id='menu_consultations' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Consultations </span></a></li>");
+$("#menu_consultations").replaceWith("<li id='menu_consultations' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Suivi </span></a></li>");
 dep_menu_consultation1();
 $('#menu_consultations_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
 </script>
@@ -72,6 +72,12 @@ $(window).load(function () {
 	$form->prepare();
 	echo $this->form()->openTag($form); 
   ?>
+
+	<?php echo $this->formHidden($form->get('idcons'));?>
+	<?php echo $this->formHidden($form->get('idpatient'));?>
+	<?php echo $this->formHidden($form->get('idmedecin'));?>
+	<?php echo $this->formHidden($form->get('prenommedecin'));?>
+	<?php echo $this->formHidden($form->get('nommedecin'));?>
 
 <div id="accordions"> 
 
@@ -246,36 +252,118 @@ $(window).load(function () {
      </div>
   
   
-     <!-- ************** Accordeon NOUVELLES CONSTANTES ******************-->
-     <!-- ************** Accordeon NOUVELLES CONSTANTES ******************-->
-     <!-- ************** Accordeon NOUVELLES CONSTANTES ******************-->
+     <!-- ************** Accordeon NOUVELLES SYMPTOMES ******************-->
+     <!-- ************** Accordeon NOUVELLES SYMPTOMES ******************-->
+     <!-- ************** Accordeon NOUVELLES SYMPTOMES ******************-->
      
-     <!--*2*-->
-     <!--*2*-->
-     <!--*2*-->
-     <!--*2*-->
-     <!--*2*-->
+     <!--*1*-->
+     <!--*1*-->
+     <!--*1*-->
+     <!--*1*-->
+     <!--*1*-->
   	 <div style='font-family: police2;font-size: 17px; font-weight: bold;' id="interfaceDepSymptomes" > Sympt&ocirc;mes </div>
      <div class="zoneContenuObmre">
        
-         <div style="width: 100%; padding: 3px; margin-top: 6px; padding-bottom: 1px; ">
-           <table class="plainteEntre plainteEntree_0"></table>
-         </div>
+	 	<div style="width: 100%; border: 0.5px solid #cccccc; margin-top: 0px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; background: #eeeeee;">
+			<table style="width: 99%; margin: 8px; ">
+				<tr style="width: 100%; background: #eeeeee; padding-right: 31px;">
+				    <td style="width: 6%;"> N<sup>o</sup> </td>
+					<td style="width: 20%;"> Date & Heure </td>
+					<td style="width: 34%;"> M&eacute;decin </td>
+					<td style="width: 10%;" title="Nombre de sympt&ocirc;mes"> Nb. symp. </td>
+					<td style="width: 20%;"> Sympt&ocirc;mes </td>
+					<td style="width: 10%; padding-right: 30px;">  </td>
+				</tr>
+			</table>
+		</div>
+		<div style="width: 100%; border: 0.5px solid #cccccc; border-top: 2px solid #cccccc; margin-top: 0px; padding-bottom: 0px; padding-top: 2px; border-radius: 0px;">
+			<table class="ligneConsultation_0"></table>
+		</div>
          
-         <table style="width:100%;" >
-           <tr style="width: 100%">
-              <td style="width: 20%;">
-    	         <div id='plainte_moins' class='examen_physique_pm' onclick='enleverUnePlainte();' style='display: none;'> &minus; </div> 
-    	         <div id='plainte_plus'  class='examen_physique_pm' onclick='ajouterUneNouvellePlainte();' style='display: none;'> + </div>
-    	      </td>
-    	      <td style="width: 80%;" ></td>
-    	   </tr>
-    	 </table>
-    	 <input type="hidden" id="nbPlaintesEntree" name="nbPlaintesEntree">
-         <script type="text/javascript">ajouterUneNouvellePlainte();</script>
+		<!-- BUTTON AJOUT --> 
+		<table style="width:100%; background: re; margin-top: 3px;" >
+			<tr style="width: 100%">
+				<td style="width: 20%;">
+					<div id='symptome_moins' class='examen_physique_pm' onclick='enleverUneLigneDeSymptomes();' style='display: none;'> &minus; </div> 
+					<div id='symptome_plus'  class='examen_physique_pm' onclick='ajouterUneLigneDeSymptomes();' style='display: none;'> + </div>
+				</td>
+				<td style="width: 80%;" ></td>
+			</tr>
+		</table>
+
+    	 <input type="hidden" id="nbLigneConsultation" name="nbLigneConsultation">
+         <script type="text/javascript">ajouterUneLigneDeSymptomes();</script>
        
+
+		<!-- Interface popup -->
+		<!-- Interface popup -->
+	    <div id="interfacePopupSymptomes" title="Liste des sympt&ocirc;mes" style="display:none;">
+			<!-- Zone d'affichage des lignes de symptomes -->
+	    </div>   
+
+
+		<!-- SCRIPT DE GESTION DES CONSULTAITONS -->
+		<!-- SCRIPT DE GESTION DES CONSULTAITONS -->
+		<?php 
+			$tableauIdcons = array();
+			$tableauConsultations = array(); 
+			$iCons = 0;
+		?>
+
+		<script> var iLC = 1; </script>
+		<?php foreach ($this->listeConsutation as $listeCons){ ?>
+			<script> $('#colonneDateHeure_'+iLC).html("<?php echo $listeCons['date_heure']; ?>"); </script>
+			<script> $('#colonneNonPrenom_'+iLC).html("<?php echo $listeCons['PRENOM'].' '.$listeCons['NOM']; ?>"); </script>
+						
+			<script> 
+				if( iLC < "<?php echo count($this->listeConsutation);?>"){ ajouterUneLigneDeSymptomes(); }
+				iLC++;
+			</script>
+			<?php $tableauIdcons[] = $listeCons['idcons']; ?>
+
+			<?php 
+				$tableauConsultations[$iCons][0] = $listeCons['idcons'];
+				$tableauConsultations[$iCons][1] = $listeCons['date_heure'];
+				$tableauConsultations[$iCons][2] = '';
+				$tableauConsultations[$iCons++][3] = $listeCons['idpatient']; 
+			?>
+		<?php } ?>
+		
+		<script>
+			var tableauConsultationsBD = <?php echo json_encode($tableauConsultations); ?>;
+			//alert(tableauConsultationsBD)
+		</script>
+
+		<!-- SCRIPT DE GESTION DES SYMPTOMES -->
+		<!-- SCRIPT DE GESTION DES SYMPTOMES -->
+		<script> var indCol = 1; </script>
+		<?php 
+			$tableauSymptomes = array(0);
+			$tableauNotesSymp = array(0);
+		    for ($i=0 ; $i<count($tableauIdcons) ; $i++) {
+	       		if(array_key_exists($tableauIdcons[$i], $this->listeSymptomes)){
+					$listeSymptomes = $this->listeSymptomes[$tableauIdcons[$i]];
+					$tableauSymptomes[($i+1)][0] = -1;
+					$tableauNotesSymp[($i+1)][0] = '';
+				    for ($j=0 ; $j<count($listeSymptomes) ; $j++){		 
+						$tableauSymptomes[($i+1)][($j+1)] = $listeSymptomes[$j][0]; 
+						$tableauNotesSymp[($i+1)][($j+1)] = $listeSymptomes[$j][1]; 
+					}
+					?>
+					<script> $('#nbSymptomesSelected'+indCol++).html("<?php echo count($tableauSymptomes[($i+1)])-1; ?>"); </script>  		 
+		<?php	} 
+			}  
+		?>
+		<!-- Le récupérer en Ajax est mieux et plus sûr-->
+		<script>
+			var tableauDonneesSymptomesBD = <?php echo json_encode($tableauSymptomes); ?>;
+			var tableauDonneesNotesSympBD = <?php echo json_encode($tableauNotesSymp); ?>;
+			//alert(tableauDonneesNotesSympBD);
+			//alert(tableauDonneesBD);
+		</script>
+		
+	
      </div>
-     
      
      <!-- ************** Accordeon NOUVELLES CONSTANTES ******************-->
      <!-- ************** Accordeon NOUVELLES CONSTANTES ******************-->
@@ -675,7 +763,7 @@ $(window).load(function () {
     
      <!--*4*-->
      <div style='font-family: police2;font-size: 17px; font-weight: bold;' id="interfaceDemDepistageCovid">Demande de d&eacute;pistage du COVID-19 </div>
-     <div style='max-height: 150px;'>
+     <div style='max-height: 100px;'>
      
      	<table style="width: 100%;" >
            <tr style="width: 100%; vertical-align: top;" class="designStyleLabel">
@@ -688,7 +776,7 @@ $(window).load(function () {
          	     </label>
          	   </td>
 			
-			   <td style="width: 2%;"><div style="border-left: 3px solid #c1c1c1; height: 100px;"> </div></td>
+			   <td style="width: 2%;"><div style="border-left: 3px solid #c1c1c1; height: 90px;"> </div></td>
 				
 			   <td style="padding-right: 25px; width: 49%;">
 
@@ -941,3 +1029,7 @@ $(window).load(function () {
 	$('#interfaceDemDepistageCovid, #interfaceEtatSante').toggle(false);
   </script>
 <?php }?>
+
+
+<script> $("td, tr, div, a,img,span").tooltip({animation: true, html: true, placement: "bottom", show: {effect: "slideDown",delay: 250}});</script>
+                       

@@ -790,7 +790,8 @@ width: 190px; /* la largeur du champ input*/
 	font-weight: bold;
 }
 
-
+.styleLineHoverNone tr:hover{
+}
 
 
 

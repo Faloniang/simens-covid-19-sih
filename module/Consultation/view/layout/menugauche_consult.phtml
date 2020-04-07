@@ -59,21 +59,59 @@ $(window).load(function () {
 	</li>
 	
 	
-	<!-- MENU *** CONSULTATIONS*** -->
+	<!-- MENU *** SUIVI*** -->
+	<!-- MENU *** SUIVI*** -->
 	<li id="menu_consultations" class="layoutViewMenuGauche"><a href="">
-	    <span style="margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;"> <img id="image" style="display: inline;" src='<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> Consultations</span></a> 
+	    <span style="margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;"> <img id="image" style="display: inline;" src='<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> Suivi</span></a> 
 	</li>
 
 	<li id="plus_menu_consultations" style="background: #4a5765; " >
 
 	   <div id="menuDesConsultations" style="margin-left:30px; height:35px; padding-top:10px; background: yello; border-bottom: solid gray 1px;"><a href="<?php echo $this->basePath()."/consultation/liste-consultations";?>" >
 	       <img style="margin-left:5px; margin-top: -7px; display: inline; width: 18px; height: 20px;" src='<?php echo $this->basePath().'/images_icons/list2.png'?>' />
-	       <span id="menu_consultations_style" style="font-size:15px; color: white; font-family:Eras Medium ITC; font-style:italic;"> En cours </span></a>
+	       <span id="menu_consultations_style" style="font-size:15px; color: white; font-family:Eras Medium ITC; font-style:italic;"> Cas contacts </span></a>
 	   </div>
 	   
 	   <div id="menuDesConsultations" style="margin-left:30px; height:35px; padding-top:10px; background: gra;"><a href="<?php echo $this->basePath()."/consultation/liste-historique-consultations";?>" >
 	       <img style="margin-left:5px; margin-top: -7px; display: inline; width: 18px; height: 20px;" src='<?php echo $this->basePath().'/images_icons/list2.png'?>' />
-	       <span id="menu_historique_consultation_style" style="font-size:15px; color: white; font-family:Eras Medium ITC; font-style:italic;"> Historique </span></a>
+	       <span id="menu_historique_consultation_style" style="font-size:15px; color: white; font-family:Eras Medium ITC; font-style:italic;"> Cas suspects </span></a>
+	   </div>
+
+	   <div id="menuDesConsultations" style="margin-left:30px; height:35px; padding-top:10px; background: gra;"><a href="<?php echo $this->basePath()."/consultation/liste-historique-consultations";?>" >
+	       <img style="margin-left:5px; margin-top: -7px; display: inline; width: 18px; height: 20px;" src='<?php echo $this->basePath().'/images_icons/list2.png'?>' />
+	       <span id="menu_historique_consultation_style" style="font-size:15px; color: white; font-family:Eras Medium ITC; font-style:italic;"> D&eacute;pist&eacute;s positifs </span></a>
+	   </div>
+	   
+	</li>
+
+
+
+	<!-- MENU *** HISTORIQUES *** -->
+	<!-- MENU *** HISTORIQUES *** -->
+	<li id="menu_historique" class="layoutViewMenuGauche"><a href="">
+	    <span style="margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;"> <img id="image" style="display: inline;" src='<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' alt='Liste' /> Historique</span></a> 
+	</li>
+
+	<li id="plus_menu_historique" style="background: #4a5765; " >
+
+	   <div id="menuDeshistoriques" style="margin-left:30px; height:35px; padding-top:10px; background: yello; border-bottom: solid gray 1px;"><a href="<?php echo $this->basePath()."/consultation/liste-historiques";?>" >
+	       <img style="margin-left:5px; margin-top: -7px; display: inline; width: 18px; height: 20px;" src='<?php echo $this->basePath().'/images_icons/list2.png'?>' />
+	       <span id="menu_historiques_style" style="font-size:15px; color: white; font-family:Eras Medium ITC; font-style:italic;"> Gu&eacute;ris </span></a>
+	   </div>
+	   
+	   <div id="menuDeshistoriques" style="margin-left:30px; height:35px; padding-top:10px; background: gra;"><a href="<?php echo $this->basePath()."/consultation/liste-historique-historiques";?>" >
+	       <img style="margin-left:5px; margin-top: -7px; display: inline; width: 18px; height: 20px;" src='<?php echo $this->basePath().'/images_icons/list2.png'?>' />
+	       <span id="menu_historique_consultation_style" style="font-size:15px; color: white; font-family:Eras Medium ITC; font-style:italic;"> Fausse alerte </span></a>
+	   </div>
+
+	   <div id="menuDeshistoriques" style="margin-left:30px; height:35px; padding-top:10px; background: gra;"><a href="<?php echo $this->basePath()."/consultation/liste-historique-historiques";?>" >
+	       <img style="margin-left:5px; margin-top: -7px; display: inline; width: 18px; height: 20px;" src='<?php echo $this->basePath().'/images_icons/list2.png'?>' />
+	       <span id="menu_historique_consultation_style" style="font-size:15px; color: white; font-family:Eras Medium ITC; font-style:italic;"> D&eacute;c&egrave;s </span></a>
+	   </div>
+
+	   <div id="menuDeshistoriques" style="margin-left:30px; height:35px; padding-top:10px; background: gra;"><a href="<?php echo $this->basePath()."/consultation/liste-historique-historiques";?>" >
+	       <img style="margin-left:5px; margin-top: -7px; display: inline; width: 18px; height: 20px;" src='<?php echo $this->basePath().'/images_icons/list2.png'?>' />
+	       <span id="menu_historique_consultation_style" style="font-size:15px; color: white; font-family:Eras Medium ITC; font-style:italic;"> D&eacute;pist&egrave;s n&eacute;gatifs </span></a>
 	   </div>
 	   
 	</li>
@@ -189,7 +227,7 @@ $('#menu_admission_patient').click(function(){
 //CONSULTATIONS -- CONSULTATIONS
 function dep_menu_consultation1(){
 	$('#menu_consultations').click(function(){
-		$("#menu_consultations").replaceWith("<li id='menu_consultations'><a style='cursor: pointer;'><span style='margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman; cursor: pointer;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/plus-green1.png' alt='Liste' /> Consultations </span></a></li>");
+		$("#menu_consultations").replaceWith("<li id='menu_consultations'><a style='cursor: pointer;'><span style='margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman; cursor: pointer;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/plus-green1.png' alt='Liste' /> Suivi </span></a></li>");
 		dep_menu_consultation2();
 	    $('#plus_menu_consultations').animate({
 	        height : 'toggle'
@@ -200,7 +238,7 @@ function dep_menu_consultation1(){
 
 function dep_menu_consultation2(){
 	$('#menu_consultations').click(function(){
-		$("#menu_consultations").replaceWith("<li id='menu_consultations' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Consultations </span></a></li>");
+		$("#menu_consultations").replaceWith("<li id='menu_consultations' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Suivi </span></a></li>");
 		dep_menu_consultation1();
 	    $('#plus_menu_consultations').animate({
 	        height : 'toggle'
@@ -211,7 +249,7 @@ function dep_menu_consultation2(){
 
 $('#plus_menu_consultations').toggle(false);
 $('#menu_consultations').click(function(){
-	$("#menu_consultations").replaceWith("<li id='menu_consultations' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Consultations </span></a></li>");
+	$("#menu_consultations").replaceWith("<li id='menu_consultations' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Suivi </span></a></li>");
 	dep_menu_consultation1();
 $('#plus_menu_consultations').animate({
 height : 'toggle'
@@ -252,6 +290,43 @@ $('#plus_menu_statistiques').animate({
 height : 'toggle'
 },1000);
 return false;
+});
+
+
+
+//*******************************************************************************************************************************
+//*******************************************************************************************************************************
+//HISTORIQUES -- HISTORIQUES
+function dep_menu_historiques1(){
+	$('#menu_historique').click(function(){
+		$("#menu_historique").replaceWith("<li id='menu_historique'><a style='cursor: pointer;'><span style='margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman; cursor: pointer;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/plus-green1.png' alt='Liste' /> Historique </span></a></li>");
+		dep_menu_historique2();
+	    $('#plus_menu_historique').animate({
+	        height : 'toggle'
+	    },1000);
+	 return false;
+	});
+}
+
+function dep_menu_historique2(){
+	$('#menu_historique').click(function(){
+		$("#menu_historique").replaceWith("<li id='menu_historique' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Historique </span></a></li>");
+		dep_menu_historiques1();
+	    $('#plus_menu_historique').animate({
+	        height : 'toggle'
+	    },1000);
+	 return false;
+	});
+}
+
+$('#plus_menu_historique').toggle(false);
+$('#menu_historique').click(function(){
+	$("#menu_historique").replaceWith("<li id='menu_historique' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Historique </span></a></li>");
+	dep_menu_historiques1();
+	$('#plus_menu_historique').animate({
+		height : 'toggle'
+	},1000);
+	return false;
 });
 
 </script>

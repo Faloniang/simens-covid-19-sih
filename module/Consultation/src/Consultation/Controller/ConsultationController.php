@@ -913,7 +913,7 @@ class ConsultationController extends AbstractActionController {
 	    $this->layout ()->setTemplate ( 'layout/consultation' );
 	
 	    $user = $this->layout()->user;
-	    $idmedecin = $user['id_personne'];
+		$idmedecin = $user['id_personne'];
 	
 	    $idadmission = $this->params ()->fromQuery ( 'idadmission', 0 );
 	    $idpatient = $this->params ()->fromQuery ( 'idpatient', 0 );
@@ -940,14 +940,26 @@ class ConsultationController extends AbstractActionController {
 	    $personne->regime_matrimonial = ($personne->regime_matrimonial) ? $listeRegimeMatrimonial[$personne->regime_matrimonial] : '';
 	    $personne->statut_matrimonial = ($personne->statut_matrimonial) ? $listeStatutMatrimonial[$personne->statut_matrimonial] : '';
 	    $patient->nationalite = ($patient->nationalite) ? $listeNationalite[$patient->nationalite] : '';
-	    
+		
+		/** RECUPERER TOUTES LES CONSULTATIONS */
+		$listeConsutation = $this->getConsultationTable()->getListeDesConsultations($idpatient);
+		/** LISTE DES SYMPTOMES */
+		$listeSymptomes = $this->getConsultationTable()->getListeDesSymptomes($idpatient);
+
+		//echo "<pre>";
+		//var_dump($listeSymptomes); exit();
+		//echo "</pre>";
+
+
 	    
 	    $data = array (
-	        'idpatient' => $idpatient,
+			'idpatient' => $idpatient,
+			'idmedecin' => $idmedecin,
+			'nommedecin' => $user['Nom'],
+			'prenommedecin' => $user['Prenom'],
 	    );
-	
-	    //var_dump($personne); exit();
-	
+
+		$form->populateValues($data);
 	
 	    return array (
 	
@@ -962,17 +974,125 @@ class ConsultationController extends AbstractActionController {
 	        'listeRegimeMatrimonial' => $listeRegimeMatrimonial,
 	        'idcons' => $idcons,
 	        'date' => $date,
-	        'heure' => $heure,
+			'heure' => $heure,
+			
+			//Informations sur les consultations et symptomes
+			'listeConsutation' => $listeConsutation,
+			'listeSymptomes' => $listeSymptomes,
 	
-	       
 	    );
 	
+	}
+	
+	
+	public function enregistrerConsultationSuiviAction()
+	{
+	     
+	    $idemploye = $this->layout()->user['id_employe'];
+	    $tabDonnees = $this->params ()->fromPost();
+	     
+	    // Consultation de suivi --- Consultation de suivi
+	    // Consultation de suivi --- Consultation de suivi
+	    $this->getConsultationTable()->addConsultationSuiv($tabDonnees, $idemploye);
+	     
+	    // Plaintes de Suivi --- Plaintes de Suivi
+	    // Plaintes de Suivi --- Plaintes de Suivi
+	    $this->getConsultationTable()->addPlaintesSuivi($tabDonnees, $idemploye);
+	     
+	    
+	}
+	
+	public function enregistrementSymptomesAction() {
+		$idemploye = $this->layout()->user['id_employe'];
+		$tableauInfosConsultations = $this->params ()->fromPost ( 'tableauInfosConsultations' );
+		$tableauPlaintesSelectionnees = $this->params ()->fromPost ( 'tableauPlaintesSelectionnees' );
+		$tableauNotePlaintesSelect = $this->params ()->fromPost ( 'tableauNotePlaintesSelect' );
+		
+		$this->getConsultationTable()->addInfosConsultation($tableauInfosConsultations, $tableauPlaintesSelectionnees, $tableauNotePlaintesSelect, $idemploye);
+
+	    $this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+	    return $this->getResponse ()->setContent ( Json::encode ( 1 ) );
 	}
 	
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * GESTION DES AUTO-SIGNALEMENTS
+	 * GESTION DES AUTO-SIGNALEMENTS
+	 * GESTION DES AUTO-SIGNALEMENTS
+	 */
 	
 	private $url = 'http://www.simens.sn/admin?action=';
 	
@@ -1046,7 +1166,11 @@ class ConsultationController extends AbstractActionController {
 	    
 	    $idpatient = (int)$this->params ()->fromPost ( 'idpatient', 0 );
 	    $listeRegion = $this->getPersonneTable()->getListeRegion();
-	    
+		
+		$latitude = '';
+		$longitude = '';
+		$adresseGeo = '';
+		
 	    /*
 	     * RECUPERATION DE LA LISTE DE LA DB DISTANT
 	     */
@@ -1080,7 +1204,10 @@ class ConsultationController extends AbstractActionController {
 	    
 	        $tab3 = array();
 	        $tab3 =  explode('<@>',openssl_decrypt($data->infosAntecedents, 'BF-ECB', 'passInfosCovid19*1234'));
-	        
+		 
+			$latitude = $data->latitude;
+			$longitude = $data->longitude;
+			$adresseGeo = $data->adresse;
 	    }
 
 	    
@@ -1282,7 +1409,26 @@ class ConsultationController extends AbstractActionController {
 	    $html .="
 	          </p>
 			</div>";
-	    
+		
+			
+		$html .=" <div style='margin-left: 165px; margin-top: 15px; margin-bottom: -15px; color: green; font-size: 21px; font-family: time new roman;' ><i> Les coordonn&eacute;es g&eacute;ographiques </i></div> ";
+		$html .=" <div id='barre' ></div> ";
+
+		$html .="
+	        <div style='margin-left: 165px; margin-top: 10px; width: 80%; font-family: police1; color: green;'>
+	          <p style='text-align: justify; line-height: 30px; font-weight: bold; font-size: 19px;'>&nbsp;";
+
+			  $html .="<span style='font-size: 14px;'>&#10148;</span>".
+			  "<span style='font-weight: normal;'> Latitude : </span>". $latitude." &nbsp;&nbsp;&nbsp;".
+			  "<span style='font-size: 14px;'>&#10148;</span>".
+			  "<span style='font-weight: normal;'> Longitude : </span>". $longitude." &nbsp;&nbsp;&nbsp;<br>".
+			  "<span style='font-size: 14px;'>&#10148;</span>". 
+			  "<span style='font-weight: normal;'> Adresse Géolocalis&eacute;e : </span>". $adresseGeo." &nbsp;&nbsp;&nbsp;";
+
+		$html .="
+	          </p>
+			</div>";
+
 	    
 	    
 	    $html .="<div class='block' id='thoughtbot' style=' vertical-align: bottom; padding-left:60%; padding-top: 35px; font-size: 18px; font-weight: bold;'><button id='terminer'>Terminer</button></div>

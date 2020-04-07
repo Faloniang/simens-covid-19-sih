@@ -176,85 +176,277 @@ function getResultatTestCovid19(id){
  *  
  */ 
 
+
+
+ 
+/**
+ * ZONE D'AJOUT DES INTERFACES DES LIGNES DE CONSULTATIONS
+ * ZONE D'AJOUT DES INTERFACES DES LIGNES DE CONSULTATIONS
+ * ZONE D'AJOUT DES INTERFACES DES LIGNES DE CONSULTATIONS
+ */
+
+var tableauInfosConsultations = new Array();
+var tableauPlaintesSelectionnees = new Array();
+var tableauNotePlaintesSelect = new Array();
+var tabDisabledPlainteSelect = new Array();
+
+function ajouterUneLigneDeSymptomes(){	
+	var	uneDate = new Date();
+
+	var nbLigne = $('.ligneConsultation').length;
+	
+	var interfaceChamps = '<table style="width: 99.5%; margin-left: 1px; margin-top: 0px; margin-bottom: 0px; height: 35px;" class="ligneConsultation ligneConsultation_'+(nbLigne+1)+' styleLineHoverNone">'+
+	                        '<tr style="width: 100%; border-bottom: 2px solid #cccccc; font-family: times new roman; font-size: 19px; background: #fbfbfb" class="designStyleLabel">'+
+				
+							   '<td style="width: 6%; padding: 5px; border-right: 2px solid #ccc; padding-left: 15px;"> '+(nbLigne+1)+' </td>'+
+							   '<td style="width: 20%; padding: 5px; border-right: 2px solid #ccc;" id="colonneDateHeure_'+(nbLigne+1)+'"> '+uneDate.toLocaleString()+' </td>'+
+							   '<td style="width: 34%; padding: 5px; border-right: 2px solid #ccc;" id="colonneNonPrenom_'+(nbLigne+1)+'"> ' + $('#prenommedecin').val() + '  ' + $('#nommedecin').val() + ' </td>'+
+							   '<td style="width: 10%; padding: 5px; border-right: 2px solid #ccc;" id="colonneNbSymptome_'+(nbLigne+1)+'"><span id="nbSymptomesSelected'+(nbLigne+1)+'"> </span></td>'+
+							   '<td style="width: 20%; padding: 5px; border-right: 2px solid #ccc;" id="colonneSymptome'+(nbLigne+1)+'"> - </td>'+
+							   '<td style="width: 10%; padding: 5px; "> <img style="cursor: pointer;" onclick="afficherTableauSymptomes('+(nbLigne+1)+')" src="../images_icons/Table16X16.png" title="Ajouter des sympt&ocirc;mes" /> </td>'+
+							   
+							'</tr>'+
+                          '</table>';
+						  
+	$('.ligneConsultation_'+(nbLigne)).after(interfaceChamps);
+
+	if(nbLigne == 0){ $('#symptome_moins').toggle(false); }
+	else{ $('#symptome_moins').toggle(true); }
+	$('#symptome_plus').toggle(true);
+
+	$('#nbLigneConsultation').val(nbLigne+1);
+
+	//alert('1aa');
+	//Initialisation des tableaux de données
+	//Initialisation des tableaux de données
+	setTimeout(function(){
+		tableauPlaintesSelectionnees[(nbLigne+1)] = new Array(); 
+		tableauNotePlaintesSelect[(nbLigne+1)] = new Array();
+		tabDisabledPlainteSelect [(nbLigne+1)] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,];
+		
+		//Enregistrement des données de constantes
+		tableauInfosConsultations[(nbLigne)] = new Array();
+		tableauInfosConsultations[(nbLigne)][0] = $('#idcons').val();
+		tableauInfosConsultations[(nbLigne)][1] = uneDate.toLocaleString();
+		tableauInfosConsultations[(nbLigne)][2] = $('#idmedecin').val();
+		tableauInfosConsultations[(nbLigne)][3] = $('#idpatient').val();
+		//alert(tableauPlaintesSelectionnees.length);
+	},100);
+
+}
+
+
+function enleverUneLigneDeSymptomes(){
+	
+	var nbLigne = $('.ligneConsultation').length; 
+
+	for(var i=0 ; i<tableauPlaintesSelectionnees[nbLigne].length ; i++){
+		if(tableauPlaintesSelectionnees[nbLigne][i] && tableauPlaintesSelectionnees[nbLigne][i] != -1){
+			alert('Impossible de supprimer la ligne '+ nbLigne +', des symptomes sont deja selectionne');
+			return false;
+		}
+	}
+	//alert(tableauPlaintesSelectionnees[nbLigne]);
+
+	if(nbLigne > 1){
+		$('.ligneConsultation_'+nbLigne).remove();
+		if(nbLigne == 2){ $('#symptome_moins').toggle(false); }
+		
+		$('#symptome_plus').toggle(true);
+		$('#nbLigneConsultation').val(nbLigne-1);
+	}
+	
+}
+
+/**
+ * GESTION DES DONNEES DES POPUPS ---  GESTION DES DONNEES DES POPUPS
+ * GESTION DES DONNEES DES POPUPS ---  GESTION DES DONNEES DES POPUPS
+ * AJOUT DE SYMPTOMES --- AJOUT DE SYMPTOMES --- AJOUT DE SYMPTOMES --- AJOUT DE SYMPTOMES
+ */
+var rowInfosSymptomes = new Array();
+
+function afficherTableauSymptomes(id){ 
+	//alert(tableauDonneesSymptomesBD);
+
+	var zoneListeSymptomesHtml = ""+
+		'<div class="zoneContenuObmre" id="zoneListeSymptomes_'+ id +'">'+
+				
+			'<div style="width: 100%; padding: 3px; margin-top: 6px; padding-bottom: 1px; ">'+
+				'<table class="plainteEntre_'+ id +' plainteEntree_'+ id +'_0"></table>'+
+			'</div>'+
+			
+			'<table style="width:100%;" >'+
+				'<tr style="width: 100%">'+
+					'<td style="width: 20%;">'+
+					'<div id="plainte_moins_'+ id +'" class="examen_physique_pm" onclick="enleverUnePlainte('+ id +');" style="display: none;"> &minus; </div>'+ 
+					'<div id="plainte_plus_'+ id +'"  class="examen_physique_pm" onclick="ajouterUneNouvellePlainte('+ id +');" style="display: none;"> + </div>'+
+					'</td>'+
+					'<td style="width: 80%;" ></td>'+
+				'</tr>'+
+			'</table>'+
+			'<script type="text/javascript">ajouterUneNouvellePlainte('+ id +');</script>'+
+		'</div>';
+		//alert(2);
+	/** PLACER DANS LA ZONE DU POPUP */
+	$('#interfacePopupSymptomes').html(zoneListeSymptomesHtml);
+
+	/** Vérifier s'il y a des symptomes existants à l'entrée */
+	//alert(tableauDonneesSymptomesBD);
+	if(tableauPlaintesSelectionnees.hasOwnProperty(id)){
+
+		if(tableauDonneesSymptomesBD.length > 1 && tableauPlaintesSelectionnees[id].length == 0){
+			//alert(tableauPlaintesSelectionnees[id].length);
+			tableauPlaintesSelectionnees = tableauDonneesSymptomesBD;
+			tableauNotePlaintesSelect = tableauDonneesNotesSympBD;
+
+			//On initialise les infos de consltation du tableau 
+			tableauInfosConsultations = tableauConsultationsBD;
+		}
+
+		//alert(id);
+		//alert(tableauPlaintesSelectionnees.hasOwnProperty(id));
+
+
+		/** Afficher les symptomes déjà sélectionné par consultation */
+		for(var i=0 ; i<tableauPlaintesSelectionnees[id].length ; i++){
+			var valSelect = tableauPlaintesSelectionnees[id][i];
+			var note = tableauNotePlaintesSelect[id][i];
+
+			if(valSelect && valSelect != -1){
+				$('#listePlaintesSelect_'+id+'_'+(i)).val(valSelect);
+				$('#noteInputPlainte_'+id+'_'+(i)).val(note);
+				ajouterUneNouvellePlainte( id );
+			}
+		}
+
+		/** Enlever la dernière ligne créée s'il y'en a */
+		if(tableauPlaintesSelectionnees[id].length > 0){
+			enleverUnePlainte( id );
+		}
+	}
+	else{
+		tableauPlaintesSelectionnees[id] = new Array();
+	}
+	
+
+	/** AFFICHAGE DU POPUP */
+	$( "#interfacePopupSymptomes" ).dialog({
+		resizable: false,
+		height:450,
+		width:950,
+		autoOpen: false,
+		modal: true,
+		buttons: {
+			"Annuler": function() {
+				$( this ).dialog( "close" );
+			},
+			
+			"Valider": function() {
+				$( this ).dialog( "close" );
+				sauvegarderDonneesSymptomesValidees(id);
+			},
+		}
+	});
+
+	$( "#interfacePopupSymptomes" ).dialog('open');
+
+}
+
+/**
+ * Sauvegarder les données des symptomes 
+ */
+function sauvegarderDonneesSymptomesValidees(id){
+
+	//alert(tableauDonneesBD[id]);
+	//alert(tableauPlaintesSelectionnees[id]);
+
+	//return false;
+
+	$.ajax({
+		type: 'POST',
+		url: tabUrl[0]+'public/consultation/enregistrement-symptomes',
+		data: {'tableauInfosConsultations':tableauInfosConsultations[(id-1)], 'tableauPlaintesSelectionnees': tableauPlaintesSelectionnees[id], 'tableauNotePlaintesSelect':tableauNotePlaintesSelect[id]},       
+		success: function(data) {
+			// var result = jQuery.parseJSON(data);
+			// alert(result);
+		}
+	});
+}
+
+
 /**
  * PLAINTES DE LA CONSULTATION  --- PLAINTES DE LA CONSULTATION 
  * PLAINTES DE LA CONSULTATION  --- PLAINTES DE LA CONSULTATION 
  * PLAINTES DE LA CONSULTATION  --- PLAINTES DE LA CONSULTATION 
  */
 
-
-var tabDisabledPlainteSelect = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,];
-
-function getModelePlainteSelect(id){
+function getModelePlainteSelect(ligne, id){ 
 	
-	var liste = '<select id="listePlaintesSelect_'+id+'" style="float:right; width: 60%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;" onchange="getPlainteDisabledSelect('+id+', this.value)">'+
+	var liste = '<select id="listePlaintesSelect_'+ligne+'_'+id+'" style="float:right; width: 60%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;" onchange="getPlainteDisabledSelect('+ligne+', '+id+', this.value)">'+
 	               '<option value=0 ></option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[1]+'" value=1 >Fi&egrave;vre</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[2]+'" value=2 >Fatigue</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[3]+'" value=3 >Toux s&egrave;che</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[4]+'" value=4 >Difficulter &agrave; respirer</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[5]+'" value=5 >Douleurs &agrave; la respiration</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[6]+'" value=6 >Ecoulement nasal</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[7]+'" value=7 >Congestion nasale</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[8]+'" value=8 >Frissons</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[9]+'" value=9 >Maux de tete</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[10]+'" value=10 >Vertiges</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[11]+'" value=11 >Pertes d\'apetit</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[12]+'" value=12 >Diarrh&eacute;e</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[13]+'" value=13 >Douleurs aux muscles</option>'+
-	               '<option class="disabledPlainteSelectOption'+tabDisabledPlainteSelect[14]+'" value=14 >Douleurs aux articulations</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][1]+'" value=1 >Fi&egrave;vre</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][2]+'" value=2 >Fatigue</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][3]+'" value=3 >Toux s&egrave;che</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][4]+'" value=4 >Difficulter &agrave; respirer</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][5]+'" value=5 >Douleurs &agrave; la respiration</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][6]+'" value=6 >Ecoulement nasal</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][7]+'" value=7 >Congestion nasale</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][8]+'" value=8 >Frissons</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][9]+'" value=9 >Maux de t&ecirc;te</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][10]+'" value=10 >Vertiges</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][11]+'" value=11 >Pertes d\'app&eacute;tit</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][12]+'" value=12 >Diarrh&eacute;e</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][13]+'" value=13 >Douleurs aux muscles</option>'+
+	               '<option class="disabledPlainteSelectOption'+ligne+'_'+tabDisabledPlainteSelect[ligne][14]+'" value=14 >Douleurs aux articulations</option>'+
 	            "</select>";
 	
 	return liste;
 }
 
 
-var tableauPlaintesSelectionnees = new Array();
-var tableauNotePlaintesSelect = new Array();
-
-function getPlainteDisabledSelect(ligne, id){
+function getPlainteDisabledSelect(ligneSymp, ligne, value){ //alert(ligneSymp+' - '+ligne+' - '+id);
 	
-	if(id==0){
-		$('#plainte_plus').toggle(false);
+	if(value==0){
+		$('#plainte_plus_'+ligneSymp).toggle(false);
 		
 		/**Enregistrer les plaintes dans la table**/
-		tableauPlaintesSelectionnees[ligne] = -1;
+		tableauPlaintesSelectionnees[ligneSymp][ligne] = -1;
 	}else{
-		$('#plainte_plus').toggle(true);
-		
-		var nbLigne = $('.plainteEntree').length; 
-		$('#valueChampInputPlainte_'+nbLigne).val($('.champInputPlainte_'+nbLigne+' select').val());
-		
+		$('#plainte_plus_'+ligneSymp).toggle(true);
+
+		var nbLigne = $('.plainteEntree_'+ligneSymp).length; 
+
 		/**Enregistrer les plaintes dans la table**/
-		tableauPlaintesSelectionnees[nbLigne] = $('#valueChampInputPlainte_'+nbLigne).val();
+		tableauPlaintesSelectionnees[ligneSymp][nbLigne] = value;
+		// alert(tableauPlaintesSelectionnees[ligneSymp]);
 	}
 	
 }
 
 
-function ajouterUneNouvellePlainte(){
+function ajouterUneNouvellePlainte(id){
 	
-	var nbLigne = $('.plainteEntree').length; 
-	var valInputPlainteSelect = $('#valueChampInputPlainte_'+nbLigne).val();
-	tabDisabledPlainteSelect[valInputPlainteSelect] = 1;
+	var nbLigne = $('.plainteEntree_'+id).length; 
+	var valInputPlainteSelect = $('.champInputPlainte_'+id+'_'+nbLigne+' select').val();
+	tabDisabledPlainteSelect[id][valInputPlainteSelect] = 1;
 	
-	
-	var interfaceChamps = '<table style="width: 100%;" class="plainteEntree plainteEntree_'+(nbLigne+1)+'">'+
+	//alert(valInputPlainteSelect);
+
+	var interfaceChamps = '<table style="width: 100%;" class="plainteEntree_'+ id +' plainteEntree_'+ id +'_'+(nbLigne+1)+'">'+
 	                        '<tr style="width: 100%" class="designStyleLabel">'+
 		        
 							   '<td style="width: 40%; padding-right: 25px;" class="PlainteDiagEntCol1">'+
-							     '<label class="modeleChampInputPlainte champInputPlainte_'+(nbLigne+1)+'" style="width: 100%; height:30px; text-align:left;">'+
-							       '<span id="suppPlainteEntree_'+(nbLigne+1)+'" class="suppPlainteEntreeVisualiser" onclick="suppPlainteEntree('+(nbLigne+1)+');" style="visibility: hidden; color: red; position: relative; font-family: arial; top: -10px; margin-left: 0px; font-size: 12px;">X</span>'+
+							     '<label class="modeleChampInputPlainte champInputPlainte_'+id+'_'+(nbLigne+1)+'" style="width: 100%; height:30px; text-align:left;">'+
+							       '<span id="suppPlainteEntree_'+ id +'_'+(nbLigne+1)+'" class="suppPlainteEntreeVisualiser" onclick="suppPlainteEntree('+ id +','+(nbLigne+1)+');" style="visibility: hidden; color: red; position: relative; font-family: arial; top: -10px; margin-left: 0px; font-size: 12px;">X</span>'+
 						           '<span style="font-size: 11px;">&#10148; </span><span>Sympt&ocirc;me '+(nbLigne+1)+' </span>'+ 
-						           getModelePlainteSelect((nbLigne+1))+
+						           getModelePlainteSelect(id, (nbLigne+1))+
 						         '</label>'+
-						         '<input type="hidden" id="valueChampInputPlainte_'+(nbLigne+1)+'" name="valueChampInputPlainte_'+(nbLigne+1)+'">'+
 							   '</td>'+
 							   
 							   '<td style="width: 60%; padding-right: 13px;" class="PlainteDiagEntCol2">'+
 							     '<label style="width: 100%; height:30px; margin-left: -10px; text-align:right;">'+
 							       '<span> Note &nbsp;&nbsp; </span>'+ 
-							       '<input type="Text" id="noteInputPlainte_'+(nbLigne+1)+'" name="noteInputPlainte_'+(nbLigne+1)+'" style="float:right; width: 85%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;">'+
+							       '<input type="text" id="noteInputPlainte_'+ id +'_'+(nbLigne+1)+'" name="noteInputPlainte_'+ id +'_'+(nbLigne+1)+'" style="float:right; width: 85%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;">'+
 							     '</label>'+
 							   '</td>'+
 							   
@@ -262,114 +454,142 @@ function ajouterUneNouvellePlainte(){
                           '</table>';
 	
 	
-	$('.plainteEntree_'+(nbLigne)).after(interfaceChamps);
+	$('.plainteEntree_'+ id +'_'+(nbLigne)).after(interfaceChamps);
 	
 	
 	if((nbLigne+1) > 1){
-		$('#plainte_moins').toggle(true);
+		$('#plainte_moins_'+id).toggle(true);
 	}else if((nbLigne+1) == 1){
-		$('#plainte_plus').toggle(false);
+		$('#plainte_plus_'+id).toggle(false);
 	}
 	
-	if(nbLigne == 0){ $('#plainte_moins').toggle(false); }
+	if(nbLigne == 0){ $('#plainte_moins_'+id).toggle(false); }
 
-	$('#plainte_plus').toggle(false);
-	$('.champInputPlainte_'+nbLigne+' select').attr("disabled", true);
-	$(".disabledPlainteSelectOption1").toggle(false);
-	$(".disabledPlainteSelectOption0").toggle(true);
-	
-	$('#nbPlaintesEntree').val(nbLigne+1);
-	
+	$('#plainte_plus_'+id).toggle(false);
+	$('#listePlaintesSelect_'+ id +'_'+nbLigne).attr("disabled", true);
+	$(".disabledPlainteSelectOption"+id+"_1").toggle(false);
+	$(".disabledPlainteSelectOption"+id+"_0").toggle(true);		
 	
 	/**Affichage de l'icone supprime**/
-	$(".plainteEntree_"+(nbLigne+1)+" label").hover(function(){
-		$("#suppPlainteEntree_"+(nbLigne+1)).css({'visibility':'visible'});
+	$(".plainteEntree_"+id+"_"+(nbLigne+1)+" label").hover(function(){
+		$("#suppPlainteEntree_"+id+"_"+(nbLigne+1)).css({'visibility':'visible'});
 	},function(){
-		$("#suppPlainteEntree_"+(nbLigne+1)).css({'visibility':'hidden'});
+		$("#suppPlainteEntree_"+id+"_"+(nbLigne+1)).css({'visibility':'hidden'});
 	});
 	
 	/**Gestion de la note des plaintes**/
-	$('#noteInputPlainte_'+(nbLigne+1)).keyup(function(){
-		tableauNotePlaintesSelect[nbLigne+1] = $(this).val(); 
+	$('#noteInputPlainte_'+id+'_'+(nbLigne+1)).keyup(function(){
+		tableauNotePlaintesSelect[id][nbLigne+1] = $(this).val(); 
 	});
 	
+	/** Affihcer le nombre de symptomes selectionné */
+	$('#nbSymptomesSelected'+id).html(nbLigne+1);
+
 }
 
 
-function enleverUnePlainte(){
+function enleverUnePlainte(id){
 	
-	var nbLigne = $('.plainteEntree').length; 
+	var nbLigne = $('.plainteEntree_'+id).length; 
 	if(nbLigne > 1){
-		$('.plainteEntree_'+nbLigne).remove();
-		if(nbLigne == 2){ $('#plainte_moins').toggle(false); }
+		$('.plainteEntree_'+id+'_'+nbLigne).remove();
+		if(nbLigne == 2){ $('#plainte_moins_'+id).toggle(false); }
 		
-		$('#plainte_plus').toggle(true);
-		$('.champInputPlainte_'+(nbLigne-1)+' select').attr("disabled", false);
-		
-		var valInputPlainteSelect = $('#valueChampInputPlainte_'+(nbLigne-1)).val();
-		tabDisabledPlainteSelect[valInputPlainteSelect] = 0;
-		
-		$('#nbPlaintesEntree').val(nbLigne-1);
-		
+		$('#plainte_plus_'+id).toggle(true);
+
+		$('#listePlaintesSelect_'+id+'_'+(nbLigne-1)).attr("disabled", false);
+
+		var valInputPlainteSelect = $('#listePlaintesSelect_'+id+'_'+(nbLigne-1)).val();
+		tabDisabledPlainteSelect[id][valInputPlainteSelect] = 0;
+
+		var listeSelect = getModelePlainteSelect(id, (nbLigne-1));
+
+		$('#listePlaintesSelect_'+id+'_'+(nbLigne-1)).replaceWith(listeSelect);
+
+		$(".disabledPlainteSelectOption"+id+"_1").toggle(false);
+		$(".disabledPlainteSelectOption"+id+"_0").toggle(true);
+
+		$('#listePlaintesSelect_'+id+'_'+(nbLigne-1)).val(valInputPlainteSelect);
+	
 		/**Enregistrer les plaintes dans la table**/
-		tableauPlaintesSelectionnees[nbLigne] = -1;
+		tableauPlaintesSelectionnees[id][nbLigne] = -1;
 	}
+
+	/** Affihcer le nombre de symptomes selectionné */
+	$('#nbSymptomesSelected'+id).html(nbLigne-1);
 	
 }
 
 
-function suppPlainteEntree(id){
+/**
+ * POPUP DE SUPPRESSION DES SYMPTOMES INTERMEDIAIRES
+ * POPUP DE SUPPRESSION DES SYMPTOMES INTERMEDIAIRES
+ */
+
+function suppPlainteEntree(ligne, id){
 	
-	$('#suppPlainteEntree_'+id).w2overlay({ html: "" +
+	$('#suppPlainteEntree_'+ligne+'_'+id).w2overlay({ html: "" +
 		"" +
 		"<div style='border-bottom: 1px solid gray; height: 28px; background: #f9f9f9; width: 100px; text-align:center; padding-top: 10px; font-size: 13px; color: gray; font-weight: bold;'>Supprimer</div>" +
 		"<div style='height: 35px; width: 80px; padding-top: 10px; margin-left: 10px;'>" +
 		"<button class='commentChoicePVBut' onclick='popupFermer();'>Non</button>"+
-		"<button class='commentChoicePVBut' onclick='supprimerLaPlainte("+id+");'>Oui</button>"+
+		"<button class='commentChoicePVBut' onclick='supprimerLaPlainte("+ligne+","+id+");'>Oui</button>"+
 		"</div>"+
 		"<style> .w2ui-overlay{ margin-left: -35px; border: 1px solid gray; } </style>"
 	});
 
 }
 
-
 function popupFermer() {
 	$(null).w2overlay(null);
 }
 
-
-function supprimerLaPlainte(id){
+function supprimerLaPlainte(ligne, id){ //alert(ligne+' - '+id);
 	$(null).w2overlay(null);
 	
 	/**On élimine la valeur à supprimer*/
-	tableauPlaintesSelectionnees[id] = -1;
-	var tamponTableauPlainteSelect = tableauPlaintesSelectionnees;
+	tableauPlaintesSelectionnees[ligne][id] = -1;
+	var tamponTableauPlainteSelect = new Array();
+	tamponTableauPlainteSelect[ligne] = new Array();
+	tamponTableauPlainteSelect[ligne] = tableauPlaintesSelectionnees[ligne];
 	
+	//alert(tableauPlaintesSelectionnees[ligne]);
 	/**On réinitialise tout*/
-	$(".plainteEntree").remove();
-	tableauPlaintesSelectionnees = new Array();
-	tabDisabledPlainteSelect = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-	
+	$(".plainteEntree_"+ligne).remove();
+	tableauPlaintesSelectionnees[ligne] = new Array();
+	tabDisabledPlainteSelect[ligne] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
 	/**On affiche les nouvelles valeurs*/
 	var indice = 1;
 	var newTableauNotePlaintesSelect = new Array();
-	for(var i=1 ; i<tamponTableauPlainteSelect.length ; i++){
+	for(var i=1 ; i<tamponTableauPlainteSelect[ligne].length ; i++){
 		
-		if(tamponTableauPlainteSelect[i] != -1){
-			ajouterUneNouvellePlainte();
-			newTableauNotePlaintesSelect[indice] = tableauNotePlaintesSelect[i];
-			$("#listePlaintesSelect_"+indice).val(tamponTableauPlainteSelect[i]).trigger('change');
-			$('#noteInputPlainte_'+indice).val(tableauNotePlaintesSelect[i]);
+		if(tamponTableauPlainteSelect[ligne][i] != -1){
+			ajouterUneNouvellePlainte(ligne);
+			newTableauNotePlaintesSelect[indice] = tableauNotePlaintesSelect[ligne][i];
+			$("#listePlaintesSelect_"+ligne+"_"+indice).val(tamponTableauPlainteSelect[ligne][i]).trigger('change');
+			$('#noteInputPlainte_'+ligne+'_'+indice).val(tableauNotePlaintesSelect[ligne][i]);
 			
 			indice++;
-		}else if(i==1 && (i+1)==tamponTableauPlainteSelect.length){
-			ajouterUneNouvellePlainte();
+		}else if(i==1 && (i+1)==tamponTableauPlainteSelect[ligne].length){
+			ajouterUneNouvellePlainte(ligne);
 		}
+
+		//alert(tamponTableauPlainteSelect[ligne][i]);
 	}
 	
-	tableauNotePlaintesSelect = newTableauNotePlaintesSelect;
+	tableauNotePlaintesSelect[ligne] = newTableauNotePlaintesSelect;
 	
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -619,633 +839,3 @@ function enleverComplicationDiagEntree(){
 	}
 	
 }
-
-
-function getHospitalisationInfos(id){
-	if(id==1){
-		$("#hospitalisationInfos").toggle(true);
-	}else{
-		$("#hospitalisationInfos").toggle(false);
-	}
-	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * EXAMEN GENERAL --- EXAMEN GENERAL --- EXAMEN GENERAL --- EXAMEN GENERAL
- * EXAMEN GENERAL --- EXAMEN GENERAL --- EXAMEN GENERAL --- EXAMEN GENERAL
- * EXAMEN GENERAL --- EXAMEN GENERAL --- EXAMEN GENERAL --- EXAMEN GENERAL
- */
-
-function getValeurIMCSuiv(id){
-	var poids_suiv = $("#poids_suiv").val();
-	var taille_suiv = $("#taille_suiv").val();
-	
-	if(poids_suiv && taille_suiv){
-		var taille_metre = (taille_suiv/100).toFixed(2);
-		var taille_metre_carre = (taille_metre*taille_metre).toFixed(2);
-		
-		var resultat = poids_suiv/taille_metre_carre;
-		$("#imc_constante_suiv").val(resultat.toFixed(1));
-	}
-}
-
-function getValeurIMC(id){
-	var poids  = $("#poids").val();
-	var taille = $("#taille").val();
-	
-	if(poids && taille){
-		var taille_metre = (taille/100).toFixed(2);
-		var taille_metre_carre = (taille_metre*taille_metre).toFixed(2);
-		
-		var resultat = poids/taille_metre_carre;
-		$("#imc_constante").val(resultat.toFixed(1));
-	}
-}
-
-
-
-
-
-
-
-
-/**
- * APPAREIL ou SYSTEME --- APPAREIL ou SYSTEME  --- APPAREIL ou SYSTEME  
- * APPAREIL ou SYSTEME --- APPAREIL ou SYSTEME  --- APPAREIL ou SYSTEME  
- * APPAREIL ou SYSTEME --- APPAREIL ou SYSTEME  --- APPAREIL ou SYSTEME  
- */
-var tabDisabledSelectSuiv = [0,0,0,0,0,0,0,0,0];
-var temoinSupprImagePika2Suiv = 0;
-
-function getModeleInputAppSysSuiv(id){
-	
-	var liste = '<select id="appareil_appel_systeme_suiv_'+id+'" style="font-size: 16px;" onchange="getInfosAppareilAppelSystemeSuiv('+id+', this.value)">'+
-	               '<option value=0 ></option>'+
-	               '<option class="disabledSelectOptionSuiv'+tabDisabledSelectSuiv[1]+'" value=1 >Appareil cardio-circulatoire</option>'+
-	               '<option class="disabledSelectOptionSuiv'+tabDisabledSelectSuiv[2]+'" value=2 >Appareil respiratoire</option>'+
-	               '<option class="disabledSelectOptionSuiv'+tabDisabledSelectSuiv[3]+'" value=3 >Appareil digestif</option>'+
-	               '<option class="disabledSelectOptionSuiv'+tabDisabledSelectSuiv[4]+'" value=4 >Appareil uro-g&egrave;nital</option>'+
-	               '<option class="disabledSelectOptionSuiv'+tabDisabledSelectSuiv[5]+'" value=5 >Appareil musculo-squelettique</option>'+
-	               '<option class="disabledSelectOptionSuiv'+tabDisabledSelectSuiv[6]+'" value=6 >Appareil cutan&eacute;o-t&eacute;gumentaire</option>'+
-	               '<option class="disabledSelectOptionSuiv'+tabDisabledSelectSuiv[7]+'" value=7 >Appareil h&eacute;matopoi&eacute;tique et glandulaire</option>'+
-	               '<option class="disabledSelectOptionSuiv'+tabDisabledSelectSuiv[8]+'" value=8 >Syst&egrave;me nerveux</option>'+
-	            "</select>";
-	
-	return liste;
-}
-
-function ajouterExamenPhysiqueAppareilSystemeSuiv(){
-	
-	var nbLigne = $('.champsAjoutAppareilSystemeSuiv').length; 
-	var valInputAppSysSelectSuiv = $('#valueChampInputAppSysSelectSuiv_'+nbLigne).val();
-	tabDisabledSelectSuiv[valInputAppSysSelectSuiv] = 1;
-	
-	var nbImgPika1 = (nbLigne+1)*2;
-	var nbImgPika2 = nbImgPika1+1;
-	
-	var interfaceChamps = '<table style="width:100%; margin-top: 10px; border-top: 2px solid #eeeeee;" class="champsAjoutAppareilSystemeSuiv champsAjoutAppareilSystemeSuiv_'+(nbLigne+1)+'">'+
-						      
-	                          '<tr style="width: 100%" class="designStyleLabel RadiusLabel">'+
-							    '<td style="width: 55%; padding-top: 5px;">'+
-						          '<label class="modeleInputAppSys champInputAppSysSuiv_'+(nbLigne+1)+'" style="width: 98%; height:30px; text-align:left; margin-bottom: 7px;">'+
-						            '<span style="font-size: 14px;">&#10045; </span><span style="font-weight: bold; font-style: italic;">Appareil d\'appel - '+(nbLigne+1)+' </span>'+ 
-						             getModeleInputAppSysSuiv((nbLigne+1))+
-						          '</label>'+
-						          '<input type="hidden" id="valueChampInputAppSysSelectSuiv_'+(nbLigne+1)+'"  name="valueChampInputAppSysSelectSuiv_'+(nbLigne+1)+'">'+
-						          
-						        '</td>'+
-						        
-						        '<td rowspan="2" style="width:45%; vertical-align: top; padding-top: 5px;">'+
-		 			               '<div style="width: 95%; padding: 3px; padding-bottom: 1px; margin-left: 22px; display: none;" class="examenPhysiqueInfosSuiv'+(nbLigne+1)+' zoneContenuObmrePikaImg">'+
-
-		 			               
-				 			              '<table style="width: 100%;" >'+
-		                    		        '<tr style="width: 100%" class="designStyleLabel">'+
-		                    		           '<td style="width: 20%; padding-right: 23px; vertical-align: top;">'+
-		                    		              '<label style="width: 100%; height:15px; text-align:left; line-height: 0.7em;">'+
-				                           		    '<span style="font-size: 11px;">&#10148; </span><span>Iconographie</span>'+ 
-				                                  '</label>'+
-		                    		           '</td>'+
-		                    		           
-		                    		           '<td rowspan="2" style="width: 80%; padding-right: 23px;" id="zonePikaImageSuiv'+(nbLigne+1)+'">'+
-		                    		           
-		                                          '<div id="pikaSuiv'+nbImgPika1+'" style="margin-top: 5px; margin-bottom: -15px;">'+
-		                                            '<div id="pikaSuiv'+nbImgPika2+'" align="center">'+
-		                                               '<div class="pikachoose" style="height: 210px;">'+
-		                                                  '<ul id="pikameSuiv'+(nbLigne+1)+'" class="jcarousel-skin-pika"></ul>'+
-		                                               '</div>'+
-		                                            '</div>'+
-		                                          '</div>'+
-		                                     
-		                                          '<script> setTimeout(function(){ scriptPikameChooseSuiv('+(nbLigne+1)+'); }); </script>'+
-                                                  '<script> setTimeout(function(){ scriptAddImageInDataBaseSuiv('+(nbLigne+1)+'); }); </script>'+
-                                                  '<script> setTimeout(function(){ $("#zonePikaImageSuiv'+(nbLigne+1)+'").hover(function(){ temoinSupprImagePika2 = 100; temoinSupprImagePika2Suiv = '+(nbLigne+1)+';}); }); </script>'+
-                                                  '<script> setTimeout(function(){ getImagesIconographiesAutoSuiv('+(nbLigne+1)+'); }); </script>'+
-                                                  
-		                                          '<div class="AjoutImage" id="AddImageAutoSuiv'+(nbLigne+1)+'" style="position: relative; bottom: 25px; left: 15px; float: right;">'+
-		                                                 '<input type="file" name="fichier" />'+
-					                                     '<input type="hidden" id="fichier_tmp_Suiv'+(nbLigne+1)+'" name="fichier_tmp_Suiv'+(nbLigne+1)+'" />'+
-		                                          '</div>'+
-		                    		           
-		                    		           '</td>'+
-		                    		        '</tr>'+
-		                    		        
-		                    		        '<tr style="width: 100%; height: 197px;">'+
-		                    		           '<td style="width: 20%; padding-right: 23px;" id="imageWaitingSuiv'+(nbLigne+1)+'"></td>'+
-		                    		        '</tr>'+
-		                    		        
-		                   		         '</table>'+
-		                    		   
-						                 '<div id="confirmationSuppSuiv'+(nbLigne+1)+'" title="Confirmation de la suppression" style="display:none;">'+
-						                   '<p style="font-size: 14px;">'+
-						                      '<span style="float:left; margin:0 0px 20px 0; ">'+
-						                      '<img src="../images_icons/warning_16.png" />'+
-						                      'Etes-vous s&ucirc;r de vouloir supprimer l\'image n&deg;<span id="nbImgPosAppSysSuiv'+(nbLigne+1)+'"></span> <br> (Appareil ou systeme - '+(nbLigne+1)+')?</span>'+
-						                   '</p>'+
-						                 '</div>'+
-		 			               
-		 			               
-		 			               '</div>'+
-			 			        '</td>'+
-			                  '</tr>'+
-		                         
-			                  
-			 			      '<tr style="width:100%;">'+
-		                        '<td style="width:55%; vertical-align: top;" class="zoneContenuObmre">'+
-		                           '<div style="width: 100%; padding: 3px; padding-bottom: 1px; display: none;" class="examenPhysiqueInfosSuiv'+(nbLigne+1)+'">'+
-
-		                           
-			                           '<table style="width: 100%;" >'+
-	                    		        '<tr style="width: 100%" class="designStyleLabel">'+
-	                    		           '<td style="width: 100%; padding-right: 23px;">'+
-	                    		              '<label style="width: 100%; height:30px; text-align:left;">'+
-			                           		    '<span style="font-size: 11px;">&#10148; </span><span>Inspection </span> '+
-			                                    '<input  type="Text" id="inspectionSuiv_'+(nbLigne+1)+'" name="inspectionSuiv_'+(nbLigne+1)+'" style="float:right; width: 75%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;"> '+
-			                                  '</label>'+
-	                    		           '</td>'+
-	                    		        '</tr>'+
-	                    		        
-	                    		        '<tr style="width: 100%" class="designStyleLabel">'+
-	                    		           '<td style="width: 100%; padding-right: 23px;">'+
-	                    		              '<label style="width: 100%; height:30px; text-align:left;">'+
-			                           		    '<span style="font-size: 11px;">&#10148; </span><span>Palpation  </span>'+ 
-			                                    '<input  type="Text" id="palpitationSuiv_'+(nbLigne+1)+'" name="palpitationSuiv_'+(nbLigne+1)+'" style="float:right; width: 75%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;">'+ 
-			                                  '</label>'+
-	                    		           '</td>'+
-	                    		        '</tr>'+
-	                    		        
-	                    		        '<tr style="width: 100%" class="designStyleLabel">'+
-	                    		           '<td style="width: 100%; padding-right: 23px;">'+
-	                    		              '<label style="width: 100%; height:30px; text-align:left;">'+
-			                           		    '<span style="font-size: 11px;">&#10148; </span><span>Percussion   </span>'+ 
-			                                    '<input  type="Text" id="percussionSuiv_'+(nbLigne+1)+'" name="percussionSuiv_'+(nbLigne+1)+'" style="float:right; width: 75%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;">'+ 
-			                                  '</label>'+
-	                    		           '</td>'+
-	                    		        '</tr>'+
-	                    		        
-	                    		        '<tr style="width: 100%" class="designStyleLabel">'+
-	                    		           '<td style="width: 100%; padding-right: 23px;">'+
-	                    		              '<label style="width: 100%; height:30px; text-align:left;">'+
-			                           		    '<span style="font-size: 11px;">&#10148; </span><span>Auscultation    </span>'+ 
-			                                    '<input  type="Text" id="auscultationSuiv_'+(nbLigne+1)+'"  name="auscultationSuiv_'+(nbLigne+1)+'" style="float:right; width: 75%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;">'+ 
-			                                  '</label>'+
-	                    		           '</td>'+
-	                    		        '</tr>'+
-	                    		        
-		 			                 '</table>'+
-		                           
-		                           
-		                           '</div>'+
-			 			        '</td>'+
-						      '</tr>'+  
-						      
-						  '</table>';
-
-	
-	$('.champsAjoutAppareilSystemeSuiv_'+(nbLigne)).after(interfaceChamps);
-	
-	if((nbLigne+1) > 1){ 
-		$('#examen_physique_moins_Suiv').toggle(true);
-	}else if((nbLigne+1) == 1){
-		$('#examen_physique_plus_Suiv').toggle(false);
-	}
-	
-	$('#examen_physique_plus_Suiv').toggle(false);
-	$('.champInputAppSysSuiv_'+nbLigne+' select').attr("disabled", true);
-	$(".disabledSelectOptionSuiv1").toggle(false);
-	$(".disabledSelectOptionSuiv0").toggle(true);
-	
-	$('#nbChampsInputAppSysSelectSuiv').val(nbLigne+1);
-	
-}
-
-
-function enleverExamenPhysiqueAppareilSystemeSuiv(){
-	
-	var nbLigne = $('.champsAjoutAppareilSystemeSuiv').length; 
-	if(nbLigne > 1){
-		$('.champsAjoutAppareilSystemeSuiv_'+nbLigne).remove();
-		if(nbLigne == 2){ $('#examen_physique_moins_Suiv').toggle(false); }
-		
-		$('#examen_physique_plus_Suiv').toggle(true);
-		$('.champInputAppSysSuiv_'+(nbLigne-1)+' select').attr("disabled", false);
-		
-		var valInputAppSysSelectSuiv = $('#valueChampInputAppSysSelectSuiv_'+(nbLigne-1)).val();
-		tabDisabledSelectSuiv[valInputAppSysSelectSuiv] = 0;
-		
-		$('#nbChampsInputAppSysSelectSuiv').val(nbLigne-1);
-	}
-	
-}
-
-
-function getInfosAppareilAppelSystemeSuiv(interfaceChamp, id){ 
-	if(id==0){
-		$('.examenPhysiqueInfosSuiv'+interfaceChamp+', #examen_physique_plus_Suiv').toggle(false);
-	}else{
-		$('.examenPhysiqueInfosSuiv'+interfaceChamp+', #examen_physique_plus_Suiv').toggle(true);
-	}
-	
-	var nbLigne = $('.champsAjoutAppareilSystemeSuiv').length; 
-	$('#valueChampInputAppSysSelectSuiv_'+nbLigne).val($('.champInputAppSysSuiv_'+nbLigne+' select').val());
-}
-
-
-
-/**
- * SCRIPT GESTION DES IMAGES POUR LES CONSULTATIONS DE SUIVI 
- * SCRIPT GESTION DES IMAGES POUR LES CONSULTATIONS DE SUIVI 
- * SCRIPT GESTION DES IMAGES POUR LES CONSULTATIONS DE SUIVI 
- * */
-function scriptPikameChooseSuiv(id) {
-	var ab = function(self){ self.anchor.fancybox(); };
-	$("#pikameSuiv"+id).PikaChoose({buildFinished:ab, carousel:true,carouselOptions:{wrap:'circular'}});
-}
-
-function scriptAddImageInDataBaseSuiv(id){
-	
-	$('#AddImageAutoSuiv'+id+' input[type="file"]').change(function() {
-
-		var file = $(this);
-		var reader = new FileReader;
-		var idadmission = $("#idadmissionsuiv").val(); 
-		
-		reader.onload = function(event) {
-    		var img = new Image();
-            //Ici on recupere l'image 
-		    document.getElementById('fichier_tmp_Suiv'+id).value = img.src = event.target.result;
-		    $("#imageWaitingSuiv"+id).html('<table style="width: 100%; text-align: center;"> <tr> <td style="font-size: 12px; color: red;"> Chargement en cours </td> </tr>  <tr> <td align="center"> <img style="margin-top: 20px; width: 30px; height: 30px;" src="../images/loading/Chargement_5.gif" /> </td> </tr> </table>');
-
-		    /**
-		     * CODE AJAX POUR L'AJOUT DE L'IMAGE DANS LA BASE DE DONNEES
-		     */
-		    
-	    	$.ajax({
-	            type: 'POST',
-	            url: tabUrl[0]+'public/consultation/image-iconographie-suivi',
-	            data: {'ajout': 1, 'fichier_tmp': $("#fichier_tmp_Suiv"+id).val(), 'idadmission': idadmission, 'position':id},
-	            success: function(data) {
-	                var result = jQuery.parseJSON(data); 
-	                if(result != ""){
-	                	var nbImgPika1 = id*2;
-	                	var nbImgPika2 = nbImgPika1+1;
-	                	
-	                	$("#pikaSuiv"+nbImgPika2).fadeOut(function(){ 
-		                	$("#pikaSuiv"+nbImgPika1).html(result);
-		                	$("#imageWaitingSuiv"+id).html("");
-		                	return false;
-		                });
-	                }else{
-	                	$("#imageWaitingSuiv"+id).html("");
-	                	alert("Fichier non reconnu"); return false;
-	                }
-	          }
-	        });
-	    	
-	    	/**
-		     * FIN CODE AJAX POUR L'AJOUT DE L'IMAGE DANS LA BASE DE DONNEES
-		     */
-	};
-	reader.readAsDataURL(file[0].files[0]);
-	
-  });
-}
-
-function confirmerSuppressionAutoSuiv(id, position){
-	
-	var idadmission = $("#idadmissionsuiv").val(); 
-	
-	$('#nbImgPosAppSysSuiv'+position).html(id);
-	$( "#confirmationSuppSuiv"+position).dialog({
-	  resizable: false,
-	  height:190,
-	  width:420,
-	  autoOpen: false,
-	  modal: true,
-		  buttons: {
-			  
-		      "Oui": function() {
-		    	  
-		          $( this ).dialog( "close" );
-		
-		          $("#imageWaitingSuiv"+position).html('<table style="width: 100%; text-align: center;"> <tr> <td style=" font-size: 12px; color: red;"> Suppression en cours </td> </tr>  <tr> <td align="center"> <img style="margin-top: 20px; width: 30px; height: 30px;" src="../images/loading/Chargement_5.gif" /> </td> </tr> </table>');
-		          
-		          var chemin = tabUrl[0]+'public/consultation/supprimer-image-iconographie-suivi';
-		          $.ajax({
-		              type: 'POST',
-		              url: chemin ,
-		              data: { 'id':id, 'idadmission':idadmission, 'position':position },
-		              success: function() {
-		            	  raffraichirImagesIconographiesAutoSuiv(idadmission, position);
-		              }
-		          });
-		      },
-		      
-		      "Annuler": function() {
-		          $( this ).dialog( "close" );
-		      }
-		 }
-	 });
-}
-
-
-function raffraichirImagesIconographiesAutoSuiv(idadmission, position)
-{
-	
-     $.ajax({
-        type: 'POST',
-        url: tabUrl[0]+'public/consultation/image-iconographie-suivi',
-        data: { 'ajout':0 , 'idadmission': idadmission, 'position':position},
-        success: function(data) {
-        	var result = jQuery.parseJSON(data); 
-        	
-            if(result != "") {
-        		
-        		var nbImgPika1 = position*2;
-            	var nbImgPika2 = nbImgPika1+1;
-            	
-            	$("#pikaSuiv"+nbImgPika2).fadeOut(function(){ 
-                	$("#pikaSuiv"+nbImgPika1).html(result);
-                	$("#imageWaitingSuiv"+position).html("");
-                	return false;
-                });
-        		
-        	}
-            
-            $("#imageWaitingSuiv"+position).html("");
-        }
-     });
-}
-
-
-function getImagesIconographiesAutoSuiv(position){
-	
-	var idadmission = $("#idadmissionsuiv").val(); 
-	
-	$.ajax({
-		
-          type: 'POST',
-          url: tabUrl[0]+'public/consultation/image-iconographie-suivi',
-          data: { 'ajout':0, 'idadmission': idadmission, 'position': position},
-          success: function(data) {
-              var result = jQuery.parseJSON(data);
-              
-              if(result != "") {
-              	var nbImgPika1 = position*2;
-              	var nbImgPika2 = nbImgPika1+1;
-              	
-              	$("#pikaSuiv"+nbImgPika2).fadeOut(function(){ 
-	                	$("#pikaSuiv"+nbImgPika1).html(result);
-	                	$("#imageWaitingSuiv"+position).html("");
-	                	return false;
-	                });
-              }
-              
-          }
-          
-     });
-}
-
-
-
-
-/***
-*=============================================================================
-* Ajout automatique d'Examens biologiques pour tous les autres images de SUIVI
-* Ajout automatique d'Examens biologiques pour tous les autres images de SUIVI
-* Ajout automatique d'Examens biologiques pour tous les autres images de SUIVI
-*=============================================================================
-*/
-
-function scriptPikameChooseOtherSuiv(examen) {
-	var ab = function(self){ self.anchor.fancybox(); }
-	$("#pikameSuiv"+examen).PikaChoose({buildFinished:ab, carousel:true,carouselOptions:{wrap:'circular'}});
-}
-
-
-
-function scriptAddImageInDataBaseOtherSuiv(examen){
-	
-	$('#AjoutImageSuiv'+examen+' input[type="file"]').change(function() {
-
-		var file = $(this);
-		var reader = new FileReader;
-		var idadmission = $("#idadmissionsuiv").val(); 
-		
-		reader.onload = function(event) {
-    		var img = new Image();
-            //Ici on recupere l'image 
-		    document.getElementById('fichier_tmpSuiv'+examen).value = img.src = event.target.result;
-		    $("#imageWaitingSuiv"+examen).html('<table style="width: 100%; text-align: center;"> <tr> <td style="font-size: 12px; color: red;"> Chargement en cours </td> </tr>  <tr> <td align="center"> <img style="margin-top: 20px; width: 30px; height: 30px;" src="../images/loading/Chargement_5.gif" /> </td> </tr> </table>');
-
-		    // CODE AJAX POUR L'AJOUT DE L'IMAGE DANS LA BASE DE DONNEES
-		    
-	    	$.ajax({
-	            type: 'POST',
-	            url: tabUrl[0]+'public/consultation/images-differents-examens-suivi',
-	            data: {'ajout': 1, 'fichier_tmp': $("#fichier_tmpSuiv"+examen).val(), 'idadmission': idadmission, 'examen':examen},
-	            success: function(data) {
-	                var result = jQuery.parseJSON(data); 
-	                if(result != ""){
-	                	
-	                	$("#pikaSuiv2"+examen).fadeOut(function(){ 
-		                	$("#pikaSuiv"+examen).html(result);
-		                	$("#imageWaitingSuiv"+examen).html("");
-		                	return false;
-		                });
-	                }else{
-	                	$("#imageWaitingSuiv"+examen).html("");
-	                	alert("Fichier non reconnu"); return false;
-	                }
-	          }
-	        });
-	    	
-	    	// FIN CODE AJAX POUR L'AJOUT DE L'IMAGE DANS LA BASE DE DONNEES
-	    	
-	};
-	reader.readAsDataURL(file[0].files[0]);
-	
-  });
-}
-
-
-function confirmerSuppressionOtherSuiv(id, examen){
-	$('#nbImagesPositionPopupSuiv'+examen).html(id);
-	
-	var idadmission = $("#idadmissionsuiv").val(); 
-	
-	$( "#confirmationSuiv"+examen ).dialog({
-	  resizable: false,
-	  height:175,
-	  width:420,
-	  autoOpen: false,
-	  modal: true,
-		  buttons: {
-			  
-		      "Oui": function() {
-		    	  
-		          $( this ).dialog( "close" );
-		
-		          $("#imageWaitingSuiv"+examen).html('<table style="width: 100%; text-align: center;"> <tr> <td style=" font-size: 12px; color: red;"> Suppression en cours </td> </tr>  <tr> <td align="center"> <img style="margin-top: 20px; width: 30px; height: 30px;" src="../images/loading/Chargement_5.gif" /> </td> </tr> </table>');
-		          
-		          var chemin = tabUrl[0]+'public/consultation/supprimer-images-differents-examens-suivi';
-		          $.ajax({
-		              type: 'POST',
-		              url: chemin ,
-		              data: { 'id':id, 'idadmission':idadmission, 'examen':examen },
-		              success: function(data) {
-		            	  var result = jQuery.parseJSON(data);
-		            	  scriptRaffraichirImagesExamenOtherSuiv(idadmission, examen);
-		              }
-		          });
-		      },
-		      
-		      "Annuler": function() {
-		          $( this ).dialog( "close" );
-		      }
-		 }
-	 });
-}
-
-
-function scriptRaffraichirImagesExamenOtherSuiv(idadmission, examen)
-{
-     $.ajax({
-        type: 'POST',
-        url: tabUrl[0]+'public/consultation/images-differents-examens-suivi',
-        data: { 'ajout':0 , 'idadmission': idadmission, 'examen':examen},
-        success: function(data) {
-        	var result = jQuery.parseJSON(data); 
-        	
-            if(result != "") {
-            	$("#pikaSuiv2"+examen).fadeOut(function(){ 
-                	$("#pikaSuiv"+examen).html(result);
-                	$("#imageWaitingSuiv"+examen).html("");
-                	return false;
-                });
-        	}
-            
-            $("#imageWaitingSuiv"+examen).html("");
-        }
-        
-     });
-     
-}
-
-
-function getImagesExamensOtherSuiv(examen){
-	
-	var idadmission = $("#idadmissionsuiv").val(); 
-	
-	$.ajax({
-          type: 'POST',
-          url: tabUrl[0]+'public/consultation/images-differents-examens-suivi',
-          data: { 'ajout':0, 'idadmission': idadmission, 'examen': examen},
-          success: function(data) {
-              var result = jQuery.parseJSON(data);
-              
-              if(result != "") {
-              	$("#pikaSuiv2"+examen).fadeOut(function(){ 
-              		$("#pikaSuiv"+examen).html(result);
-                  	$("#imageWaitingSuiv"+examen).html("");
-              	});
-              	return false;
-          	}
-          }
-          
-     });
-}
-
-
-
-function getHistoriquesDesConsultationsDeSuivis(idpatient){
-	
-	//alert(idpatient);
-	
-	var asInitVals = new Array();
-	var oTableHistoriqueConsultationPatient = $('#ListeConsultationsDeSuivisPatient').dataTable( {
-				"sPaginationType": "full_numbers",
-				"aLengthMenu": [3,5,7],
-				"iDisplayLength": 5,
-				"aaSorting": [], //On ne trie pas la liste automatiquement
-				"oLanguage": {
-					"sInfo": "_START_ &agrave; _END_ sur _TOTAL_ consultations",
-					"sInfoEmpty": "0 &eacute;l&eacute;ment &agrave; afficher",
-					"sInfoFiltered": "",
-					"sUrl": "",
-					"oPaginate": {
-						"sFirst":    "|<",
-						"sPrevious": "<",
-						"sNext":     ">",
-						"sLast":     ">|"
-					}
-				},
-
-				"sAjaxSource":  tabUrl[0] + "public/consultation/historiques-consultations-suivi-patient-ajax/"+idpatient,
-				"fnDrawCallback": function() 
-				{
-					//markLine();
-					//clickRowHandler();
-				}
-  
-	} );
-}
-
